@@ -1,0 +1,25 @@
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore
+[color]
+  branch = auto
+  diff = auto
+  grep = auto
+  interactive = auto
+  ui = auto
+  status = auto
+[alias]
+  br = branch
+  co = checkout
+  ci = commit
+  di = diff
+  d1 = diff HEAD~
+  d2 = diff HEAD~~
+  d3 = diff HEAD~~~
+  d4 = diff HEAD~~~~
+  d5 = diff HEAD~~~~~
+  st = status
+  sh = show
+  ls = log --stat
+  lg = log --graph --all --date=short \
+    --pretty=format:'%C(red)%h %C(green)%ad %C(cyan)%an %C(reset)%s'
