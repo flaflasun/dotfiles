@@ -23,3 +23,4 @@
   ls = log --stat
   lg = log --graph --all --date=short \
     --pretty=format:'%C(red)%h %C(green)%ad %C(cyan)%an %C(reset)%s'
+  re = remote
