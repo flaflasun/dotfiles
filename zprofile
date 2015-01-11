@@ -20,5 +20,12 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 ### Added by the golang
 export GOPATH=$HOME/go
-export GOROOT=/usr/local/opt/go/libexec
+case ${OSTYPE} in
+    darwin*)
+        export GOROOT=/usr/local/opt/go/libexec
+        ;;
+    linux*)
+        export GOROOT=/usr/lib/go
+        ;;
+esac
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
