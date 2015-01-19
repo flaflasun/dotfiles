@@ -21,6 +21,19 @@ export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen
 ################################################################################
 # Completions {{{
 
+if [ -e /usr/local/share/zsh-completions ]; then
+    fpath=(/usr/local/share/zsh-completions $fpath)
+fi
+
+# tmuxinator
+source ~/.tmuxinator/tmuxinator.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+source ~/google-cloud-sdk/path.zsh.inc
+
+# The next line enables bash completion for gcloud.
+source ~/google-cloud-sdk/completion.zsh.inc
+
 autoload -Uz compinit
 compinit
 
@@ -35,10 +48,6 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin/ /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*' group-name ''
-
-if [ -e /usr/local/share/zsh-completions ]; then
-    fpath=(/usr/local/share/zsh-completions $fpath)
-fi
 
 # cd search path.
 cdpath=($HOME)
@@ -165,6 +174,8 @@ alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s
 alias -g R='`git remote | peco --prompt "GIT REMOTE>" | head -n 1`'
 alias -g H='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
 
+# google app engine for go
+alias goapp=~/google-cloud-sdk/platform/google_appengine/goapp
 # }}}
 
 ################################################################################
@@ -259,9 +270,6 @@ bindkey '^r' peco-select-history
 source $(brew --prefix)/etc/profile.d/z.sh
 compctl -U -K _z_zsh_tab_completion ${_Z_CMD:-z}
 alias j='z'
-
-# tmuxinator
-source ~/.tmuxinator/tmuxinator.zsh
 
 # Command history setting.
 HISTFILE=~/.zsh_history
