@@ -1,8 +1,7 @@
 "-------------------------------------------------------------------------------
 " My .gvimrc
 "-------------------------------------------------------------------------------
-" Fonts:"{{{
-"
+" Fonts: {{{
 
 " Sample text:
 "   ABCDEFGHIJKLMOPQRSTUVWXYZ
@@ -35,11 +34,12 @@ else
   set guifontwide=Ricty\ Diminished:h14
   set guifont=Ricty\ Diminished:h14
 endif
-"}}}
+
+" }}}
 
 "-------------------------------------------------------------------------------
-" Window:"{{{
-"
+" Window: {{{
+
 if has('win32') || has('win64')
   " Width of window.
   set columns=230
@@ -80,11 +80,11 @@ if filereadable(g:save_window_file)
   execute 'source' g:save_window_file
 endif
 
-"}}}
-"-------------------------------------------------------------------------------
+" }}}
 
-" Mouse:"{{{
-"
+"-------------------------------------------------------------------------------
+" Mouse: {{{
+
 set mousemodel=extend
 
 " Don't focus the window when the mouse pointer is moved.
@@ -97,11 +97,12 @@ nnoremap <RightMouse> "+p
 xnoremap <RightMouse> "+p
 nnoremap <RightMouse> <C-r><C-o>+
 cnoremap <RightMouse> <C-r>+
-"}}}
+
+" }}}
 
 "-------------------------------------------------------------------------------
-" Menu:"{{{
-"
+" Menu: {{{
+
 
 " Hide toolbar and menus.
 set guioptions-=Tt
@@ -112,11 +113,12 @@ set guioptions-=rL
 set guioptions-=e
 " Confirm without window.
 set guioptions+=c
-"}}}
+
+" }}}
 
 "-------------------------------------------------------------------------------
-" Views:"{{{
-"
+" Views: {{{
+
 " Don't flick cursor.
 set guicursor&
 set guicursor+=a:blinkon0
@@ -133,10 +135,10 @@ if neobundle#tap('vim-nightowl') " {{{
 
 endif " }}}
 
-"}}}
+" }}}
 
 "-------------------------------------------------------------------------------
-" Others::"{{{
-"
+" Others: {{{
 
-"}}}
+
+" }}}
