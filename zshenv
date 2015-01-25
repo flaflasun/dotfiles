@@ -18,6 +18,9 @@ JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+### Added by the Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
 ### Added by the golang
 export GOPATH=$HOME/go
 case ${OSTYPE} in
