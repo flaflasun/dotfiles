@@ -756,11 +756,14 @@ else
   " Golang
   NeoBundleLazy 'vim-jp/vim-go-extra'
 
+  " Javascript
+  NeoBundleLazy 'jelera/vim-javascript-syntax'
+
   " Coffee Script
   NeoBundleLazy 'kchmck/vim-coffee-script'
 
   " HTML
-  NeoBundle 'mattn/emmet-vim'
+  NeoBundleLazy 'mattn/emmet-vim'
 
   " Markdown
   NeoBundle 'tpope/vim-markdown'
@@ -1182,6 +1185,16 @@ if neobundle#tap('vim-go-extra') "{{{
         \ })
 
   autocmd FileType go autocmd BufWritePre <buffer> Fmt
+
+endif " }}}
+
+if neobundle#tap('vim-javascript-syntax') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'javascript'
+        \   }
+        \ })
 
 endif " }}}
 
