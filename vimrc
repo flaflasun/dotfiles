@@ -957,7 +957,7 @@ if neobundle#tap('unite.vim') " {{{
   nmap ;u [unite]
   xmap ;u [unite]
 
-  nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
+  nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=bookmark bookmark<CR>
   nnoremap <silent> [unite]c
         \:<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
@@ -983,6 +983,8 @@ if neobundle#tap('unite.vim') " {{{
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
     let g:unite_source_grep_recursive_opt = ''
   endif
+
+  call unite#custom_default_action('source/bookmark/directory', 'lcd')
 
   " unite-session.vim {{{
   let g:unite_source_session_enable_auto_save = 1
