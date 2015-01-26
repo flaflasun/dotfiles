@@ -759,6 +759,9 @@ else
   " Coffee Script
   NeoBundleLazy 'kchmck/vim-coffee-script'
 
+  " HTML
+  NeoBundle 'mattn/emmet-vim'
+
   " Markdown
   NeoBundle 'tpope/vim-markdown'
 
@@ -1192,6 +1195,16 @@ if neobundle#tap('vim-coffee-script') "{{{
   autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
   autocmd QuickFixCmdPost * nested cwindow | redraw! 
   nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
+
+endif " }}}
+
+if neobundle#tap('emmet-vim') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : [ 'html', 'css']
+        \   }
+        \ })
 
 endif " }}}
 
