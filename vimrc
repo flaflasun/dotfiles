@@ -780,6 +780,7 @@ else
   NeoBundle 'majutsushi/tagbar'
 
   " Others
+  NeoBundle 'lilydjwg/colorizer'
   NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends': 'mattn/webapi-vim' }
   NeoBundle 'mattn/webapi-vim'
   NeoBundle 'tyru/open-browser.vim'
