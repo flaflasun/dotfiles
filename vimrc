@@ -981,7 +981,7 @@ if neobundle#tap('unite.vim') " {{{
         \ :<C-u>Unite -buffer-name=outline outline -start-insert -resume<CR>
   nnoremap <silent> [unite]r
         \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-  nnoremap <silent> [unite]s :<C-u>Unite source<CR>
+  nnoremap <silent> [unite]s :<C-u>Unite session<CR>
   nnoremap <silent> [unite]u :<C-u>Unite -no-split<Space>
   nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=tag tag<CR>
   nnoremap <silent> [unite]w :<C-u>Unite -buffer-name=window window<CR>
@@ -1046,7 +1046,7 @@ if neobundle#tap('unite.vim') " {{{
         \   'description': 'startup menu',
         \   'command_candidates': [
         \     ['Session load', 'UniteSessionLoad'],
-        \     ['Brank', 'edit'],
+        \     ['Brank', 'enew'],
         \     ['$MYVIMRC', 'edit'.$MYVIMRC],
         \     ['$MYGVIMRC', 'edit'.$MYGVIMRC],
         \     ['Unite file_mru', 'Unite file_mru'],
