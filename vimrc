@@ -106,6 +106,15 @@ function! s:wcs_width(str)
   return strwidth(a:str)
 endfunction
 
+function! s:get_buffer_byte()
+  let byte = line2byte(line('$') + 1)
+  if byte == -1
+    return 0
+  else
+    return byte - 1
+  endif
+endfunction
+
 " }}}
 
 " History {{{
@@ -171,7 +180,7 @@ function! s:make_tabline()  "{{{
 
     let s .= '%'.i.'T'
     let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= no . ':' . title
+    let s .= ' ' . no . ':' . title
     let s .= mod
     let s .= '%#TabLineFill# '
   endfor
@@ -786,7 +795,7 @@ else
   NeoBundle 'tyru/open-browser.vim'
   NeoBundle 'kannokanno/previm'
 
-  NeoBundle 'scrooloose/syntastic'
+  NeoBundleLazy 'scrooloose/syntastic'
 
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'tpope/vim-surround'
@@ -991,16 +1000,21 @@ if neobundle#tap('unite.vim') " {{{
   call unite#custom_default_action('source/bookmark/directory', 'lcd')
 
   " unite-session.vim {{{
+
   let g:unite_source_session_enable_auto_save = 1
+
   " }}}
 
   " unite-rails.vim {{{
+
   nnoremap <silent> [unite]rv :<C-U>Unite rails/view<CR>
   nnoremap <silent> [unite]rm :<C-U>Unite rails/model<CR>
   nnoremap <silent> [unite]rc :<C-U>Unite rails/controller<CR>
+
   " }}}
 
   " neomru.vim {{{
+
   let g:neomru#time_format = '[%Y/%m/%d %H:%M:%S] '
   let g:neomru#file_mru_limit = 100
   let g:neomru#directory_mru_limit = 100
@@ -1008,7 +1022,10 @@ if neobundle#tap('unite.vim') " {{{
   nnoremap [unite]f :<C-u>Unite file_mru<CR>
   nnoremap [unite]d :<C-u>Unite directory_mru<CR>
 
+  " }}}
+
   " Create Vim start page. {{{
+
   let g:unite_source_alias_aliases = {
         \  'startup_file_mru' : {
         \    'source': 'file_mru',
@@ -1016,49 +1033,46 @@ if neobundle#tap('unite.vim') " {{{
         \  'startup_directory_mru' : {
         \    'source': 'directory_mru',
         \  },
+        \  'startup_session' : {
+        \    'source': 'session',
+        \  },
         \ }
 
   call unite#custom_max_candidates('startup_file_mru', 5)
   call unite#custom_max_candidates('startup_directory_mru', 5)
+  call unite#custom_max_candidates('startup_session', 5)
 
   let g:unite_source_menu_menus.startup = {
         \   'description': 'startup menu',
         \   'command_candidates': [
-        \     ['brank', 'edit'],
-        \     ['vimrc', 'edit'.$MYVIMRC],
-        \     ['gvimrc', 'edit'.$MYGVIMRC],
-        \     ['unite file_mru', 'Unite file_mru'],
-        \     ['unite directory_mru', 'Unite directory_mru'],
-        \     ['unite session', 'Unite session'],
+        \     ['Session load', 'UniteSessionLoad'],
+        \     ['Brank', 'edit'],
+        \     ['$MYVIMRC', 'edit'.$MYVIMRC],
+        \     ['$MYGVIMRC', 'edit'.$MYGVIMRC],
+        \     ['Unite file_mru', 'Unite file_mru'],
+        \     ['Unite directory_mru', 'Unite directory_mru'],
+        \     ['Unite session', 'Unite session'],
         \   ]
         \ }
 
   command! UniteStartup
         \ Unite
+        \ output:echo:"===:menu:===":! menu:startup
+        \ output:echo:":":!
+        \ output:echo:"===:session:===":! startup_session
+        \ output:echo:":":!
         \ output:echo:"===:file:mru:===":! startup_file_mru
         \ output:echo:":":!
         \ output:echo:"===:directory:mru:===":! startup_directory_mru
-        \ output:echo:":":!
-        \ output:echo:"===:menu:===":! menu:startup
         \ -hide-source-names
         \ -no-split
 
-  function! s:GetBufByte()
-    let byte = line2byte(line('$') + 1)
-    if byte == -1
-      return 0
-    else
-      return byte - 1
+  if has('vim_starting')
+    if @% == '' && s:get_buffer_byte() == 0
+      autocmd VimEnter * UniteStartup
     endif
-  endfunction
+  endif
 
-  "if has('vim_starting') && @% == '' && s:GetBufByte() == 0
-  "  augroup MyAutoCmd
-  "    autocmd!
-  "    autocmd VimEnter * nested :UniteStartup
-  "  augroup END
-  "endif
-  " }}}
   " }}}
 
 endif " }}}
@@ -1323,6 +1337,12 @@ if neobundle#tap('open-browser.vim') "{{{
 endif " }}}
 
 if neobundle#tap('syntastic') " {{{
+
+call neobundle#config({
+      \ 'autoload' : {
+      \     'filetypes' : 'ruby'
+      \   }
+      \ })
 
   let g:syntastic_mode_map = { 'mode': 'passive',
         \ 'active_filetypes': ['ruby'] }
