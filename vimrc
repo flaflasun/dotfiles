@@ -854,7 +854,7 @@ if neobundle#tap('vimfiler.vim') "{{{
 
   call neobundle#config({
         \   'autoload' : {
-        \     'commands' : [ 'VimFilerExplorer' ]
+        \     'commands' : [ 'VimFilerExplorer', 'VimFilerBufferDir' ]
         \   }
         \ })
 
@@ -1052,23 +1052,24 @@ if neobundle#tap('unite.vim') " {{{
         \   'command_candidates': [
         \     ['Session load', 'UniteSessionLoad'],
         \     ['Brank', 'enew'],
+        \     ['VimFiler', 'VimFilerBufferDir'],
         \     ['$MYVIMRC', 'edit'.$MYVIMRC],
         \     ['$MYGVIMRC', 'edit'.$MYGVIMRC],
+        \     ['Unite session', 'Unite session'],
         \     ['Unite file_mru', 'Unite file_mru'],
         \     ['Unite directory_mru', 'Unite directory_mru'],
-        \     ['Unite session', 'Unite session'],
         \   ]
         \ }
 
   command! UniteStartup
         \ Unite
-        \ output:echo:"===:menu:===":! menu:startup
-        \ output:echo:":":!
         \ output:echo:"===:session:===":! startup_session
         \ output:echo:":":!
         \ output:echo:"===:file:mru:===":! startup_file_mru
         \ output:echo:":":!
         \ output:echo:"===:directory:mru:===":! startup_directory_mru
+        \ output:echo:":":!
+        \ output:echo:"===:menu:===":! menu:startup
         \ -hide-source-names
         \ -no-split
 
