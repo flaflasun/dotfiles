@@ -970,21 +970,26 @@ if neobundle#tap('unite.vim') " {{{
   nmap ;u [unite]
   xmap ;u [unite]
 
-  nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=bookmark bookmark<CR>
+  nnoremap [unite]u :Unite<Space>
+  nnoremap <silent> ;b :<C-u>Unite -buffer-name=bookmark bookmark<CR>
+  nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
   nnoremap <silent> [unite]c
         \:<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
   nnoremap <silent> [unite]h :<C-u>Unite -buffer-name=help help -start-insert<CR>
-  nnoremap <silent> [unite]k :<C-u>Unite change jump<CR>
+  nnoremap <silent> [unite]j :<C-u>Unite -buffer-name=jump jump<CR>
+  nnoremap <silent> [unite]k :<C-u>Unite -buffer-name=change change jump<CR>
+  nnoremap <silent> [unite]l
+        \ :<C-u>Unite -buffer-name=search -start-insert line<CR>
   nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=mapping mapping<CR>
   nnoremap <silent> [unite]o
         \ :<C-u>Unite -buffer-name=outline outline -start-insert -resume<CR>
   nnoremap <silent> [unite]r
         \ :<C-u>Unite -buffer-name=register register history/yank<CR>
   nnoremap <silent> [unite]s :<C-u>Unite session<CR>
-  nnoremap <silent> [unite]u :<C-u>Unite -no-split<Space>
   nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=tag tag<CR>
-  nnoremap <silent> [unite]w :<C-u>Unite -buffer-name=window window<CR>
+
+  nnoremap <silent> <C-w> :<C-u>Unite -buffer-name=window window<CR>
 
   if !exists('g:unite_source_menu_menus')
     let g:unite_source_menu_menus = {}

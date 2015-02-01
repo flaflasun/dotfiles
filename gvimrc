@@ -127,6 +127,8 @@ set guicursor+=a:blinkon0
 set novisualbell
 set visualbell t_vb=
 
+set cursolline
+
 colorscheme evening
 
 if neobundle#tap('vim-nightowl') " {{{
