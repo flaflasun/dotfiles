@@ -796,7 +796,7 @@ else
   NeoBundle 'kannokanno/previm'
 
   NeoBundleLazy 'scrooloose/syntastic'
-
+  NeoBundle 'haya14busa/incsearch.vim'
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'rhysd/clever-f.vim'
@@ -1344,15 +1344,28 @@ endif " }}}
 
 if neobundle#tap('syntastic') " {{{
 
-call neobundle#config({
-      \ 'autoload' : {
-      \     'filetypes' : 'ruby'
-      \   }
-      \ })
+  call neobundle#config({
+        \ 'autoload' : {
+        \     'filetypes' : 'ruby'
+        \   }
+        \ })
 
   let g:syntastic_mode_map = { 'mode': 'passive',
         \ 'active_filetypes': ['ruby'] }
   let g:syntastic_ruby_checkers = ['rubocop']
+
+endif " }}}
+
+if neobundle#tap('incsearch.vim') " {{{
+
+  set hlsearch
+  let g:incsearch#auto_nohlsearch = 1
+
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+  map n  <Plug>(incsearch-nohl-n)
+  map N  <Plug>(incsearch-nohl-N)
 
 endif " }}}
 
