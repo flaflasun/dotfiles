@@ -784,7 +784,6 @@ else
   NeoBundle 'mattn/sonictemplate-vim'
 
   NeoBundle 'kana/vim-submode'
-  NeoBundle 'osyo-manga/vim-anzu'
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'majutsushi/tagbar'
 
@@ -798,8 +797,9 @@ else
   NeoBundleLazy 'scrooloose/syntastic'
   NeoBundle 'haya14busa/incsearch.vim'
   NeoBundle 'haya14busa/vim-asterisk'
-  NeoBundle 'tpope/vim-surround'
   NeoBundle 'rhysd/clever-f.vim'
+  NeoBundle 'osyo-manga/vim-anzu'
+  NeoBundle 'tpope/vim-surround'
   NeoBundle 'Lokaltog/vim-easymotion'
   NeoBundleLazy 'AndrewRadev/switch.vim'
   NeoBundleLazy 'sjl/gundo.vim'
@@ -1283,13 +1283,6 @@ endfunction
 
 endif " }}}
 
-if neobundle#tap('vim-anzu') " {{{
-
-  nmap n <Plug>(anzu-n-with-echo)
-  nmap N <Plug>(anzu-N-with-echo)
-
-endif " }}}
-
 if neobundle#tap('vim-surround') " {{{
 
 endif " }}}
@@ -1367,18 +1360,26 @@ if neobundle#tap('incsearch.vim') " {{{
   map n  <Plug>(incsearch-nohl-n)
   map N  <Plug>(incsearch-nohl-N)
 
-endif " }}}
+  if neobundle#tap('vim-anzu') " {{{
 
-if neobundle#tap('vim-asterisk') " {{{
+    map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+    map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
 
-  map *   <Plug>(asterisk-*)
-  map #   <Plug>(asterisk-#)
-  map g*  <Plug>(asterisk-g*)
-  map g#  <Plug>(asterisk-g#)
-  map z*  <Plug>(asterisk-z*)
-  map gz* <Plug>(asterisk-gz*)
-  map z#  <Plug>(asterisk-z#)
-  map gz# <Plug>(asterisk-gz#)
+  endif " }}}
+
+  if neobundle#tap('vim-asterisk') " {{{
+
+    map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)
+    map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
+    map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)
+    map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+
+    map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
+    map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
+    map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
+    map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
+
+   endif " }}}
 
 endif " }}}
 
