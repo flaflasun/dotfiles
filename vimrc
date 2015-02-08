@@ -524,13 +524,13 @@ xmap <Space> [Space]
 
 " <C-f>, <C-b>: page move.
 inoremap <C-f> <Right>
+inoremap <C-F> <S-Right>
 inoremap <C-b> <Left>
+inoremap <C-B> <S-Right>
 " move to head.
-inoremap <silent><C-a> <C-o>^
+inoremap <silent><C-a> <C-o>g^
 " move to end.
-inoremap <silent><C-e> <C-o>$
-" insert tab.
-inoremap <C-t> <C-v><TAB>
+inoremap <silent><C-e> <C-o>g$
 " delete char.
 inoremap <C-d> <Del>
 
@@ -586,14 +586,13 @@ nnoremap gk k
 nnoremap <C-j> <C-e>gj
 nnoremap <C-k> <C-y>gk
 
+nmap <C-o> <C-o>
+
 nnoremap > >>
 nnoremap < <<
 
 nnoremap [Space] <NOP>
 nmap <Space> [Space]
-
-nnoremap <silent> [Space]s :<C-u>split<CR>
-nnoremap <silent> [Space]v :<C-u>vsplit<CR>
 
 nnoremap <silent> [Space]ev :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> [Space]eg :<C-u>edit $MYGVIMRC<CR>
@@ -609,15 +608,42 @@ noremap [Space]k zk
 noremap [Space]h zc
 noremap [Space]l zo
 
-nnoremap <silent> [Space]tn :<C-u>tabnew<CR>
-
 nnoremap <silent> [Space]t2 :<C-u>setl shiftwidth=2 softtabstop=2<CR>
 nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
 nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
 
-" A .vimrc snippet that allows you to move around windows beyond tabs
-nnoremap <silent> <Tab> :<C-u>wincmd w<CR>
-nnoremap <silent> <S-Tab> :<C-u>wincmd W<CR>
+nnoremap <silent> [Space]o :<C-u>call append(line('.'), '')<Cr>j
+nnoremap <silent> [Space]O :<C-u>call append(line('.') - 1, '')<Cr>k
+
+nnoremap [s] <NOP>
+nmap s [s]
+
+nnoremap <silent> [s]s :<C-u>split<CR>
+nnoremap <silent> [s]v :<C-u>vsplit<CR>
+
+nnoremap [s]h <C-w>h
+nnoremap [s]j <C-w>j
+nnoremap [s]k <C-w>k
+nnoremap [s]l <C-w>l
+nnoremap [s]w <C-w>w
+nnoremap [s]W <C-w>W
+
+nnoremap [s]H <C-w>H
+nnoremap [s]J <C-w>J
+nnoremap [s]K <C-w>K
+nnoremap [s]L <C-w>L
+nnoremap [s]r <C-w>r
+
+nnoremap [s]= <C-w>=
+nnoremap [s]> <C-w>>
+nnoremap [s]< <C-w><
+nnoremap [s]+ <C-w>+
+nnoremap [s]- <C-w>-
+
+nnoremap <silent> [s]n :<C-u>tabnew<CR>
+nnoremap <silent> [s]c :<C-u>tabclose<CR>
+nnoremap <silent> [s]q :<C-u>q<CR>
+nnoremap <silent> [s]Q :<C-u>bd<CR>
 
 let g:mapleader = ','
 let g:maplocalleader = 'm'
@@ -1006,8 +1032,6 @@ if neobundle#tap('unite.vim') " {{{
         \ :<C-u>Unite -buffer-name=register register history/yank<CR>
   nnoremap <silent> [unite]s :<C-u>Unite session<CR>
   nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=tag tag<CR>
-
-  nnoremap <silent> <C-w> :<C-u>Unite -buffer-name=window window<CR>
 
   if !exists('g:unite_source_menu_menus')
     let g:unite_source_menu_menus = {}
@@ -1411,7 +1435,7 @@ endif " }}}
 
 if neobundle#tap('vim-easymotion') " {{{
 
-  nmap s <Plug>(easymotion-s2)
+  nmap [s]/ <Plug>(easymotion-s2)
   let g:EasyMotion_use_migemo = 1
   let g:EasyMotion_use_upper = 1
   let g:EasyMotion_smartcase = 1
