@@ -271,6 +271,11 @@ source $(brew --prefix)/etc/profile.d/z.sh
 compctl -U -K _z_zsh_tab_completion ${_Z_CMD:-z}
 alias j='z'
 
+# Automatically compile zshrc.
+if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
+   zcompile ~/.zshrc
+fi
+
 # Command history setting.
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
