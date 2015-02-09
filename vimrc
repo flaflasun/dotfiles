@@ -296,6 +296,27 @@ set nostartofline
 set splitbelow
 set splitright
 
+" Use vsplit mode
+if has("vim_starting") && !has('gui_running') && has('vertsplit')
+  function! g:EnableVsplitMode()
+    " enable origin mode and left/right margins
+    let &t_CS = "y"
+    let &t_ti = &t_ti . "\e[?6;69h"
+    let &t_te = "\e[?6;69l" . &t_te
+    let &t_CV = "\e[%i%p1%d;%p2%ds"
+    call writefile([ "\e[?6h\e[?69h" ], "/dev/tty", "a")
+  endfunction
+
+  " old vim does not ignore CPR
+  map <special> <Esc>[3;9R <Nop>
+
+  " new vim can't handle CPR with direct mapping
+  " map <expr> ^[[3;3R g:EnableVsplitMode()
+  set t_F9=^[[3;3R
+  map <expr> <t_F9> g:EnableVsplitMode()
+  let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
+endif
+
 " }}}
 
 " Parenthesis {{{
@@ -832,6 +853,7 @@ else
   NeoBundle 'Yggdroot/indentLine'
   NeoBundle 'LeafCage/foldCC'
   NeoBundle 'junegunn/vim-easy-align'
+  NeoBundle 'mattn/benchvimrc-vim'
 
   NeoBundle 'vim-jp/vimdoc-ja'
 
@@ -1016,6 +1038,9 @@ if neobundle#tap('unite.vim') " {{{
 
   nnoremap [unite]u :Unite<Space>
   nnoremap <silent> ;b :<C-u>Unite -buffer-name=bookmark bookmark<CR>
+  nnoremap <silent> ;d :<C-u>Unite -start-insert directory_rec/async:!<cr>
+  nnoremap <silent> ;f :<C-u>Unite -start-insert file_rec/async:!<cr>
+
   nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
   nnoremap <silent> [unite]c
         \:<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
@@ -1033,6 +1058,9 @@ if neobundle#tap('unite.vim') " {{{
   nnoremap <silent> [unite]s :<C-u>Unite session<CR>
   nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=tag tag<CR>
 
+  call unite#custom#source('file_rec/async', 'ignore_pattern',
+        \ '\(png\|gif\|jpeg\|jpg\|mp3\|mov\|wav\|avi\|mpg\)$')
+
   if !exists('g:unite_source_menu_menus')
     let g:unite_source_menu_menus = {}
   endif
@@ -1043,8 +1071,6 @@ if neobundle#tap('unite.vim') " {{{
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
     let g:unite_source_grep_recursive_opt = ''
   endif
-
-  call unite#custom_default_action('source/bookmark/directory', 'lcd')
 
   " unite-session.vim {{{
 
@@ -1063,7 +1089,7 @@ if neobundle#tap('unite.vim') " {{{
   " neomru.vim {{{
 
   let g:neomru#time_format = '[%Y/%m/%d %H:%M:%S] '
-  let g:neomru#file_mru_limit = 100
+  let g:neomru#file_mru_limit = 500
   let g:neomru#directory_mru_limit = 100
 
   nnoremap [unite]f :<C-u>Unite file_mru<CR>
