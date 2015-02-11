@@ -545,9 +545,7 @@ xmap <Space> [Space]
 
 " <C-f>, <C-b>: page move.
 inoremap <C-f> <Right>
-inoremap <C-F> <S-Right>
 inoremap <C-b> <Left>
-inoremap <C-B> <S-Right>
 " move to head.
 inoremap <silent><C-a> <C-o>g^
 " move to end.
@@ -799,16 +797,6 @@ else
         \   'mappings' : '<Plug>',
         \ }
 
-  NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-       \ 'depends': ['Shougo/vimproc'],
-       \ 'autoload' : {
-       \   'commands' : [
-       \     { 'name' : 'AlpacaTagsBundle', 'complete': 'customlist,alpaca_tags#complete_source' },
-       \     { 'name' : 'AlpacaTagsUpdate', 'complete': 'customlist,alpaca_tags#complete_source' },
-       \     'AlpacaTagsSet', 'AlpacaTagsCleanCache', 'AlpacaTagsEnable', 'AlpacaTagsDisable', 'AlpacaTagsKillProcess', 'AlpacaTagsProcessStatus',
-       \ ],
-       \ }}
-
   " Golang
   NeoBundleLazy 'vim-jp/vim-go-extra'
 
@@ -830,6 +818,7 @@ else
   " Templete
   NeoBundle 'mattn/sonictemplate-vim'
 
+  NeoBundle 'thinca/vim-ambicmd'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'majutsushi/tagbar'
@@ -1326,6 +1315,13 @@ if neobundle#tap('sonictemplate-vim') "{{{
 
 endif " }}}
 
+if neobundle#tap('vim-ambicmd') " {{{
+
+  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+  cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
+
+endif " }}}
+
 if neobundle#tap('vim-submode') " {{{
 
 function! neobundle#tapped.hooks.on_source(bundle)
@@ -1356,17 +1352,6 @@ if neobundle#tap('vim-surround') " {{{
 endif " }}}
 
 if neobundle#tap('tagbar') " {{{
-
-  let g:tagbar_type_go = {
-        \ 'ctagstype' : 'go',
-        \ 'kinds'     : [
-        \   'p:package',
-        \   'v:variables',
-        \   't:type',
-        \   'r:const',
-        \   'f:function'
-        \ ],
-        \}
 
   nnoremap ;t :<C-u>TagbarToggle<CR>
 
