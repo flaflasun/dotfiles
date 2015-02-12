@@ -828,6 +828,7 @@ else
   NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends': 'mattn/webapi-vim' }
   NeoBundle 'mattn/webapi-vim'
   NeoBundle 'tyru/open-browser.vim'
+  NeoBundle 'tyru/open-browser-github.vim'
   NeoBundle 'kannokanno/previm'
 
   NeoBundleLazy 'scrooloose/syntastic'
