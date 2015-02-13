@@ -901,7 +901,7 @@ if neobundle#tap('vimfiler.vim') "{{{
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_enable_auto_cd = 1
 
-  nnoremap ;e :<C-u>VimFilerExplorer<CR>
+  nnoremap ;e :<C-u>VimFilerBufferDir -explorer -no-toggle<CR>
 
   if has('mac')
     let g:vimfiler_quick_look_command = 'qlmanage -p'
