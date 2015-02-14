@@ -477,16 +477,12 @@ set updatetime=4000
 " FileType {{{
 
 augroup MyAutoCmd
-  autocmd FileType cpp setlocal path=.,/usr/include,/usr/local/include,/usr/lib/c++/v1
+  autocmd FileType cpp
+        \ setlocal path=.,/usr/include,/usr/local/include,/usr/lib/c++/v1
   autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd FileType Godoc
+        \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
 augroup END
-
-" Golang {{{
-
-exe 'set rtp+='.globpath($GOPATH, 'src/github.com/nsf/gocode/vim')
-
-" }}}
-
 
 " json {{{
 
@@ -740,7 +736,7 @@ else
   NeoBundleLazy 'Shougo/vimfiler.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
   NeoBundleLazy 'Shougo/neocomplete'
-  NeoBundleLazy 'ujihisa/neco-look', { 'depends' : [ 'Shougo/neocomplete' ] }
+  NeoBundle 'ujihisa/neco-look', { 'depends' : [ 'Shougo/neocomplete' ] }
 
   " Snippets
   NeoBundleLazy 'Shougo/neosnippet'
@@ -799,6 +795,7 @@ else
 
   " Golang
   NeoBundleLazy 'vim-jp/vim-go-extra'
+  NeoBundleLazy 'dgryski/vim-godef'
 
   " Javascript
   NeoBundleLazy 'jelera/vim-javascript-syntax'
@@ -901,7 +898,7 @@ if neobundle#tap('vimfiler.vim') "{{{
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_enable_auto_cd = 1
 
-  nnoremap ;e :<C-u>VimFilerBufferDir -explorer -no-toggle<CR>
+  nnoremap ;e :<C-u>VimFilerExplorer -no-toggle<CR>
 
   if has('mac')
     let g:vimfiler_quick_look_command = 'qlmanage -p'
@@ -921,28 +918,25 @@ if neobundle#tap('neocomplete') " {{{
   let g:acp_enableAtStartup = 0
   let g:neocomplete#enable_at_startup = 1
 
-  let s:hooks = neobundle#get_hooks('neocomplete.vim')
-  function! s:hooks.on_source(bundle)
-    let g:neocomplete#enable_ignore_case = 1
-    let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#enable_ignore_case = 1
+  let g:neocomplete#enable_smart_case = 1
 
-    " Set minimum syntax keyword length.
-    let g:neocomplete#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+  " Set minimum syntax keyword length.
+  let g:neocomplete#min_keyword_length = 3
+  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-          \ 'default' : '',
-          \ 'vimshell' : $HOME.'/.vimshell_hist',
-          \ 'scheme' : $HOME.'/.gosh_completions'
-          \ }
+  " Define dictionary.
+  let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-      let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-  endfunction
+  " Define keyword.
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
   " Plugin key-mappings.
   inoremap <expr><C-g>  neocomplete#undo_completion()
@@ -1264,6 +1258,16 @@ if neobundle#tap('vim-go-extra') "{{{
         \ })
 
   autocmd FileType go autocmd BufWritePre <buffer> Fmt
+
+endif " }}}
+
+if neobundle#tap('vim-godef') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'go'
+        \   }
+        \ })
 
 endif " }}}
 
