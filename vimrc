@@ -938,6 +938,13 @@ if neobundle#tap('neocomplete') " {{{
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+  if !exists('g:neocomplete#sources#omni#functions')
+    let g:neocomplete#sources#omni#functions = {}
+  endif
+  " Go (plugin: gocode)
+  let g:neocomplete#sources#omni#functions.go =
+        \ 'gocomplete#Complete'
+
   " Plugin key-mappings.
   inoremap <expr><C-g>  neocomplete#undo_completion()
   inoremap <expr><C-l>  neocomplete#complete_common_string()
