@@ -12,6 +12,8 @@ if has('vim_starting')
   "set nocompatible
 endif
 
+language C
+
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
@@ -383,7 +385,7 @@ set showfulltag
 
 set wildoptions=tagfile
 
-set completeopt=menu,preview
+set completeopt=menu
 
 set complete=.
 
@@ -938,12 +940,15 @@ if neobundle#tap('neocomplete') " {{{
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.go = '\h\w*\.\?'
+
   if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
   endif
-  " Go (plugin: gocode)
-  let g:neocomplete#sources#omni#functions.go =
-        \ 'gocomplete#Complete'
+  let g:neocomplete#sources#omni#functions.go = 'go#complete#Complete'
 
   " Plugin key-mappings.
   inoremap <expr><C-g>  neocomplete#undo_completion()
