@@ -821,6 +821,8 @@ else
   NeoBundle 'kana/vim-submode'
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'majutsushi/tagbar'
+  NeoBundleLazy 'cohama/lexima.vim'
+  NeoBundleLazy 't9md/vim-transform'
 
   " Others
   NeoBundle 'lilydjwg/colorizer'
@@ -948,7 +950,7 @@ if neobundle#tap('neocomplete') " {{{
   if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
   endif
-  let g:neocomplete#sources#omni#functions.go = 'go#complete#Complete'
+  let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
 
   " Plugin key-mappings.
   inoremap <expr><C-g>  neocomplete#undo_completion()
@@ -1316,6 +1318,8 @@ if neobundle#tap('emmet-vim') "{{{
         \   }
         \ })
 
+  let g:user_emmet_leader_key='<C-e>'
+
 endif " }}}
 
 if neobundle#tap('vim-ansible-yaml') "{{{
@@ -1371,6 +1375,29 @@ endif " }}}
 if neobundle#tap('tagbar') " {{{
 
   nnoremap ;t :<C-u>TagbarToggle<CR>
+
+endif " }}}
+
+if neobundle#tap('lexima.vim') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'insert' : 1,
+        \   }
+        \ })
+
+endif " }}}
+
+if neobundle#tap('vim-transform') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'go'
+        \   }
+        \ })
+
+  nmap <C-e> <Plug>(transform)
+  xmap <C-e> <Plug>(transform)
 
 endif " }}}
 
