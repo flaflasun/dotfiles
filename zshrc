@@ -146,9 +146,12 @@ case ${OSTYPE} in
   darwin*)
     alias ls="ls -G -w"
     alias gls="gls --color --show-control-chars"
+    alias chrome='open -a Google\ Chrome'
+    alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
   ;;
   linux*)
     alias ls="ls --color --show-control-chars"
+    alias chrome='google-chrome'
   ;;
 esac
 
@@ -160,11 +163,6 @@ alias mvi="mvim --remote-tab-silent"
 
 alias cvlc='~/Applications/VLC.app/Contents/MacOS/VLC --intf=rc'
 
-if [ 'uname' = "Darwin" ]; then
-  alias chrome='open -a Google\ Chrome'
-elif [ 'uname' = "Linux" ]; then
-  alias chrome='google-chrome'
-fi
 alias -s {html,xhtml}=chrome
 
 alias -s {txt,vim}=mvim
