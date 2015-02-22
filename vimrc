@@ -817,6 +817,7 @@ else
   " Templete
   NeoBundle 'mattn/sonictemplate-vim'
 
+  NeoBundle 'thinca/vim-quickrun'
   NeoBundle 'thinca/vim-ambicmd'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'tpope/vim-surround'
@@ -945,12 +946,7 @@ if neobundle#tap('neocomplete') " {{{
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
-  let g:neocomplete#force_omni_input_patterns.go = '\h\w*\.\?'
-
-  if !exists('g:neocomplete#sources#omni#functions')
-    let g:neocomplete#sources#omni#functions = {}
-  endif
-  let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
+  let g:neocomplete#force_omni_input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 
   " Plugin key-mappings.
   inoremap <expr><C-g>  neocomplete#undo_completion()
@@ -974,6 +970,7 @@ if neobundle#tap('neocomplete') " {{{
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType go setlocal omnifunc=gocomplete#Complete
 
 endif " }}}
 
@@ -1333,6 +1330,20 @@ if neobundle#tap('vim-ansible-yaml') "{{{
 endif " }}}
 
 if neobundle#tap('sonictemplate-vim') "{{{
+
+endif " }}}
+
+if neobundle#tap('vim-quickrun') "{{{
+
+  let g:quickrun_config = {}
+  let g:quickrun_config._ = {
+        \ 'runner':'vimproc',
+        \ 'outputter/buffer/split' : ':botright 5sp',
+        \ 'runner/vimproc/updatetime' : 60,
+        \ 'outputter/buffer/close_on_empty' : 1,
+        \ }
+
+  nmap ;r <Plug>(quickrun)
 
 endif " }}}
 
