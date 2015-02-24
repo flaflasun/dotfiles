@@ -212,7 +212,7 @@ set number
 
 " Show <Tab> and <Space>
 set list
-set listchars=tab:>-,trail:-,extends:>,precedes:>
+set listchars=tab:>-,trail:_,extends:>,precedes:>
 " Don't wrap long line.
 set nowrap
 set linebreak
