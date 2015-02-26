@@ -770,12 +770,18 @@ else
   " Text object
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'kana/vim-textobj-entire', { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-line', { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-lastpat', { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-fold', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'kana/vim-textobj-function', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'mattn/vim-textobj-url', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'rhysd/vim-textobj-ruby', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'osyo-manga/vim-textobj-multiblock', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'osyo-manga/vim-textobj-multitextobj', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'osyo-manga/vim-textobj-blockwise', { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'thinca/vim-textobj-between', { 'depends' : 'kana/vim-textobj-user' }
+
 
   " Git
   NeoBundleLazy 'tpope/vim-fugitive'
