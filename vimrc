@@ -479,20 +479,8 @@ set updatetime=4000
 " FileType {{{
 
 augroup MyAutoCmd
-  autocmd FileType cpp
-        \ setlocal path=.,/usr/include,/usr/local/include,/usr/lib/c++/v1
   autocmd BufRead,BufNewFile *.md set filetype=markdown
-  autocmd FileType Godoc
-        \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
 augroup END
-
-" json {{{
-
-augroup MyAutoCmd
-  autocmd Filetype json setl conceallevel=0
-augroup END
-
-" }}}
 
 " }}}
 
@@ -1274,7 +1262,12 @@ if neobundle#tap('vim-go-extra') "{{{
         \   }
         \ })
 
-  autocmd FileType go autocmd BufWritePre <buffer> Fmt
+  augroup VimGoExtra
+    autocmd!
+    autocmd FileType go autocmd BufWritePre <buffer> Fmt
+    autocmd FileType Godoc
+          \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
+  augroup END
 
 endif " }}}
 
@@ -1306,10 +1299,13 @@ if neobundle#tap('vim-coffee-script') "{{{
         \   }
         \ })
 
-  autocmd BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
-  autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
-  autocmd QuickFixCmdPost * nested cwindow | redraw! 
   nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
+  augroup VimCoffeeScript
+    autocmd!
+    autocmd BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+    autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
+    autocmd QuickFixCmdPost * nested cwindow | redraw! 
+  augroup END
 
 endif " }}}
 
@@ -1541,7 +1537,8 @@ endif " }}}
 if neobundle#tap('indentLine') " {{{
 
   let g:indentLine_color_term = 239
-  augroup MyAutoCmd
+  augroup IndentLine
+    autocmd!
     autocmd InsertEnter * IndentLinesDisable
     autocmd InsertLeave * IndentLinesEnable
   augroup END
