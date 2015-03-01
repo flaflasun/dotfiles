@@ -802,6 +802,10 @@ else
   " HTML
   NeoBundleLazy 'mattn/emmet-vim'
 
+  " SASS
+  NeoBundleLazy 'AtsushiM/search-parent.vim'
+  NeoBundleLazy 'AtsushiM/sass-compile.vim', { 'depends': 'AtsushiM/search-parent.vim' }
+
   " Markdown
   NeoBundle 'tpope/vim-markdown'
 
@@ -1318,6 +1322,31 @@ if neobundle#tap('emmet-vim') "{{{
         \ })
 
   let g:user_emmet_leader_key='<C-y>'
+
+endif " }}}
+
+if neobundle#tap('search-parent.vim') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : [ 'sass', 'scss']
+        \   }
+        \ })
+
+endif " }}}
+
+if neobundle#tap('sass-compile.vim') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : [ 'sass', 'scss']
+        \   }
+        \ })
+
+let g:sass_compile_cdloop = 5
+let g:sass_compile_auto = 0
+let g:sass_compile_file = ['scss', 'sass']
+let g:sass_compile_cssdir = ['css', 'stylesheet']
 
 endif " }}}
 
