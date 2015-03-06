@@ -746,9 +746,7 @@ else
   NeoBundle 'ujihisa/unite-locate', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'osyo-manga/unite-highlight', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'pasela/unite-webcolorname', { 'depends' : [ 'Shougo/unite.vim' ] }
-  "NeoBundle 'rhysd/unite-ruby-require.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'Shougo/neomru.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-  "NeoBundle 'Shougo/neobundle-vim-scripts'
 
   NeoBundle 'thinca/vim-ref'
 
@@ -1065,30 +1063,30 @@ if neobundle#tap('unite.vim') " {{{
     let g:unite_source_grep_recursive_opt = ''
   endif
 
-  " unite-session.vim {{{
+  if neobundle#tap('unite-session.vim') " {{{
 
-  let g:unite_source_session_enable_auto_save = 1
+    let g:unite_source_session_enable_auto_save = 1
 
-  " }}}
+  endif " }}}
 
-  " unite-rails.vim {{{
+  if neobundle#tap('unite-rails.vim') " {{{
 
-  nnoremap <silent> [unite]rv :<C-U>Unite rails/view<CR>
-  nnoremap <silent> [unite]rm :<C-U>Unite rails/model<CR>
-  nnoremap <silent> [unite]rc :<C-U>Unite rails/controller<CR>
+    nnoremap <silent> [unite]rv :<C-U>Unite rails/view<CR>
+    nnoremap <silent> [unite]rm :<C-U>Unite rails/model<CR>
+    nnoremap <silent> [unite]rc :<C-U>Unite rails/controller<CR>
 
-  " }}}
+  endif " }}}
 
-  " neomru.vim {{{
+  if neobundle#tap('neomru.vim') " {{{
 
-  let g:neomru#time_format = '[%Y/%m/%d %H:%M:%S] '
-  let g:neomru#file_mru_limit = 500
-  let g:neomru#directory_mru_limit = 100
+    let g:neomru#time_format = '[%Y/%m/%d %H:%M:%S] '
+    let g:neomru#file_mru_limit = 500
+    let g:neomru#directory_mru_limit = 100
 
-  nnoremap [unite]f :<C-u>Unite file_mru<CR>
-  nnoremap [unite]d :<C-u>Unite directory_mru<CR>
+    nnoremap [unite]f :<C-u>Unite file_mru<CR>
+    nnoremap [unite]d :<C-u>Unite directory_mru<CR>
 
-  " }}}
+  endif " }}}
 
   " Create Vim start page. {{{
 
