@@ -828,6 +828,7 @@ else
   NeoBundle 'tyru/open-browser.vim'
   NeoBundle 'tyru/open-browser-github.vim'
   NeoBundle 'kannokanno/previm'
+  NeoBundle 'rizzatti/dash.vim'
 
   NeoBundleLazy 'scrooloose/syntastic'
   NeoBundle 'haya14busa/incsearch.vim'
@@ -1088,6 +1089,17 @@ if neobundle#tap('unite.vim') " {{{
 
   endif " }}}
 
+  if neobundle#tap('vim-ref') "{{{
+
+    let g:ref_use_vimproc=1
+    let g:ref_refe_version=2
+    let g:ref_refe_encoding = 'utf-8'
+
+    autocmd FileType ruby nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/refe<CR>
+    autocmd FileType python nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/pydoc<CR>
+
+  endif " }}}
+
   " Create Vim start page. {{{
 
   let g:unite_source_alias_aliases = {
@@ -1139,18 +1151,6 @@ if neobundle#tap('unite.vim') " {{{
   endif
 
   " }}}
-
-endif " }}}
-
-if neobundle#tap('vim-ref') "{{{
-
-  let g:ref_use_vimproc=1
-  let g:ref_refe_version=2
-  let g:ref_refe_encoding = 'utf-8'
-
-  autocmd FileType * nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/man<CR>
-  autocmd FileType ruby nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/refe<CR>
-  autocmd FileType python nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/pydoc<CR>
 
 endif " }}}
 
@@ -1469,6 +1469,12 @@ if neobundle#tap('open-browser.vim') "{{{
       endif
     endfunction
   endfunction
+
+endif " }}}
+
+if neobundle#tap('dash.vim') "{{{
+
+  nmap <silent> [Space]d <Plug>DashSearch
 
 endif " }}}
 
