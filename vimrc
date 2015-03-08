@@ -781,6 +781,7 @@ else
   NeoBundleLazy 'taka84u9/vim-ref-ri', { 'depends' : [ 'Shougo/unite.vim', 'thinca/vim-ref' ] }
   NeoBundleLazy 't9md/vim-ruby-xmpfilter'
   NeoBundle 'tpope/vim-rails'
+  NeoBundleLazy 'tpope/vim-endwise'
   NeoBundleLazy 'basyura/unite-rails', { 'depends' : [ 'Shougo/unite.vim' ] }
 
   NeoBundleLazy 'kana/vim-niceblock', {
@@ -1253,6 +1254,16 @@ if neobundle#tap('vim-ruby-xmpfilter') " {{{
     autocmd FileType ruby xmap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
     autocmd FileType ruby imap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
   endfunction
+
+endif " }}}
+
+if neobundle#tap('vim-endwise') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'ruby'
+        \   }
+        \ })
 
 endif " }}}
 
