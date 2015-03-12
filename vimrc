@@ -59,7 +59,7 @@ set encoding=utf-8
 
 " setting of terminal encoding.
 if !has('gui_running')
-  if &term == 'win32' || &term == 'win64'
+  if &term ==# 'win32' || &term ==# 'win64'
     set termencoding=cp932
     set encoding=japan
   else
@@ -299,7 +299,7 @@ set splitbelow
 set splitright
 
 " Use vsplit mode
-if has("vim_starting") && !has('gui_running') && has('vertsplit')
+if has('vim_starting') && !has('gui_running') && has('vertsplit')
   function! g:EnableVsplitMode()
     " enable origin mode and left/right margins
     let &t_CS = "y"
@@ -1146,7 +1146,7 @@ if neobundle#tap('unite.vim') " {{{
         \ -no-split
 
   if has('vim_starting')
-    if @% == '' && s:get_buffer_byte() == 0
+    if @% ==# '' && s:get_buffer_byte() == 0
       autocmd VimEnter * UniteStartup
     endif
   endif
