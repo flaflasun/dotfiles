@@ -228,6 +228,7 @@ set display=lastline
 
 set lazyredraw
 
+
 " }}}
 
 " Status-line {{{
@@ -811,6 +812,9 @@ else
   " Ansible
   NeoBundleLazy 'chase/vim-ansible-yaml'
 
+  " json
+  NeoBundleLazy 'elzr/vim-json'
+
   " Templete
   NeoBundle 'mattn/sonictemplate-vim'
 
@@ -1366,6 +1370,18 @@ if neobundle#tap('vim-ansible-yaml') "{{{
         \     'filetypes' : 'yml'
         \   }
         \ })
+
+endif " }}}
+
+if neobundle#tap('vim-json') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'json'
+        \   }
+        \ })
+
+  let g:vim_json_syntax_conceal = 0
 
 endif " }}}
 
