@@ -117,6 +117,12 @@ function! s:get_buffer_byte()
   endif
 endfunction
 
+function! s:remove_line_in_last_line()
+  if getline('$') == ""
+     $delete _
+  endif
+endfunction
+
 " }}}
 
 " History {{{
@@ -352,32 +358,6 @@ set wrapscan
 
 " }}}
 
-" Auto-format {{{
-
-" Disable automatically insert comment.
-autocmd MyAutoCmd FileType * setl formatoptions-=ro | setl formatoptions+=mM
-let g:execcmd_after_ftplugin = {
-  \    '_': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \    'c': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \    'perl': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \}
-let g:execcmd_after_indent = {
-  \    '_': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \    'php': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \}
-
-" }}}
-
 " Complete {{{
 
 set nowildmenu
@@ -481,6 +461,7 @@ set updatetime=4000
 
 augroup MyAutoCmd
   autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufWritePre *.go call s:remove_line_in_last_line()
 augroup END
 
 " }}}
@@ -1636,6 +1617,15 @@ endif " }}}
 
 "-------------------------------------------------------------------------------
 " Others: {{{
+
+" Format {{{
+
+augroup MyFormatOptions
+  autocmd!
+  autocmd FileType * setlocal formatoptions-=ro
+augroup END
+
+" }}}
 
 set mouse=a
 
