@@ -670,12 +670,14 @@ nnoremap Q <NOP>
 " Plugins: {{{
 
 " Disable plugins {{{
+
 " Disable GetLatestVimPlugin.vim
 let g:loaded_getscriptPlugin = 1
 
 " Disable netrw.vim
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
+
 " }}}
 
 " Setup {{{
@@ -691,10 +693,10 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " }}}
 
 " List {{{
+
 if neobundle#has_fresh_cache(expand('$MYVIMRC'))
   NeoBundleLoadCache
 else
-
   NeoBundle 'Shougo/vimproc', {
         \ 'build' : {
         \   'windows' : 'make -f make_mingw32.mak',
@@ -703,17 +705,13 @@ else
         \   'unix' : 'make -f make_unix.mak',
         \ }}
 
+
+  " UI {{{
+
   NeoBundleLazy 'Shougo/vimshell', { 'depends' : [ 'Shougo/vimproc.vim' ] }
-
   NeoBundleLazy 'Shougo/vimfiler.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-
-  NeoBundleLazy 'Shougo/neocomplete'
-  NeoBundle 'ujihisa/neco-look', { 'depends' : [ 'Shougo/neocomplete' ] }
-
-  " Snippets
-  NeoBundleLazy 'Shougo/neosnippet'
-  NeoBundle 'Shougo/neosnippet-snippets', { 'depends' : 'Shougo/neosnippet' }
-  NeoBundle 'honza/vim-snippets', { 'depends' : 'Shougo/neosnippet' }
+  NeoBundle 'majutsushi/tagbar'
+  NeoBundleLazy 'sjl/gundo.vim'
 
   " Unite
   NeoBundle 'Shougo/unite.vim'
@@ -729,13 +727,24 @@ else
   NeoBundle 'osyo-manga/unite-highlight', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'pasela/unite-webcolorname', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'Shougo/neomru.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+  NeoBundle 'thinca/vim-ref', { 'depends' : [ 'Shougo/unite.vim' ] }
 
-  NeoBundle 'thinca/vim-ref'
+  " }}}
 
-  " Operater
-  NeoBundleLazy 'tpope/vim-commentary'
+  " Completion {{{
 
-  " Text object
+  NeoBundleLazy 'Shougo/neocomplete'
+  NeoBundle 'thinca/vim-ambicmd'
+
+  " Snippet
+  NeoBundleLazy 'Shougo/neosnippet'
+  NeoBundle 'Shougo/neosnippet-snippets', { 'depends' : 'Shougo/neosnippet' }
+  NeoBundle 'honza/vim-snippets', { 'depends' : 'Shougo/neosnippet' }
+
+  " }}}
+
+  " Text object {{{
+
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'kana/vim-textobj-entire', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'kana/vim-textobj-line', { 'depends' : 'kana/vim-textobj-user' }
@@ -750,15 +759,22 @@ else
   NeoBundle 'osyo-manga/vim-textobj-blockwise', { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'thinca/vim-textobj-between', { 'depends' : 'kana/vim-textobj-user' }
 
+  " }}}
 
-  " Git
+  " Language {{{
+
+  " Git {{{
+
   NeoBundleLazy 'tpope/vim-fugitive'
   NeoBundleLazy 'cohama/agit.vim'
 
   " Gist
   NeoBundleLazy 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 
-  " Ruby
+  "}}}
+
+  " Ruby {{{
+
   NeoBundle 'vim-ruby/vim-ruby'
   NeoBundleLazy 'taka84u9/vim-ref-ri', { 'depends' : [ 'Shougo/unite.vim', 'thinca/vim-ref' ] }
   NeoBundleLazy 't9md/vim-ruby-xmpfilter'
@@ -770,25 +786,34 @@ else
         \   'mappings' : '<Plug>',
         \ }
 
-  " Golang
+  "}}}
+
+  " Golang {{{
+
   NeoBundleLazy 'vim-jp/vim-go-extra'
   NeoBundleLazy 'dgryski/vim-godef'
+
+  " }}}
+
+  " Web {{{
+
+  " HTML
+  NeoBundleLazy 'mattn/emmet-vim'
+
+  " Markdown
+  NeoBundle 'tpope/vim-markdown'
 
   " Javascript
   NeoBundleLazy 'jelera/vim-javascript-syntax'
 
-  " Coffee Script
+  " CoffeeScript
   NeoBundleLazy 'kchmck/vim-coffee-script'
-
-  " HTML
-  NeoBundleLazy 'mattn/emmet-vim'
 
   " SASS
   NeoBundleLazy 'AtsushiM/search-parent.vim'
   NeoBundleLazy 'AtsushiM/sass-compile.vim', { 'depends': 'AtsushiM/search-parent.vim' }
 
-  " Markdown
-  NeoBundle 'tpope/vim-markdown'
+  " }}}
 
   " Ansible
   NeoBundleLazy 'chase/vim-ansible-yaml'
@@ -796,46 +821,62 @@ else
   " json
   NeoBundleLazy 'elzr/vim-json'
 
+  " }}}
+
+  " Auxiliary {{{
+
+  NeoBundleLazy 'tpope/vim-commentary'
+  NeoBundle 'tpope/vim-surround'
+  NeoBundleLazy 'AndrewRadev/switch.vim'
+  NeoBundleLazy 'cohama/lexima.vim'
+  NeoBundleLazy 't9md/vim-transform'
+  NeoBundle 'junegunn/vim-easy-align'
+  NeoBundle 'kana/vim-submode'
+  NeoBundle 'thinca/vim-quickrun'
+  NeoBundleLazy 'scrooloose/syntastic'
+
   " Templete
   NeoBundle 'mattn/sonictemplate-vim'
 
-  NeoBundle 'thinca/vim-quickrun'
-  NeoBundle 'thinca/vim-ambicmd'
-  NeoBundle 'kana/vim-submode'
-  NeoBundle 'tpope/vim-surround'
-  NeoBundle 'majutsushi/tagbar'
-  NeoBundleLazy 'cohama/lexima.vim'
-  NeoBundleLazy 't9md/vim-transform'
+  " }}}
 
-  " Others
-  NeoBundle 'lilydjwg/colorizer'
-  NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends': 'mattn/webapi-vim' }
-  NeoBundle 'mattn/webapi-vim'
-  NeoBundle 'tyru/open-browser.vim'
-  NeoBundle 'tyru/open-browser-github.vim'
-  NeoBundle 'kannokanno/previm'
-  NeoBundle 'rizzatti/dash.vim'
+  " Search {{{
 
-  NeoBundleLazy 'scrooloose/syntastic'
   NeoBundle 'haya14busa/incsearch.vim'
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'rhysd/clever-f.vim'
   NeoBundle 'osyo-manga/vim-anzu'
-  NeoBundle 'tpope/vim-surround'
   NeoBundle 'Lokaltog/vim-easymotion'
-  NeoBundleLazy 'AndrewRadev/switch.vim'
-  NeoBundleLazy 'sjl/gundo.vim'
+
+  " }}}
+
+  " View {{{
+
+  NeoBundle 'lilydjwg/colorizer'
   NeoBundle 'Yggdroot/indentLine'
   NeoBundle 'LeafCage/foldCC'
-  NeoBundle 'junegunn/vim-easy-align'
-  NeoBundle 'mattn/benchvimrc-vim'
-
-  NeoBundle 'vim-jp/vimdoc-ja'
 
   " Colorscheme
   NeoBundle 'tomasr/molokai'
   NeoBundle 'altercation/vim-colors-solarized'
   NeoBundle 'flaflasun/vim-nightowl'
+
+  " }}}
+
+  " Others {{{
+
+  NeoBundle 'mattn/webapi-vim'
+  NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends': 'mattn/webapi-vim' }
+  NeoBundle 'tyru/open-browser.vim'
+  NeoBundle 'tyru/open-browser-github.vim'
+  NeoBundle 'kannokanno/previm'
+  NeoBundle 'rizzatti/dash.vim'
+  NeoBundle 'mattn/benchvimrc-vim'
+
+  " Document
+  NeoBundle 'vim-jp/vimdoc-ja'
+
+  " }}}
 
   NeoBundleSaveCache
 endif
@@ -852,6 +893,8 @@ endif
 " }}}
 
 " Configurations  {{{
+
+" UI {{{
 
 if neobundle#tap('vimshell') " {{{
 
@@ -895,114 +938,21 @@ if neobundle#tap('vimfiler.vim') "{{{
 
 endif " }}}
 
-if neobundle#tap('neocomplete') " {{{
+if neobundle#tap('tagbar') " {{{
+
+  nnoremap ;t :<C-u>TagbarToggle<CR>
+
+endif " }}}
+
+if neobundle#tap('gundo.vim') " {{{
 
   call neobundle#config({
         \   'autoload' : {
-        \     'insert' : 1,
+        \     'commands' : [ 'GundoToggle' ]
         \   }
         \ })
 
-  let g:acp_enableAtStartup = 0
-  let g:neocomplete#enable_at_startup = 1
-
-  let g:neocomplete#enable_ignore_case = 1
-  let g:neocomplete#enable_smart_case = 1
-
-  " Set minimum syntax keyword length.
-  let g:neocomplete#min_keyword_length = 3
-  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-  endif
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-  if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-  endif
-  let g:neocomplete#force_omni_input_patterns.go = '[^.[:digit:] *\t]\.\w*'
-
-  " Plugin key-mappings.
-  inoremap <expr><C-g>  neocomplete#undo_completion()
-  inoremap <expr><C-l>  neocomplete#complete_common_string()
-
-  " Recommended key-mappings.
-  " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return neocomplete#close_popup() . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-  endfunction
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
-
-  " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType go setlocal omnifunc=gocomplete#Complete
-
-endif " }}}
-
-if neobundle#tap('neosnippet') " {{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'insert' : 1,
-        \     'filetype' : 'snippet',
-        \     'commands' : [ 'NeoSnippetEdit', 'NeoSnippetSource' ],
-        \     'filetypes' : [ 'nsnippet' ],
-        \     'unite_sources' :
-        \       ['snippet', 'neosnippet/user', 'neosnippet/runtime']
-        \   }
-        \ })
-
-  " Plugin key-mappings.
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-  " SuperTab like snippets behavior.
-  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)"
-  \: pumvisible() ? "\<C-n>" : "\<TAB>"
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)"
-  \: "\<TAB>"
-
-  " For snippet_complete marker.
-  if has('conceal')
-    set conceallevel=2 concealcursor=i
-  endif
-
-  " Enable snipMate compatibility feature.
-  let g:neosnippet#enable_snipmate_compatibility = 1
-
-  " Tell Neosnippet about the other snippets
-  let g:neosnippet#snippets_directory = $DOTVIM . '/snippets'
-
-endif " }}}
-
-if neobundle#tap('neosnippet-snippets') " {{{
-
-endif " }}}
-
-if neobundle#tap('vim-snippets') " {{{
-
-  let g:neosnippet#snippets_directory = $DOTVIM . '/snippets' . ',' . $VIM_BUNDLE . '/vim-snippts/snippets'
+  nnoremap ;gu :<C-u>GundoToggle<CR>
 
 endif " }}}
 
@@ -1140,15 +1090,134 @@ if neobundle#tap('unite.vim') " {{{
 
 endif " }}}
 
-if neobundle#tap('vim-commentary') "{{{
+" }}}
+
+" Completion {{{
+
+if neobundle#tap('neocomplete') " {{{
 
   call neobundle#config({
         \   'autoload' : {
-        \     'commands' : [ 'Commentary' ],
+        \     'insert' : 1,
         \   }
         \ })
 
+  let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup = 1
+
+  let g:neocomplete#enable_ignore_case = 1
+  let g:neocomplete#enable_smart_case = 1
+
+  " Set minimum syntax keyword length.
+  let g:neocomplete#min_keyword_length = 3
+  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+  " Define dictionary.
+  let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+  " Define keyword.
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+
+  " Plugin key-mappings.
+  inoremap <expr><C-g>  neocomplete#undo_completion()
+  inoremap <expr><C-l>  neocomplete#complete_common_string()
+
+  " Recommended key-mappings.
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return neocomplete#close_popup() . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+  endfunction
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
+
+  " Enable omni completion.
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType go setlocal omnifunc=gocomplete#Complete
+
 endif " }}}
+
+if neobundle#tap('vim-ambicmd') " {{{
+
+  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+  cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
+
+endif " }}}
+
+" Snippet
+if neobundle#tap('neosnippet') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'insert' : 1,
+        \     'filetype' : 'snippet',
+        \     'commands' : [ 'NeoSnippetEdit', 'NeoSnippetSource' ],
+        \     'filetypes' : [ 'nsnippet' ],
+        \     'unite_sources' :
+        \       ['snippet', 'neosnippet/user', 'neosnippet/runtime']
+        \   }
+        \ })
+
+  " Plugin key-mappings.
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+  " SuperTab like snippets behavior.
+  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: pumvisible() ? "\<C-n>" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: "\<TAB>"
+
+  " For snippet_complete marker.
+  if has('conceal')
+    set conceallevel=2 concealcursor=i
+  endif
+
+  " Enable snipMate compatibility feature.
+  let g:neosnippet#enable_snipmate_compatibility = 1
+
+  " Tell Neosnippet about the other snippets
+  let g:neosnippet#snippets_directory = $DOTVIM . '/snippets'
+
+endif " }}}
+
+if neobundle#tap('neosnippet-snippets') " {{{
+
+endif " }}}
+
+if neobundle#tap('vim-snippets') " {{{
+
+  let g:neosnippet#snippets_directory = $DOTVIM . '/snippets' . ',' . $VIM_BUNDLE . '/vim-snippts/snippets'
+
+endif " }}}
+
+" }}}
+
+" Language {{{
+
+" Git {{{
 
 if neobundle#tap('vim-fugitive') " {{{
 
@@ -1219,6 +1288,10 @@ if neobundle#tap('gist-vim') "{{{
 
 endif " }}}
 
+" }}}
+
+" Ruby {{{
+
 if neobundle#tap('vim-ruby-xmpfilter') " {{{
 
   call neobundle#config({
@@ -1252,6 +1325,10 @@ if neobundle#tap('vim-endwise') " {{{
 
 endif " }}}
 
+" }}}
+
+" Golang {{{
+
 if neobundle#tap('vim-go-extra') "{{{
 
   call neobundle#config({
@@ -1279,6 +1356,24 @@ if neobundle#tap('vim-godef') "{{{
 
 endif " }}}
 
+" }}}
+
+" Web {{{
+
+" HTML
+if neobundle#tap('emmet-vim') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : [ 'html', 'css']
+        \   }
+        \ })
+
+  let g:user_emmet_leader_key='<C-y>'
+
+endif " }}}
+
+" Javascript
 if neobundle#tap('vim-javascript-syntax') " {{{
 
   call neobundle#config({
@@ -1289,6 +1384,7 @@ if neobundle#tap('vim-javascript-syntax') " {{{
 
 endif " }}}
 
+" CoffeeScript
 if neobundle#tap('vim-coffee-script') "{{{
 
   call neobundle#config({
@@ -1307,42 +1403,33 @@ if neobundle#tap('vim-coffee-script') "{{{
 
 endif " }}}
 
-if neobundle#tap('emmet-vim') "{{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'filetypes' : [ 'html', 'css']
-        \   }
-        \ })
-
-  let g:user_emmet_leader_key='<C-y>'
-
-endif " }}}
-
+" SASS
 if neobundle#tap('search-parent.vim') "{{{
 
   call neobundle#config({
-        \   'autoload' : {
-        \     'filetypes' : [ 'sass', 'scss']
-        \   }
-        \ })
+          \   'autoload' : {
+          \     'filetypes' : [ 'sass', 'scss']
+          \   }
+          \ })
 
 endif " }}}
 
 if neobundle#tap('sass-compile.vim') "{{{
 
   call neobundle#config({
-        \   'autoload' : {
-        \     'filetypes' : [ 'sass', 'scss']
-        \   }
-        \ })
+          \   'autoload' : {
+          \     'filetypes' : [ 'sass', 'scss']
+          \   }
+          \ })
 
-let g:sass_compile_cdloop = 5
-let g:sass_compile_auto = 0
-let g:sass_compile_file = ['scss', 'sass']
-let g:sass_compile_cssdir = ['css', 'stylesheet']
+  let g:sass_compile_cdloop = 5
+  let g:sass_compile_auto = 0
+  let g:sass_compile_file = ['scss', 'sass']
+  let g:sass_compile_cssdir = ['css', 'stylesheet']
 
-endif " }}}
+  endif " }}}
+
+" }}}
 
 if neobundle#tap('vim-ansible-yaml') "{{{
 
@@ -1366,28 +1453,68 @@ if neobundle#tap('vim-json') "{{{
 
 endif " }}}
 
-if neobundle#tap('sonictemplate-vim') "{{{
+" }}}
+
+" Auxiliary {{{
+
+if neobundle#tap('vim-commentary') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'commands' : [ 'Commentary' ],
+        \   }
+        \ })
 
 endif " }}}
 
-if neobundle#tap('vim-quickrun') "{{{
-
-  let g:quickrun_config = {}
-  let g:quickrun_config._ = {
-        \ 'runner':'vimproc',
-        \ 'outputter/buffer/split' : ':botright 5sp',
-        \ 'runner/vimproc/updatetime' : 60,
-        \ 'outputter/buffer/close_on_empty' : 1,
-        \ }
-
-  nmap ;r <Plug>(quickrun)
+if neobundle#tap('vim-surround') " {{{
 
 endif " }}}
 
-if neobundle#tap('vim-ambicmd') " {{{
+if neobundle#tap('switch.vim') " {{{
 
-  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
-  cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
+  call neobundle#config({
+        \   'autoload' : {
+        \     'commands' : [ 'Switch' ]
+        \   }
+        \ })
+
+  nnoremap ;s :Switch<CR>
+
+endif " }}}
+
+if neobundle#tap('lexima.vim') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'insert' : 1,
+        \   }
+        \ })
+
+endif " }}}
+
+if neobundle#tap('vim-transform') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'go'
+        \   }
+        \ })
+
+  nmap <C-e> <Plug>(transform)
+  xmap <C-e> <Plug>(transform)
+
+endif " }}}
+
+if neobundle#tap('vim-easy-align') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'commands' : [ 'EasyAlign' ]
+        \   }
+        \ })
+
+  vmap <Enter> <Plug>(EasyAlign)
 
 endif " }}}
 
@@ -1416,73 +1543,17 @@ endfunction
 
 endif " }}}
 
-if neobundle#tap('vim-surround') " {{{
+if neobundle#tap('vim-quickrun') "{{{
 
-endif " }}}
+  let g:quickrun_config = {}
+  let g:quickrun_config._ = {
+        \ 'runner':'vimproc',
+        \ 'outputter/buffer/split' : ':botright 5sp',
+        \ 'runner/vimproc/updatetime' : 60,
+        \ 'outputter/buffer/close_on_empty' : 1,
+        \ }
 
-if neobundle#tap('tagbar') " {{{
-
-  nnoremap ;t :<C-u>TagbarToggle<CR>
-
-endif " }}}
-
-if neobundle#tap('lexima.vim') " {{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'insert' : 1,
-        \   }
-        \ })
-
-endif " }}}
-
-if neobundle#tap('vim-transform') "{{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'filetypes' : 'go'
-        \   }
-        \ })
-
-  nmap <C-e> <Plug>(transform)
-  xmap <C-e> <Plug>(transform)
-
-endif " }}}
-
-if neobundle#tap('excitetranslate-vim') "{{{
-
-call neobundle#config({
-      \ 'autoload' : {
-      \   'commands': ['ExciteTranslate']
-      \   }
-      \ })
-
-xnoremap ;e :ExciteTranslate<CR>
-
-endif  " }}}
-
-if neobundle#tap('open-browser.vim') "{{{
-
-  nmap gs <Plug>(open-browser-wwwsearch)
-
-  let s:hooks = neobundle#get('open-browser.vim')
-  function! s:hooks.on_source(bundle)
-    nnoremap <Plug>(open-browser-wwwsearch)
-          \ :<C-u>call <SID>www_search()<CR>
-    function! s:www_search()
-      let search_word = input('Please input search word: ', '',
-            \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
-      if !empty(search_word)
-        execute 'OpenBrowserSearch' escape(search_word, '"')
-      endif
-    endfunction
-  endfunction
-
-endif " }}}
-
-if neobundle#tap('dash.vim') "{{{
-
-  nmap <silent> [Space]d <Plug>DashSearch
+  nmap ;r <Plug>(quickrun)
 
 endif " }}}
 
@@ -1499,6 +1570,15 @@ if neobundle#tap('syntastic') " {{{
   let g:syntastic_ruby_checkers = ['rubocop']
 
 endif " }}}
+
+" Templete
+if neobundle#tap('sonictemplate-vim') "{{{
+
+endif " }}}
+
+" }}}
+
+" Search {{{
 
 if neobundle#tap('incsearch.vim') " {{{
 
@@ -1551,29 +1631,9 @@ if neobundle#tap('vim-easymotion') " {{{
 
 endif " }}}
 
-if neobundle#tap('switch.vim') " {{{
+" }}}
 
-  call neobundle#config({
-        \   'autoload' : {
-        \     'commands' : [ 'Switch' ]
-        \   }
-        \ })
-
-  nnoremap ;s :Switch<CR>
-
-endif " }}}
-
-if neobundle#tap('gundo.vim') " {{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'commands' : [ 'GundoToggle' ]
-        \   }
-        \ })
-
-  nnoremap ;gu :<C-u>GundoToggle<CR>
-
-endif " }}}
+" View {{{
 
 if neobundle#tap('indentLine') " {{{
 
@@ -1593,23 +1653,54 @@ if neobundle#tap('foldCC') " {{{
 
 endif " }}}
 
-if neobundle#tap('vim-easy-align') " {{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'commands' : [ 'EasyAlign' ]
-        \   }
-        \ })
-
-  vmap <Enter> <Plug>(EasyAlign)
-
-endif " }}}
-
 if neobundle#tap('vim-nightowl') " {{{
 
   colorscheme nightowl
 
 endif " }}}
+
+" }}}
+
+" Other {{{
+
+if neobundle#tap('excitetranslate-vim') "{{{
+
+call neobundle#config({
+      \ 'autoload' : {
+      \   'commands': ['ExciteTranslate']
+      \   }
+      \ })
+
+xnoremap ;e :ExciteTranslate<CR>
+
+endif  " }}}
+
+if neobundle#tap('open-browser.vim') "{{{
+
+  nmap gs <Plug>(open-browser-wwwsearch)
+
+  let s:hooks = neobundle#get('open-browser.vim')
+  function! s:hooks.on_source(bundle)
+    nnoremap <Plug>(open-browser-wwwsearch)
+          \ :<C-u>call <SID>www_search()<CR>
+    function! s:www_search()
+      let search_word = input('Please input search word: ', '',
+            \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
+      if !empty(search_word)
+        execute 'OpenBrowserSearch' escape(search_word, '"')
+      endif
+    endfunction
+  endfunction
+
+endif " }}}
+
+if neobundle#tap('dash.vim') "{{{
+
+  nmap <silent> [Space]d <Plug>DashSearch
+
+endif " }}}
+
+" }}}
 
 " }}}
 
