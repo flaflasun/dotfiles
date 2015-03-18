@@ -728,6 +728,7 @@ else
   NeoBundle 'pasela/unite-webcolorname', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'Shougo/neomru.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'thinca/vim-ref', { 'depends' : [ 'Shougo/unite.vim' ] }
+  NeoBundle 'glidenote/memolist.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
   " }}}
 
@@ -1033,6 +1034,22 @@ if neobundle#tap('unite.vim') " {{{
 
     autocmd FileType ruby nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/refe<CR>
     autocmd FileType python nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/pydoc<CR>
+
+  endif " }}}
+
+  if neobundle#tap('memolist.vim') "{{{
+
+    let g:memolist_path = '~/Dropbox/Memo'
+    let g:memolist_memo_suffix = "txt"
+    let g:memolist_unite = 1
+    let g:memolist_unite_source = "file_rec"
+    let g:memolist_unite_option = "-auto-preview -start-insert"
+
+    nnoremap [memo] <NOP>
+    nmap ;m [memo]
+    nnoremap [memo]n :<C-u>MemoNew<CR>
+    nnoremap [memo]l :<C-u>MemoList<CR>
+    nnoremap [memo]g :<C-u>MemoGrep<CR>
 
   endif " }}}
 
