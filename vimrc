@@ -370,7 +370,7 @@ set completeopt=menu
 
 set complete=.
 
-set pumheight=20
+set pumheight=10
 
 " }}}
 
@@ -570,10 +570,10 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+nnoremap Y y$
+
 nnoremap <C-j> <C-e>gj
 nnoremap <C-k> <C-y>gk
-
-nmap <C-o> <C-o>
 
 nnoremap > >>
 nnoremap < <<
