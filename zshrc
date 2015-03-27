@@ -159,6 +159,12 @@ alias la="ls -a"
 alias lf="ls -f"
 alias ll="ls -lh"
 
+alias ..="cd .."
+alias ...="cd ../../"
+alias ....="cd ../../../"
+alias .....="cd ../../../../"
+alias ......="cd ../../../../../"
+
 alias mvi="mvim --remote-tab-silent"
 
 alias cvlc='~/Applications/VLC.app/Contents/MacOS/VLC --intf=rc'
