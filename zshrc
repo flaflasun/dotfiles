@@ -4,6 +4,7 @@
 # Environment {{{
 
 export EDITOR=vim
+export LC_ALL=en_US.UTF-8
 export LANG=ja_JP,UTF-8
 
 # Default umask.
