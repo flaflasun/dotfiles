@@ -791,8 +791,7 @@ else
 
   " Golang {{{
 
-  NeoBundleLazy 'vim-jp/vim-go-extra'
-  NeoBundleLazy 'dgryski/vim-godef'
+  NeoBundleLazy 'fatih/vim-go'
 
   " }}}
 
@@ -1346,24 +1345,7 @@ endif " }}}
 
 " Golang {{{
 
-if neobundle#tap('vim-go-extra') "{{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'filetypes' : 'go'
-        \   }
-        \ })
-
-  augroup VimGoExtra
-    autocmd!
-    autocmd FileType go autocmd BufWritePre <buffer> Fmt
-    autocmd FileType Godoc
-          \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
-  augroup END
-
-endif " }}}
-
-if neobundle#tap('vim-godef') "{{{
+if neobundle#tap('fatih/vim-go') "{{{
 
   call neobundle#config({
         \   'autoload' : {
