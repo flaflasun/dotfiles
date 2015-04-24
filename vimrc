@@ -1042,7 +1042,6 @@ if neobundle#tap('unite.vim') " {{{
     let g:memolist_memo_suffix = "md"
     let g:memolist_unite = 1
     let g:memolist_unite_source = "file_rec"
-    let g:memolist_unite_option = "-start-insert"
 
     nnoremap [memo] <NOP>
     nmap ;m [memo]
