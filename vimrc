@@ -694,8 +694,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " List {{{
 
-if neobundle#has_fresh_cache(expand('$MYVIMRC'))
-  NeoBundleLoadCache
+if neobundle#load_cache('$MYVIMRC')
+  neobundle#load_cache()
 else
   NeoBundle 'Shougo/vimproc', {
         \ 'build' : {
@@ -1351,6 +1351,11 @@ if neobundle#tap('fatih/vim-go') "{{{
         \     'filetypes' : 'go'
         \   }
         \ })
+
+  let g:go_fmt_command = "goimports"
+  let g:go_snippet_engine = ""
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
 
 endif " }}}
 
