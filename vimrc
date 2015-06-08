@@ -695,8 +695,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " List {{{
 
 if neobundle#load_cache('$MYVIMRC')
-  neobundle#load_cache()
-else
   NeoBundle 'Shougo/vimproc', {
         \ 'build' : {
         \   'windows' : 'make -f make_mingw32.mak',
