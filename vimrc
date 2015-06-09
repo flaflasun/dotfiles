@@ -978,7 +978,7 @@ if neobundle#tap('unite.vim') " {{{
         \ :<C-u>Unite -buffer-name=search -start-insert line<CR>
   nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=mapping mapping<CR>
   nnoremap <silent> [unite]o
-        \ :<C-u>Unite -buffer-name=outline outline -start-insert -resume<CR>
+        \ :<C-u>Unite -buffer-name=outline outline -start-insert<CR>
   nnoremap <silent> [unite]r
         \ :<C-u>Unite -buffer-name=register register history/yank<CR>
   nnoremap <silent> [unite]s :<C-u>Unite session<CR>
