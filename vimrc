@@ -674,10 +674,6 @@ nnoremap Q <NOP>
 " Disable GetLatestVimPlugin.vim
 let g:loaded_getscriptPlugin = 1
 
-" Disable netrw.vim
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-
 " }}}
 
 " Setup {{{
