@@ -160,6 +160,10 @@ alias la="ls -a"
 alias lf="ls -f"
 alias ll="ls -lh"
 
+alias -g P="| peco"
+alias -g H="| html2text"
+alias -g J="| jq"
+
 alias ..="cd .."
 alias ...="cd ../../"
 alias ....="cd ../../../"
