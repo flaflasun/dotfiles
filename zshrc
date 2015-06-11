@@ -160,10 +160,6 @@ alias la="ls -a"
 alias lf="ls -f"
 alias ll="ls -lh"
 
-alias -g P="| peco"
-alias -g H="| html2text"
-alias -g J="| jq"
-
 alias ..="cd .."
 alias ...="cd ../../"
 alias ....="cd ../../../"
@@ -178,10 +174,15 @@ alias -s {html,xhtml}=chrome
 
 alias -s {txt,vim}=mvim
 
+alias -g P="| peco"
+alias -g H="| html2text"
+alias -g J="| jq"
+
 # peco select git
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`' 
 alias -g R='`git remote | peco --prompt "GIT REMOTE>" | head -n 1`'
-alias -g H='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
+alias -g G='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
+alias -g L="git log --oneline --branches | peco | awk '{print $1}'"
 
 # google app engine for go
 alias goapp=~/google-cloud-sdk/platform/google_appengine/goapp
