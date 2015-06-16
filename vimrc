@@ -960,8 +960,8 @@ if neobundle#tap('unite.vim') " {{{
 
   nnoremap [unite]u :Unite<Space>
   nnoremap <silent> ;b :<C-u>Unite -buffer-name=bookmark bookmark<CR>
-  nnoremap <silent> ;d :<C-u>Unite -start-insert directory_rec/async:!<cr>
-  nnoremap <silent> ;f :<C-u>Unite -start-insert file_rec/async:!<cr>
+  nnoremap <silent> ;d :<C-u>Unite -start-insert directory_rec/async:<cr>
+  nnoremap <silent> ;f :<C-u>Unite -start-insert file_rec/async:<cr>
 
   nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
   nnoremap <silent> [unite]c
