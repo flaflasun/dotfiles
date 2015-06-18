@@ -167,22 +167,20 @@ alias ....="cd ../../../"
 alias .....="cd ../../../../"
 alias ......="cd ../../../../../"
 
-alias mvi="mvim --remote-tab-silent"
 alias cvlc='~/Applications/VLC.app/Contents/MacOS/VLC --intf=rc'
 
 alias -s {html,xhtml}=chrome
-
-alias -s {txt,vim}=mvim
+alias -s {txt,vim}=vim
 
 alias -g P="| peco"
 alias -g H="| html2text"
-alias -g J="| jq"
+alias -g JQ="| jq"
 
-# peco select git
+# peco select
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`' 
 alias -g R='`git remote | peco --prompt "GIT REMOTE>" | head -n 1`'
 alias -g G='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
-alias -g L="git log --oneline --branches | peco | awk '{print $1}'"
+alias -g L='`git log --oneline --branches | peco --prompt "GIT LOG" | awk "{print $1}"`'
 
 # google app engine for go
 alias goapp=~/google-cloud-sdk/platform/google_appengine/goapp
