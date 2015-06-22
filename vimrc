@@ -918,12 +918,12 @@ if neobundle#tap('vimfiler.vim') "{{{
         \   }
         \ })
 
-  let g:vimfiler_safe_mode_by_default = 1
+  let g:vimfiler_safe_mode_by_default = 0
   let g:unite_kind_file_use_trashbox = 1
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_enable_auto_cd = 1
 
-  nnoremap ;e :<C-u>VimFilerExplorer -no-toggle<CR>
+  nnoremap ;e :<C-u>VimFilerExplorer<CR>
 
   if has('mac')
     let g:vimfiler_quick_look_command = 'qlmanage -p'
