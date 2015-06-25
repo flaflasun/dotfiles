@@ -578,6 +578,8 @@ nnoremap <C-k> <C-y>gk
 nnoremap > >>
 nnoremap < <<
 
+nnoremap <C-]> g<C-]>
+
 nnoremap [Space] <NOP>
 nmap <Space> [Space]
 
