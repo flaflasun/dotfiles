@@ -422,6 +422,12 @@ endif
 
 " }}}
 
+" Tags {{{
+
+set tags=./tags;
+
+" }}}
+
 " Modeline {{{
 
 set modeline

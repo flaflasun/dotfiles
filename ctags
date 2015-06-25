@@ -1,3 +1,6 @@
+--append=yes
+--recurse=yes
+--sort=yes
 --langdef=Go
 --langmap=Go:.go
 --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/
