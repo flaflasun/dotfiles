@@ -194,6 +194,9 @@ bindkey -e
 
 bindkey '^R' history-incremental-pattern-search-backward
 
+# ignore keybinds
+bindkey -r '^S'
+
 #}}}
 
 ################################################################################
