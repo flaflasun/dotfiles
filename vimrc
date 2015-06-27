@@ -1525,26 +1525,23 @@ endif " }}}
 
 if neobundle#tap('vim-submode') " {{{
 
-function! neobundle#tapped.hooks.on_source(bundle)
   let g:submode_keep_leaving_key = 1
+
   " tab moving
   call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
   call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
   call submode#map('changetab', 'n', '', 't', 'gt')
   call submode#map('changetab', 'n', '', 'T', 'gT')
+
   " resize window
-  call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-  call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-  call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
-  call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
+  call submode#enter_with('winsize', 'n', '', '[s]>', '<C-w>>')
+  call submode#enter_with('winsize', 'n', '', '[s]<', '<C-w><')
+  call submode#enter_with('winsize', 'n', '', '[s]+', '<C-w>+')
+  call submode#enter_with('winsize', 'n', '', '[s]-', '<C-w>-')
   call submode#map('winsize', 'n', '', '>', '<C-w>>')
   call submode#map('winsize', 'n', '', '<', '<C-w><')
   call submode#map('winsize', 'n', '', '+', '<C-w>+')
   call submode#map('winsize', 'n', '', '-', '<C-w>-')
-  " TODO: Repeat last executed macro. umaku dekinai...
-  " call submode#enter_with('macro/a', 'n', '', '@a', '@a')
-  " call submode#map('macro/a', 'n', '', 'a', '@a')
-endfunction
 
 endif " }}}
 
