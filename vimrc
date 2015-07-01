@@ -846,6 +846,7 @@ if neobundle#load_cache('$MYVIMRC')
 
   NeoBundle 'haya14busa/incsearch.vim'
   NeoBundle 'haya14busa/vim-asterisk'
+  NeoBundle 'haya14busa/vim-migemo'
   NeoBundle 'rhysd/clever-f.vim'
   NeoBundle 'osyo-manga/vim-anzu'
   NeoBundle 'Lokaltog/vim-easymotion'
@@ -910,6 +911,7 @@ if neobundle#tap('vimshell') " {{{
   let g:vimshell_prompt = 'vimshell % '
   let g:vimshell_secondary_prompt = '> '
   let g:vimshell_user_prompt = '$USER ."@" .hostname() ." [" .getcwd() ."]"'
+  let g:vimshell_popup_height = 20
 
   nnoremap ;vp  :<C-u>VimShellPop -toggle<CR>
   nnoremap ;vb  :<C-u>VimShellBufferDir<CR>
