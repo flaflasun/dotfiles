@@ -109,6 +109,7 @@ setopt no_flow_control
 
 setopt prompt_subst
 setopt prompt_percent
+unsetopt promptcr
 setopt transient_rprompt
 
 setopt auto_cd
@@ -120,6 +121,7 @@ setopt list_packed
 setopt auto_param_slash
 setopt mark_dirs
 setopt list_types
+setopt auto_list
 setopt auto_menu
 setopt auto_param_keys
 setopt magic_equal_subst
@@ -131,13 +133,20 @@ setopt always_last_prompt
 setopt print_eight_bit
 setopt extended_glob
 
+setopt append_history
+setopt inc_append_history
 setopt share_history
 setopt hist_ignore_all_dups
-setopt hist_save_nodups
+setopt hist_ignore_dups
 setopt hist_ignore_space
+setopt hist_save_nodups
+setopt hist_no_store
 setopt hist_reduce_blanks
+setopt hist_expand
 
 setopt brace_ccl
+setopt ignore_eof
+
 # }}}
 
 ################################################################################
@@ -172,15 +181,24 @@ alias cvlc='~/Applications/VLC.app/Contents/MacOS/VLC --intf=rc'
 alias -s {html,xhtml}=chrome
 alias -s {txt,vim}=vim
 
+alias g=google
+alias q=qiita
+alias gh=github
+
 alias -g P="| peco"
 alias -g H="| html2text"
 alias -g JQ="| jq"
 
 # peco select
-alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`' 
-alias -g R='`git remote | peco --prompt "GIT REMOTE>" | head -n 1`'
-alias -g G='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
-alias -g L='`git log --oneline --branches | peco --prompt "GIT LOG" | awk "{print $1}"`'
+alias B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`' 
+alias R='`git remote | peco --prompt "GIT REMOTE>" | head -n 1`'
+alias G='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
+alias L='`git log --oneline --branches | peco --prompt "GIT LOG" | awk "{print $1}"`'
+
+alias lc=peco-ls-cd
+alias -g wt=peco-wordc-mstrans
+alias fc=peco-find-cd
+alias sf=peco-search-file
 
 # google app engine for go
 alias goapp=~/google-cloud-sdk/platform/google_appengine/goapp
@@ -256,21 +274,77 @@ function ls_abbrev() {
   fi
 }
 
-function peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
+function web_search {
+  local url=$1       && shift
+  local delimiter=$1 && shift
+  local prefix=$1    && shift
+  local query
+
+  while [ -n "$1" ]; do
+    if [ -n "$query" ]; then
+      query="${query}${delimiter}${prefix}$1"
     else
-        tac="tail -r"
+      query="${prefix}$1"
     fi
-    BUFFER=$(\history -n 1 | \
-        eval $tac | \
-        peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle clear-screen
+    shift
+  done
+
+  open "${url}${query}"
+}
+
+function google() {
+  web_search "https://www.google.co.jp/search?&q=" "+" "" $@
+}
+
+function qiita() {
+  web_search "http://qiita.com/search?utf8=✓&q=" "+" "" $@
+}
+
+function github() {
+  web_search "https://github.com/search?utf8=✓&q=" "+" "" $@
+}
+
+function peco-select-history() {
+  local tac
+  if which tac > /dev/null; then
+      tac="tac"
+  else
+      tac="tail -r"
+  fi
+  BUFFER=$(\history -n 1 | \
+    eval $tac | \
+    awk '!a[$0]++' | \
+    peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
+
+function peco-ls-cd() {
+  local dir="$( find . -maxdepth 1 -type d | sed -e 's;\./;;' | peco )"
+  if [ ! -z "$dir" ] ; then
+    cd "$dir"
+  fi
+}
+
+function peco-wordc-mstrans() {
+  if [ -p /dev/stdin ]; then
+    text=`cat -`
+    local word="$(wordc $text | peco | awk '{ print $1 }' )"
+    mstrans "$word"
+  fi
+}
+
+function peco-search-file() {
+  ${1:=$(pwd)}
+  local selected=$(find $1 -maxdepth 2 | _peco_single)
+  if [[ -d $selected ]]; then
+    peco-search-file $selected
+  elif [[ -f $selected ]]; then
+    cat $selected
+  fi
+}
 
 # }}}
 
