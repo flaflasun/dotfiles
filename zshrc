@@ -195,6 +195,8 @@ alias R='`git remote | peco --prompt "GIT REMOTE>" | head -n 1`'
 alias G='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
 alias L='`git log --oneline --branches | peco --prompt "GIT LOG" | awk "{print $1}"`'
 
+alias -g wordc="wordc -c ',.;()!?<>-+={}[]@#$%^*|\"\`' -d '/_:&'~"
+
 alias lc=peco-ls-cd
 alias -g wt=peco-wordc-mstrans
 alias fc=peco-find-cd
