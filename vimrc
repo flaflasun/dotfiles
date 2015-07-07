@@ -845,11 +845,13 @@ if neobundle#load_cache('$MYVIMRC')
   " Search {{{
 
   NeoBundle 'haya14busa/incsearch.vim'
+  NeoBundle 'haya14busa/incsearch-fuzzy.vim', { 'depends' : [ 'incsearch.vim' ] }
+  NeoBundle 'haya14busa/incsearch-migemo.vim', { 'depends' : [ 'incsearch.vim' ] }
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'haya14busa/vim-migemo'
   NeoBundle 'rhysd/clever-f.vim'
   NeoBundle 'osyo-manga/vim-anzu'
-  NeoBundle 'Lokaltog/vim-easymotion'
+  NeoBundle 'easymotion/vim-easymotion'
 
   " }}}
 
@@ -1594,6 +1596,22 @@ if neobundle#tap('incsearch.vim') " {{{
   map g/ <Plug>(incsearch-stay)
   map n  <Plug>(incsearch-nohl-n)
   map N  <Plug>(incsearch-nohl-N)
+
+  if neobundle#tap('incsearch-fuzzy.vim') " {{{
+
+    map z/ <Plug>(incsearch-fuzzy-/)
+    map z? <Plug>(incsearch-fuzzy-?)
+    map zg/ <Plug>(incsearch-fuzzy-stay)
+
+  endif " }}}
+
+  if neobundle#tap('incsearch-migemo.vim') " {{{
+
+    map m/ <Plug>(incsearch-migemo-/)
+    map m? <Plug>(incsearch-migemo-?)
+    map mg/ <Plug>(incsearch-migemo-stay)
+
+  endif " }}}
 
   if neobundle#tap('vim-anzu') " {{{
 
