@@ -702,20 +702,20 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " List {{{
 
 if neobundle#load_cache('$MYVIMRC')
-  NeoBundle 'Shougo/vimproc', {
+  NeoBundle 'Shougo/vimproc.vim', {
         \ 'build' : {
-        \   'windows' : 'make -f make_mingw32.mak',
+        \   'windows' : 'tools\\update-dll-mingw',
         \   'cygwin' : 'make -f make_cygwin.mak',
         \   'mac' : 'make -f make_mac.mak',
-        \   'unix' : 'make -f make_unix.mak',
+        \   'linux' : 'make',
+        \   'unix' : 'gmake',
         \ }}
-
 
   " UI {{{
 
-  NeoBundleLazy 'Shougo/vimshell', { 'depends' : [ 'Shougo/vimproc.vim' ] }
+  NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
   NeoBundleLazy 'Shougo/vimfiler.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-  NeoBundle 'majutsushi/tagbar'
+  NeoBundleLazy 'majutsushi/tagbar'
   NeoBundleLazy 'sjl/gundo.vim'
 
   " Unite
@@ -723,15 +723,14 @@ if neobundle#load_cache('$MYVIMRC')
   NeoBundle 'Shougo/unite-help', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'Shougo/unite-session', { 'depends' : [ 'Shougo/unite.vim' ] }
-  NeoBundle 'Shougo/unite-ssh', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'tsukkee/unite-tag', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'ujihisa/unite-font', { 'depends' : [ 'Shougo/unite.vim' ] }
-  NeoBundle 'ujihisa/unite-locate', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'osyo-manga/unite-highlight', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'pasela/unite-webcolorname', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'Shougo/neomru.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+  NeoBundle 'Shougo/neossh.vim', { 'depends' : [ 'Shougo/unite.vim', 'Shougo/vimproc.vim', 'Shougo/vimfiler.vim' ] }
   NeoBundle 'thinca/vim-ref', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'glidenote/memolist.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
@@ -739,13 +738,13 @@ if neobundle#load_cache('$MYVIMRC')
 
   " Completion {{{
 
-  NeoBundleLazy 'Shougo/neocomplete'
-  NeoBundle 'thinca/vim-ambicmd'
+  NeoBundleLazy 'Shougo/neocomplete.vim'
+  NeoBundleLazy 'thinca/vim-ambicmd'
 
   " Snippet
-  NeoBundleLazy 'Shougo/neosnippet'
-  NeoBundle 'Shougo/neosnippet-snippets', { 'depends' : 'Shougo/neosnippet' }
-  NeoBundle 'honza/vim-snippets', { 'depends' : 'Shougo/neosnippet' }
+  NeoBundleLazy 'Shougo/neosnippet.vim'
+  NeoBundle 'Shougo/neosnippet-snippets', { 'depends' : 'Shougo/neosnippet.vim' }
+  NeoBundle 'honza/vim-snippets', { 'depends' : 'Shougo/neosnippet.vim' }
 
   " }}}
 
@@ -771,7 +770,7 @@ if neobundle#load_cache('$MYVIMRC')
 
   " Git {{{
 
-  NeoBundleLazy 'tpope/vim-fugitive'
+  NeoBundle 'tpope/vim-fugitive'
   NeoBundleLazy 'cohama/agit.vim'
 
   " Gist
@@ -781,22 +780,22 @@ if neobundle#load_cache('$MYVIMRC')
 
   " Ruby {{{
 
-  NeoBundle 'vim-ruby/vim-ruby'
-  NeoBundleLazy 'taka84u9/vim-ref-ri', { 'depends' : [ 'Shougo/unite.vim', 'thinca/vim-ref' ] }
+  NeoBundleLazy 'vim-ruby/vim-ruby'
+  NeoBundleLazy 'yuku-t/vim-ref-ri', { 'depends' : [ 'Shougo/unite.vim', 'thinca/vim-ref' ] }
   NeoBundleLazy 't9md/vim-ruby-xmpfilter'
-  NeoBundle 'tpope/vim-rails'
   NeoBundleLazy 'tpope/vim-endwise'
-  NeoBundleLazy 'basyura/unite-rails', { 'depends' : [ 'Shougo/unite.vim' ] }
+  NeoBundleLazy 'scrooloose/syntastic'
 
-  NeoBundleLazy 'kana/vim-niceblock', {
-        \   'mappings' : '<Plug>',
-        \ }
+  " Ruby on Rails
+  NeoBundleLazy 'tpope/vim-rails'
+  NeoBundleLazy 'basyura/unite-rails', { 'depends' : [ 'Shougo/unite.vim' ] }
 
   "}}}
 
   " Golang {{{
 
   NeoBundleLazy 'fatih/vim-go'
+  NeoBundleLazy 't9md/vim-transform'
 
   " }}}
 
@@ -806,7 +805,7 @@ if neobundle#load_cache('$MYVIMRC')
   NeoBundleLazy 'mattn/emmet-vim'
 
   " Markdown
-  NeoBundle 'tpope/vim-markdown'
+  NeoBundleLazy 'tpope/vim-markdown'
 
   " Javascript
   NeoBundleLazy 'jelera/vim-javascript-syntax'
@@ -832,13 +831,12 @@ if neobundle#load_cache('$MYVIMRC')
 
   NeoBundleLazy 'tpope/vim-commentary'
   NeoBundle 'tpope/vim-surround'
+  NeoBundle 'tpope/vim-repeat'
   NeoBundleLazy 'AndrewRadev/switch.vim'
   NeoBundleLazy 'cohama/lexima.vim'
-  NeoBundleLazy 't9md/vim-transform'
   NeoBundle 'junegunn/vim-easy-align'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'thinca/vim-quickrun'
-  NeoBundleLazy 'scrooloose/syntastic'
 
   " Templete
   NeoBundle 'mattn/sonictemplate-vim'
@@ -877,9 +875,10 @@ if neobundle#load_cache('$MYVIMRC')
   NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends': 'mattn/webapi-vim' }
   NeoBundle 'tyru/open-browser.vim'
   NeoBundle 'tyru/open-browser-github.vim'
-  NeoBundle 'kannokanno/previm'
+  NeoBundleLazy 'kannokanno/previm'
   NeoBundle 'rizzatti/dash.vim'
   NeoBundle 'mattn/benchvimrc-vim'
+  NeoBundle 'kana/vim-niceblock'
 
   " Document
   NeoBundle 'vim-jp/vimdoc-ja'
@@ -904,7 +903,7 @@ endif
 
 " UI {{{
 
-if neobundle#tap('vimshell') " {{{
+if neobundle#tap('vimshell.vim') " {{{
 
   call neobundle#config({
         \   'autoload' : {
@@ -948,6 +947,12 @@ if neobundle#tap('vimfiler.vim') "{{{
 endif " }}}
 
 if neobundle#tap('tagbar') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'commands' : [ 'TagbarToggle' ]
+        \   }
+        \ })
 
   nnoremap ;t :<C-u>TagbarToggle<CR>
 
@@ -1118,7 +1123,7 @@ endif " }}}
 
 " Completion {{{
 
-if neobundle#tap('neocomplete') " {{{
+if neobundle#tap('neocomplete.vim') " {{{
 
   call neobundle#config({
         \   'autoload' : {
@@ -1182,13 +1187,19 @@ endif " }}}
 
 if neobundle#tap('vim-ambicmd') " {{{
 
+  call neobundle#config({
+        \   'autoload' : {
+        \     'insert' : 1,
+        \   }
+        \ })
+
   cnoremap <expr> <Space> ambicmd#expand("\<Space>")
   cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
 
 endif " }}}
 
 " Snippet
-if neobundle#tap('neosnippet') " {{{
+if neobundle#tap('neosnippet.vim') " {{{
 
   call neobundle#config({
         \   'autoload' : {
@@ -1244,12 +1255,6 @@ endif " }}}
 " Git {{{
 
 if neobundle#tap('vim-fugitive') " {{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'commands' : [ 'Gblame', 'Gdiff', 'Gstatus' ],
-        \   }
-        \ })
 
   nnoremap <silent> ;gb :Gblame<CR>
   nnoremap <silent> ;gd :Gdiff<CR>
@@ -1316,6 +1321,26 @@ endif " }}}
 
 " Ruby {{{
 
+if neobundle#tap('vim-ruby') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'ruby'
+        \   }
+        \ })
+
+endif " }}}
+
+if neobundle#tap('vim-ref-ri') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'ruby'
+        \   }
+        \ })
+
+endif " }}}
+
 if neobundle#tap('vim-ruby-xmpfilter') " {{{
 
   call neobundle#config({
@@ -1349,6 +1374,41 @@ if neobundle#tap('vim-endwise') " {{{
 
 endif " }}}
 
+if neobundle#tap('syntastic') " {{{
+
+  call neobundle#config({
+        \ 'autoload' : {
+        \     'filetypes' : 'ruby'
+        \   }
+        \ })
+
+  let g:syntastic_mode_map = { 'mode': 'passive',
+        \ 'active_filetypes': ['ruby'] }
+  let g:syntastic_ruby_checkers = ['rubocop']
+
+endif " }}}
+
+" Ruby on Rails
+if neobundle#tap('vim-rails') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : ['haml', 'ruby', 'eruby']
+        \   }
+        \ })
+
+endif " }}}
+
+if neobundle#tap('unite-rails') " {{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : ['haml', 'ruby', 'eruby']
+        \   }
+        \ })
+
+endif " }}}
+
 " }}}
 
 " Golang {{{
@@ -1373,6 +1433,19 @@ if neobundle#tap('vim-go') "{{{
 
 endif " }}}
 
+if neobundle#tap('vim-transform') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : 'go'
+        \   }
+        \ })
+
+  nmap <C-e> <Plug>(transform)
+  xmap <C-e> <Plug>(transform)
+
+endif " }}}
+
 " }}}
 
 " Web {{{
@@ -1387,6 +1460,17 @@ if neobundle#tap('emmet-vim') "{{{
         \ })
 
   let g:user_emmet_leader_key='<C-y>'
+
+endif " }}}
+
+" Markdown
+if neobundle#tap('vim-markdown') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : [ 'markdown']
+        \   }
+        \ })
 
 endif " }}}
 
@@ -1484,10 +1568,6 @@ if neobundle#tap('vim-commentary') "{{{
 
 endif " }}}
 
-if neobundle#tap('vim-surround') " {{{
-
-endif " }}}
-
 if neobundle#tap('switch.vim') " {{{
 
   call neobundle#config({
@@ -1507,19 +1587,6 @@ if neobundle#tap('lexima.vim') " {{{
         \     'insert' : 1,
         \   }
         \ })
-
-endif " }}}
-
-if neobundle#tap('vim-transform') "{{{
-
-  call neobundle#config({
-        \   'autoload' : {
-        \     'filetypes' : 'go'
-        \   }
-        \ })
-
-  nmap <C-e> <Plug>(transform)
-  xmap <C-e> <Plug>(transform)
 
 endif " }}}
 
@@ -1568,20 +1635,6 @@ if neobundle#tap('vim-quickrun') "{{{
         \ }
 
   nmap ;r <Plug>(quickrun)
-
-endif " }}}
-
-if neobundle#tap('syntastic') " {{{
-
-  call neobundle#config({
-        \ 'autoload' : {
-        \     'filetypes' : 'ruby'
-        \   }
-        \ })
-
-  let g:syntastic_mode_map = { 'mode': 'passive',
-        \ 'active_filetypes': ['ruby'] }
-  let g:syntastic_ruby_checkers = ['rubocop']
 
 endif " }}}
 
@@ -1721,6 +1774,16 @@ if neobundle#tap('open-browser.vim') "{{{
       endif
     endfunction
   endfunction
+
+endif " }}}
+
+if neobundle#tap('previm') "{{{
+
+call neobundle#config({
+      \ 'autoload' : {
+      \   'commands': ['PrevimOpen']
+      \   }
+      \ })
 
 endif " }}}
 
