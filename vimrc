@@ -3,6 +3,25 @@
 "-------------------------------------------------------------------------------
 " Basic: {{{
 
+" Valiable {{{
+
+let s:is_windows = has('win16') || has('win32') || has('win64')
+
+if !exists($MYGVIMRC)
+  let $MYGVIMRC = expand('~/.gvimrc')
+endif
+
+let $DOTVIM = expand('~/.vim')
+
+let $VIM_BUNDLE = $DOTVIM . '/bundle'
+let $NEOBUNDLE_PATH = $VIM_BUNDLE . '/neobundle.vim'
+
+let $SWAP_DIR = $DOTVIM . '/tmp/swap'
+let $BACKUP_DIR = $DOTVIM . '/tmp/backup'
+let $UNDO_DIR = $DOTVIM . '/tmp/undo'
+
+" }}}
+
 " Initialize {{{
 
 if !1 | finish | endif
@@ -10,6 +29,9 @@ if !1 | finish | endif
 " Disable Vi compatible.
 if has('vim_starting')
   "set nocompatible
+  if has(s:is_windows)
+    set runtimepath^=$DOTVIM
+  endif
 endif
 
 language C
@@ -31,25 +53,6 @@ endif
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
-
-" }}}
-
-" Valiable {{{
-
-let s:is_windows = has('win16') || has('win32') || has('win64')
-
-if !exists($MYGVIMRC)
-  let $MYGVIMRC = expand('~/.gvimrc')
-endif
-
-let $DOTVIM = expand('~/.vim')
-
-let $VIM_BUNDLE = $DOTVIM . '/bundle'
-let $NEOBUNDLE_PATH = $VIM_BUNDLE . '/neobundle.vim'
-
-let $SWAP_DIR = $DOTVIM . '/tmp/swap'
-let $BACKUP_DIR = $DOTVIM . '/tmp/backup'
-let $UNDO_DIR = $DOTVIM . '/tmp/undo'
 
 " }}}
 

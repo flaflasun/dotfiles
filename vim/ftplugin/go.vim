@@ -5,6 +5,12 @@ let b:did_ftplugin=1
 
 setlocal noexpandtab
 
+setlocal formatoptions-=t
+setlocal comments=s1:/*,mb:*,ex:*/,://
+setlocal commentstring=//\ %s
+
+let b:undo_ftplugin = 'setl fo< com< cms< noet<'
+
 if neobundle#tap('tagbar') " {{{
 
   let g:tagbar_type_go = {

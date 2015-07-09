@@ -18,8 +18,8 @@ set linespace=2
 
 if has('win32') || has('win64')
   " For Windows.
-  set guifontwide=Ricty:h13
-  set guifont=Ricty:h13
+  set guifontwide=Ricty\ Diminished:h14
+  set guifont=Ricty\ Diminished:h14
 
   if has('kaoriya')
     " For Kaoriya only.
