@@ -3,6 +3,9 @@
 "-------------------------------------------------------------------------------
 " Basic: {{{
 
+" Note: Skip initialization for vim-tiny or vim-small.
+if 0 | endif
+
 " Valiable {{{
 
 let s:is_windows = has('win16') || has('win32') || has('win64')
@@ -23,8 +26,6 @@ let $UNDO_DIR = $DOTVIM . '/tmp/undo'
 " }}}
 
 " Initialize {{{
-
-if !1 | finish | endif
 
 " Disable Vi compatible.
 if has('vim_starting')
@@ -693,15 +694,15 @@ if has('vim_starting')
   set runtimepath+=$NEOBUNDLE_PATH
 endif
 
-call neobundle#begin(expand($VIM_BUNDLE))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
-
 " }}}
 
 " List {{{
 
-if neobundle#load_cache('$MYVIMRC')
+call neobundle#begin(expand($VIM_BUNDLE))
+
+if neobundle#load_cache()
+  NeoBundleFetch 'Shougo/neobundle.vim'
+
   NeoBundle 'Shougo/vimproc.vim', {
         \ 'build' : {
         \   'windows' : 'tools\\update-dll-mingw',
