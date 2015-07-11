@@ -639,8 +639,10 @@ nnoremap [s]< <C-w><
 nnoremap [s]+ <C-w>+
 nnoremap [s]- <C-w>-
 
-nnoremap <silent> [s]n :<C-u>tabnew<CR>
-nnoremap <silent> [s]c :<C-u>tabclose<CR>
+nnoremap [s]n gt
+nnoremap [s]p gT
+
+nnoremap <silent> [s]c :<C-u>tabnew<CR>
 nnoremap <silent> [s]q :<C-u>q<CR>
 nnoremap <silent> [s]Q :<C-u>bd<CR>
 
