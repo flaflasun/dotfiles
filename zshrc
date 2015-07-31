@@ -154,27 +154,27 @@ setopt ignore_eof
 
 case ${OSTYPE} in
   darwin*)
-    alias ls="ls -G -w"
-    alias gls="gls --color --show-control-chars"
+    alias ls='ls -G -w'
+    alias gls='gls --color --show-control-chars'
     alias chrome='open -a Google\ Chrome'
     alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias ggdb='/usr/local/Cellar/gdb/7.9.1/bin/gdb'
   ;;
   linux*)
-    alias ls="ls --color --show-control-chars"
+    alias ls='ls --color --show-control-chars'
     alias chrome='google-chrome'
   ;;
 esac
 
-alias la="ls -a"
-alias lf="ls -f"
-alias ll="ls -lh"
+alias la='ls -a'
+alias lf='ls -f'
+alias ll='ls -lh'
 
-alias ..="cd .."
-alias ...="cd ../../"
-alias ....="cd ../../../"
-alias .....="cd ../../../../"
-alias ......="cd ../../../../../"
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../../'
 
 alias cvlc='~/Applications/VLC.app/Contents/MacOS/VLC --intf=rc'
 
@@ -185,9 +185,11 @@ alias g=google
 alias q=qiita
 alias gh=github
 
-alias -g P="| peco"
-alias -g H="| html2text"
-alias -g JQ="| jq"
+alias bcup=brew-cask-upgrade
+
+alias -g P='| peco'
+alias -g H='| html2text'
+alias -g JQ='| jq'
 
 # peco select
 alias B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`' 
@@ -195,7 +197,7 @@ alias R='`git remote | peco --prompt "GIT REMOTE>" | head -n 1`'
 alias G='`curl -sL https://api.github.com/users/flaflasun/repos | jq -r ".[].full_name" | peco --prompt "GITHUB REPOS>" | head -n 1`'
 alias L='`git log --oneline --branches | peco --prompt "GIT LOG" | awk "{print $1}"`'
 
-alias -g wordc="wordc -c ',.;()!?<>-+={}[]@#$%^*|\"\`' -d '/_:&'~"
+alias -g wordcl="wordc -c ',.;()!?<>-+={}[]@#$%^*|\"\`' -d '/_:&'~"
 
 alias lc=peco-ls-cd
 alias -g wt=peco-wordc-mstrans
@@ -304,6 +306,12 @@ function qiita() {
 
 function github() {
   web_search "https://github.com/search?utf8=✓&q=" "+" "" $@
+}
+
+function brew-cask-upgrade() {
+  for c in `brew cask list`;do
+    ! brew cask info $c | grep -qF "Not installed" || brew cask install $c
+  done
 }
 
 function peco-select-history() {
