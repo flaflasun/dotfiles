@@ -809,6 +809,7 @@ if neobundle#load_cache()
 
   " Markdown
   NeoBundleLazy 'tpope/vim-markdown'
+  NeoBundleLazy 'mattn/vim-maketable'
 
   " Javascript
   NeoBundleLazy 'jelera/vim-javascript-syntax'
@@ -1468,6 +1469,16 @@ endif " }}}
 
 " Markdown
 if neobundle#tap('vim-markdown') "{{{
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'filetypes' : [ 'markdown']
+        \   }
+        \ })
+
+endif " }}}
+
+if neobundle#tap('vim-maketable') "{{{
 
   call neobundle#config({
         \   'autoload' : {
