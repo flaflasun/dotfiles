@@ -18,8 +18,8 @@ set linespace=2
 
 if has('win32') || has('win64')
   " For Windows.
-  set guifontwide=Ricty\ Diminished:h14
-  set guifont=Ricty\ Diminished:h14
+  set guifontwide=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
+  set guifont=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
 
   if has('kaoriya')
     " For Kaoriya only.
@@ -27,12 +27,12 @@ if has('win32') || has('win64')
   endif
 elseif has('mac')
   " For Mac.
-  set guifontwide=Ricty\ Diminished:h14
-  set guifont=Ricty\ Diminished:h14
+  set guifontwide=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
+  set guifont=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
 else
   " For Linux.
-  set guifontwide=Ricty\ Diminished:h14
-  set guifont=Ricty\ Diminished:h14
+  set guifontwide=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
+  set guifont=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
 endif
 
 " }}}

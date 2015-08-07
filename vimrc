@@ -717,9 +717,11 @@ if neobundle#load_cache()
   " UI {{{
 
   NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
-  NeoBundleLazy 'Shougo/vimfiler.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+  "NeoBundleLazy 'Shougo/vimfiler.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundleLazy 'majutsushi/tagbar'
   NeoBundleLazy 'sjl/gundo.vim'
+  NeoBundle 'scrooloose/nerdtree'
+  NeoBundle 'ryanoasis/vim-devicons'
 
   " Unite
   NeoBundle 'Shougo/unite.vim'
@@ -971,6 +973,63 @@ if neobundle#tap('gundo.vim') " {{{
         \ })
 
   nnoremap ;gu :<C-u>GundoToggle<CR>
+
+endif " }}}
+
+if neobundle#tap('nerdtree') " {{{
+
+  nnoremap ;e :<C-u>NERDTreeToggle<CR>
+
+  let g:NERDTreeQuitOnOpen=1
+
+  " NERDTress File highlighting
+  function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+    exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+  endfunction
+
+  call NERDTreeHighlightFile('json',         'yellow',  'none', 'yellow',  '#262626')
+  call NERDTreeHighlightFile('yml',          'yellow',  'none', 'yellow',  '#262626')
+  call NERDTreeHighlightFile('tml',          'yellow',  'none', 'yellow',  '#262626')
+  call NERDTreeHighlightFile('config',       'yellow',  'none', 'yellow',  '#262626')
+  call NERDTreeHighlightFile('conf',         'yellow',  'none', 'yellow',  '#262626')
+  call NERDTreeHighlightFile('ini',          'yellow',  'none', 'yellow',  '#262626')
+  call NERDTreeHighlightFile('html',         'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('jade',         'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('md',           'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('styl',         'cyan',    'none', 'cyan',    '#262626')
+  call NERDTreeHighlightFile('css',          'cyan',    'none', 'cyan',    '#262626')
+  call NERDTreeHighlightFile('scss',         'cyan',    'none', 'cyan',    '#262626')
+  call NERDTreeHighlightFile('less',         'cyan',    'none', 'cyan',    '#262626')
+  call NERDTreeHighlightFile('coffee',       'red',     'none', 'red',     '#262626')
+  call NERDTreeHighlightFile('js',           'red',     'none', 'red',     '#262626')
+  call NERDTreeHighlightFile('php',          'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('rb',           'red',     'none', 'red',     '#262626')
+  call NERDTreeHighlightFile('py',           'yellow',  'none', 'yellow',  '#262626')
+  call NERDTreeHighlightFile('lua',          'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('go',           'cyan',    'none', 'cyan',    '#262626')
+  call NERDTreeHighlightFile('c',            'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('cpp',          'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('java',         'red',     'none', 'red',     '#262626')
+  call NERDTreeHighlightFile('scala',        'red',     'none', 'red',     '#262626')
+  call NERDTreeHighlightFile('sln',          'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('suo',          'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('sh',           'green',   'none', 'green',   '#262626')
+  call NERDTreeHighlightFile('db',           'blue',    'none', 'blue',    '#262626')
+  call NERDTreeHighlightFile('ai',           'magenta', 'none', 'magenta', '#262626')
+  call NERDTreeHighlightFile('bmp',          'magenta', 'none', 'magenta', '#262626')
+  call NERDTreeHighlightFile('gif',          'magenta', 'none', 'magenta', '#262626')
+  call NERDTreeHighlightFile('jpeg',         'magenta', 'none', 'magenta', '#262626')
+  call NERDTreeHighlightFile('png',          'magenta', 'none', 'magenta', '#262626')
+  call NERDTreeHighlightFile('DS_Store',     'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('gitconfig',    'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('gitignore',    'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('bashrc',       'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('zshrc',        'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('bash_profile', 'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('zsh_profile',  'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('bashenv',      'gray',    'none', 'gray',    '#262626')
+  call NERDTreeHighlightFile('zshenv',       'gray',    'none', 'gray',    '#262626')
 
 endif " }}}
 
