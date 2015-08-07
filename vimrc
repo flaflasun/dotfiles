@@ -1083,14 +1083,13 @@ if neobundle#tap('unite.vim') " {{{
         \  },
         \ }
 
-  call unite#custom_max_candidates('startup_file_mru', 5)
-  call unite#custom_max_candidates('startup_directory_mru', 5)
-  call unite#custom_max_candidates('startup_session', 5)
+  call unite#custom_max_candidates('startup_file_mru', 10)
+  call unite#custom_max_candidates('startup_directory_mru', 10)
+  call unite#custom_max_candidates('startup_session', 10)
 
   let g:unite_source_menu_menus.startup = {
         \   'description': 'startup menu',
         \   'command_candidates': [
-        \     ['Session load', 'UniteSessionLoad'],
         \     ['Brank', 'enew'],
         \     ['VimFiler', 'VimFilerBufferDir'],
         \     ['$MYVIMRC', 'edit'.$MYVIMRC],
@@ -1485,6 +1484,9 @@ if neobundle#tap('vim-maketable') "{{{
         \     'filetypes' : [ 'markdown']
         \   }
         \ })
+
+  xmap ;t :Maketable!<CR>
+  xmap ;T :Maketable<CR>
 
 endif " }}}
 
