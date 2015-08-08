@@ -18,8 +18,8 @@ set linespace=2
 
 if has('win32') || has('win64')
   " For Windows.
-  set guifontwide=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
-  set guifont=Ricty\ Diminished\ Regular\ Plus\ Nerd\ File\ Types:h16
+  set guifontwide=Ricty\ Diminished\ Regular:h14
+  set guifont=Ricty\ Diminished\ Regular:h14
 
   if has('kaoriya')
     " For Kaoriya only.
@@ -136,6 +136,8 @@ if neobundle#tap('vim-nightowl') " {{{
   colorscheme nightowl
 
 endif " }}}
+
+hi clear CursorLine
 
 " }}}
 
