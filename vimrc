@@ -927,7 +927,8 @@ if neobundle#load_cache()
         \ })
 
   " Markdown
-  NeoBundleLazy 'tpope/vim-markdown'
+  NeoBundle 'godlygeek/tabular'
+  NeoBundleLazy 'plasticboy/vim-markdown'
   call neobundle#config('vim-markdown', {
         \   'autoload' : {
         \     'filetypes' : [ 'markdown']
