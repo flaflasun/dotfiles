@@ -129,12 +129,11 @@ set visualbell t_vb=
 
 set cursorline
 
-colorscheme evening
 
 if neobundle#tap('vim-nightowl') " {{{
-
   colorscheme nightowl
-
+else
+  colorscheme evening
 endif " }}}
 
 hi clear CursorLine

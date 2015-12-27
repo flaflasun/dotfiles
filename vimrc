@@ -174,7 +174,7 @@ let &titlestring="
 
 " Tabline {{{
 
-function! s:make_tabline()  "{{{
+function! s:make_tabline()  " {{{
   let s = ''
 
   for i in range(1, tabpagenr('$'))
@@ -218,7 +218,7 @@ syntax enable
 set scrolloff=3
 
 " Show line number.
-set number
+"set number
 
 " Show <Tab> and <Space>
 set list
@@ -705,7 +705,7 @@ endif
 
 call neobundle#begin(expand($VIM_BUNDLE))
 
-if neobundle#load_cache()
+if neobundle#load_cache() " {{{
   NeoBundleFetch 'Shougo/neobundle.vim'
 
   NeoBundle 'Shougo/vimproc.vim', {
@@ -726,12 +726,7 @@ if neobundle#load_cache()
         \   }
         \ })
 
-  "NeoBundleLazy 'Shougo/vimfiler.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-  "call neobundle#config('vimfiler.vim', {
-  "      \   'autoload' : {
-  "      \     'commands' : [ 'VimFilerExplorer', 'VimFilerBufferDir' ]
-  "      \   }
-  "      \ })
+  NeoBundle 'justinmk/vim-dirvish'
 
   NeoBundleLazy 'majutsushi/tagbar'
   call neobundle#config('tagbar', {
@@ -747,9 +742,6 @@ if neobundle#load_cache()
         \   }
         \ })
 
-  NeoBundle 'scrooloose/nerdtree'
-  NeoBundle 'ryanoasis/vim-devicons', { 'disabled' : !has('gui_running') }
-
   " Unite
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'Shougo/unite-help', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -762,9 +754,10 @@ if neobundle#load_cache()
   NeoBundle 'osyo-manga/unite-highlight', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'pasela/unite-webcolorname', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'Shougo/neomru.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-  NeoBundle 'Shougo/neossh.vim', { 'depends' : [ 'Shougo/unite.vim', 'Shougo/vimproc.vim', 'Shougo/vimfiler.vim' ] }
+  NeoBundle 'Shougo/neossh.vim', { 'depends' : [ 'Shougo/unite.vim', 'Shougo/vimproc.vim' ] }
   NeoBundle 'thinca/vim-ref', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'glidenote/memolist.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+  NeoBundle 'kmnk/vim-unite-giti', { 'depends' : [ 'Shougo/unite.vim' ] }
 
   " }}}
 
@@ -1081,6 +1074,7 @@ if neobundle#load_cache()
   NeoBundle 'rizzatti/dash.vim'
   NeoBundle 'mattn/benchvimrc-vim'
   NeoBundle 'kana/vim-niceblock'
+  NeoBundle 'airblade/vim-rooter'
 
   " Document
   NeoBundle 'vim-jp/vimdoc-ja'
@@ -1088,7 +1082,7 @@ if neobundle#load_cache()
   " }}}
 
   NeoBundleSaveCache
-endif
+endif "}}}
 
 call neobundle#end()
 
@@ -1121,19 +1115,30 @@ if neobundle#tap('vimshell.vim') " {{{
   call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('vimfiler.vim') "{{{
+if neobundle#tap('vim-dirvish') " {{{
 
-  let g:vimfiler_safe_mode_by_default = 0
-  let g:unite_kind_file_use_trashbox = 1
-  let g:vimfiler_as_default_explorer = 1
-  let g:vimfiler_enable_auto_cd = 1
+  map <silent> ;e :<C-u>Dirvish<CR>
 
-  nnoremap ;e :<C-u>VimFilerExplorer<CR>
+  augroup MyDirvish
+    autocmd!
+    " Map t to "open in new tab".
+    autocmd FileType dirvish nnoremap <buffer> t
+        \ :tabnew <C-R>=fnameescape(getline('.'))<CR><CR>
 
-  if has('mac')
-    let g:vimfiler_quick_look_command = 'qlmanage -p'
-    autocmd FileType vimfiler nmap <buffer> V <Plug>(vimfiler_quick_look)
-  endif
+    " Map CTRL-R to reload the Dirvish buffer.
+    autocmd FileType dirvish nnoremap <buffer> <C-R> :<C-U>Dirvish %<CR>
+
+    " Map gh to hide "hidden" files.
+    autocmd FileType dirvish nnoremap <buffer> gh 
+        \ :set ma<bar>g@\v/\.[^\/]+/?$@d<cr>:set noma<cr>
+
+    " Map h to Open the parent directory.
+    autocmd FileType dirvish nnoremap <buffer><silent> h :Dirvish %:h:h<CR>
+
+    " Map ~ to Open the home directory.
+    autocmd FileType dirvish nnoremap <buffer><silent> ~ :Dirvish ~<CR>
+  augroup END
+
 
   call neobundle#untap()
 endif " }}}
@@ -1148,24 +1153,6 @@ endif " }}}
 if neobundle#tap('gundo.vim') " {{{
 
   nnoremap ;gu :<C-u>GundoToggle<CR>
-
-  call neobundle#untap()
-endif " }}}
-
-if neobundle#tap('nerdtree') " {{{
-
-  nnoremap ;e :<C-u>NERDTreeToggle<CR>
-
-  let g:NERDTreeQuitOnOpen=1
-
-  call neobundle#untap()
-endif " }}}
-
-if neobundle#tap('vim-devicons') " {{{
-
-  let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-  let g:WebDevIconsUnicodeDecorateFolderNodesExactMatches = 1
 
   call neobundle#untap()
 endif " }}}
@@ -1242,19 +1229,21 @@ if neobundle#tap('unite.vim') " {{{
     call neobundle#untap()
   endif " }}}
 
-  if neobundle#tap('vim-ref') "{{{
+  if neobundle#tap('vim-ref') " {{{
 
     let g:ref_use_vimproc=1
     let g:ref_refe_version=2
     let g:ref_refe_encoding = 'utf-8'
 
-    autocmd FileType ruby nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/refe<CR>
-    autocmd FileType python nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/pydoc<CR>
+    augroup MyAutoCmd
+      autocmd FileType ruby nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/refe<CR>
+      autocmd FileType python nnoremap <silent><buffer> ;k :<C-u>Unite -start-insert -default-action=split ref/pydoc<CR>
+    augroup END
 
     call neobundle#untap()
   endif " }}}
 
-  if neobundle#tap('memolist.vim') "{{{
+  if neobundle#tap('memolist.vim') " {{{
 
     let g:memolist_path = '~/Dropbox/Memo'
     let g:memolist_memo_suffix = "md"
@@ -1292,7 +1281,6 @@ if neobundle#tap('unite.vim') " {{{
         \   'description': 'startup menu',
         \   'command_candidates': [
         \     ['Brank', 'enew'],
-        \     ['VimFiler', 'VimFilerBufferDir'],
         \     ['$MYVIMRC', 'edit'.$MYVIMRC],
         \     ['$MYGVIMRC', 'edit'.$MYGVIMRC],
         \     ['Unite session', 'Unite session'],
@@ -1315,7 +1303,9 @@ if neobundle#tap('unite.vim') " {{{
 
   if has('vim_starting')
     if @% ==# '' && s:get_buffer_byte() == 0
-      autocmd VimEnter * UniteStartup
+      augroup MyAutoCmd
+        autocmd VimEnter * UniteStartup
+      augroup END
     endif
   endif
 
@@ -1375,12 +1365,14 @@ if neobundle#tap('neocomplete.vim') " {{{
   inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
 
   " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType go setlocal omnifunc=gocomplete#Complete
+  augroup MyAutoCmd
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType go setlocal omnifunc=gocomplete#Complete
+  augroup END
 
   call neobundle#untap()
 endif " }}}
@@ -1481,7 +1473,7 @@ if neobundle#tap('agit.vim') " {{{
   call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('gist-vim') "{{{
+if neobundle#tap('gist-vim') " {{{
 
   if has(s:is_windows)
   elseif has('mac')
@@ -1503,15 +1495,17 @@ if neobundle#tap('vim-ruby-xmpfilter') " {{{
 
   function! neobundle#tapped.hooks.on_source(bundle)
     let g:xmpfilter_cmd = 'seeing_is_believing'
-    autocmd FileType ruby nmap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
-    autocmd FileType ruby xmap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
-    autocmd FileType ruby imap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
-    autocmd FileType ruby nmap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
-    autocmd FileType ruby xmap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
-    autocmd FileType ruby imap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
-    autocmd FileType ruby nmap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
-    autocmd FileType ruby xmap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
-    autocmd FileType ruby imap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
+    augroup MyAutoCmd
+      autocmd FileType ruby nmap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
+      autocmd FileType ruby xmap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
+      autocmd FileType ruby imap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
+      autocmd FileType ruby nmap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
+      autocmd FileType ruby xmap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
+      autocmd FileType ruby imap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
+      autocmd FileType ruby nmap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
+      autocmd FileType ruby xmap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
+      autocmd FileType ruby imap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
+  augroup END
   endfunction
 
   call neobundle#untap()
@@ -1530,7 +1524,7 @@ endif " }}}
 
 " Golang {{{
 
-if neobundle#tap('vim-go') "{{{
+if neobundle#tap('vim-go') " {{{
 
   let g:go_fmt_command = "goimports"
   let g:go_fmt_fail_silently = 1
@@ -1545,7 +1539,7 @@ if neobundle#tap('vim-go') "{{{
   call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('vim-transform') "{{{
+if neobundle#tap('vim-transform') " {{{
 
   nmap <C-e> <Plug>(transform)
   xmap <C-e> <Plug>(transform)
@@ -1558,7 +1552,7 @@ endif " }}}
 " Web {{{
 
 " HTML
-if neobundle#tap('emmet-vim') "{{{
+if neobundle#tap('emmet-vim') " {{{
 
   let g:user_emmet_leader_key='<C-y>'
 
@@ -1566,7 +1560,7 @@ if neobundle#tap('emmet-vim') "{{{
 endif " }}}
 
 " Markdown
-if neobundle#tap('vim-maketable') "{{{
+if neobundle#tap('vim-maketable') " {{{
 
   xmap ;t :Maketable!<CR>
   xmap ;T :Maketable<CR>
@@ -1575,7 +1569,7 @@ if neobundle#tap('vim-maketable') "{{{
 endif " }}}
 
 " CoffeeScript
-if neobundle#tap('vim-coffee-script') "{{{
+if neobundle#tap('vim-coffee-script') " {{{
 
   nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
   augroup VimCoffeeScript
@@ -1589,7 +1583,7 @@ if neobundle#tap('vim-coffee-script') "{{{
 endif " }}}
 
 " SASS
-if neobundle#tap('sass-compile.vim') "{{{
+if neobundle#tap('sass-compile.vim') " {{{
 
   let g:sass_compile_cdloop = 5
   let g:sass_compile_auto = 0
@@ -1601,7 +1595,7 @@ endif " }}}
 
 " }}}
 
-if neobundle#tap('vim-json') "{{{
+if neobundle#tap('vim-json') " {{{
 
   let g:vim_json_syntax_conceal = 0
 
@@ -1649,7 +1643,7 @@ if neobundle#tap('vim-submode') " {{{
   call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('vim-quickrun') "{{{
+if neobundle#tap('vim-quickrun') " {{{
 
   let g:quickrun_config = {}
   let g:quickrun_config._ = {
@@ -1777,14 +1771,14 @@ endif " }}}
 
 " Other {{{
 
-if neobundle#tap('excitetranslate-vim') "{{{
+if neobundle#tap('excitetranslate-vim') " {{{
 
   xnoremap ;e :ExciteTranslate<CR>
 
   call neobundle#untap()
 endif  " }}}
 
-if neobundle#tap('open-browser.vim') "{{{
+if neobundle#tap('open-browser.vim') " {{{
 
   nmap gs <Plug>(open-browser-wwwsearch)
 
@@ -1804,11 +1798,20 @@ if neobundle#tap('open-browser.vim') "{{{
   call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('dash.vim') "{{{
+if neobundle#tap('dash.vim') " {{{
 
   nmap <silent> [Space]d <Plug>DashSearch
 
   call neobundle#untap()
+endif " }}}
+
+if neobundle#tap('vim-rooter') " {{{
+
+  let g:rooter_disable_map = 1
+  let g:rooter_autocmd_patterns = '*.go,*.rb,*.js,*.py,*.md,*.vim'
+  let g:rooter_change_directory_for_non_project_files = 1
+  let g:rooter_silent_chdir = 1
+
 endif " }}}
 
 " }}}
