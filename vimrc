@@ -218,7 +218,7 @@ syntax enable
 set scrolloff=3
 
 " Show line number.
-"set number
+set number
 
 " Show <Tab> and <Space>
 set list
@@ -237,7 +237,6 @@ set conceallevel=2 concealcursor=iv
 set display=lastline
 
 set lazyredraw
-
 
 " }}}
 
@@ -712,7 +711,7 @@ if neobundle#load_cache() " {{{
         \ 'build' : {
         \   'windows' : 'tools\\update-dll-mingw',
         \   'cygwin' : 'make -f make_cygwin.mak',
-        \   'mac' : 'make -f make_mac.mak',
+        \   'mac' : 'make',
         \   'linux' : 'make',
         \   'unix' : 'gmake',
         \ }}
@@ -904,6 +903,17 @@ if neobundle#load_cache() " {{{
   call neobundle#config('vim-transform', {
         \   'autoload' : {
         \     'filetypes' : 'go'
+        \   }
+        \ })
+
+  " }}}
+
+  " Swift {{{
+
+  NeoBundleLazy 'toyamarinyon/vim-swift'
+  call neobundle#config('vim-swift', {
+        \   'autoload' : {
+        \     'filetypes' : [ 'swift']
         \   }
         \ })
 
@@ -1261,45 +1271,11 @@ if neobundle#tap('unite.vim') " {{{
 
   " Create Vim start page. {{{
 
-  let g:unite_source_alias_aliases = {
-        \  'startup_file_mru' : {
-        \    'source': 'file_mru',
-        \  },
-        \  'startup_directory_mru' : {
-        \    'source': 'directory_mru',
-        \  },
-        \  'startup_session' : {
-        \    'source': 'session',
-        \  },
-        \ }
-
-  call unite#custom_max_candidates('startup_file_mru', 10)
-  call unite#custom_max_candidates('startup_directory_mru', 10)
-  call unite#custom_max_candidates('startup_session', 10)
-
-  let g:unite_source_menu_menus.startup = {
-        \   'description': 'startup menu',
-        \   'command_candidates': [
-        \     ['Brank', 'enew'],
-        \     ['$MYVIMRC', 'edit'.$MYVIMRC],
-        \     ['$MYGVIMRC', 'edit'.$MYGVIMRC],
-        \     ['Unite session', 'Unite session'],
-        \     ['Unite file_mru', 'Unite file_mru'],
-        \     ['Unite directory_mru', 'Unite directory_mru'],
-        \   ]
-        \ }
-
   command! UniteStartup
         \ Unite
-        \ output:echo:"===:session:===":! startup_session
-        \ output:echo:":":!
-        \ output:echo:"===:file:mru:===":! startup_file_mru
-        \ output:echo:":":!
-        \ output:echo:"===:directory:mru:===":! startup_directory_mru
-        \ output:echo:":":!
-        \ output:echo:"===:menu:===":! menu:startup
-        \ -hide-source-names
+        \ session file_mru
         \ -no-split
+        \ -start-insert
 
   if has('vim_starting')
     if @% ==# '' && s:get_buffer_byte() == 0
@@ -1781,19 +1757,6 @@ endif  " }}}
 if neobundle#tap('open-browser.vim') " {{{
 
   nmap gs <Plug>(open-browser-wwwsearch)
-
-  let s:hooks = neobundle#get('open-browser.vim')
-  function! s:hooks.on_source(bundle)
-    nnoremap <Plug>(open-browser-wwwsearch)
-          \ :<C-u>call <SID>www_search()<CR>
-    function! s:www_search()
-      let search_word = input('Please input search word: ', '',
-            \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
-      if !empty(search_word)
-        execute 'OpenBrowserSearch' escape(search_word, '"')
-      endif
-    endfunction
-  endfunction
 
   call neobundle#untap()
 endif " }}}
