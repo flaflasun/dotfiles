@@ -159,6 +159,7 @@ case ${OSTYPE} in
     alias chrome='open -a Google\ Chrome'
     alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias ggdb='/usr/local/Cellar/gdb/7.9.1/bin/gdb'
+    alias ql='qlmanage -p "$@" >& /dev/null'
   ;;
   linux*)
     alias ls='ls --color --show-control-chars'
