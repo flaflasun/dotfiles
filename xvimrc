@@ -1,0 +1,114 @@
+"-------------------------------------------------------------------------------
+" flaflasun's .xvimrc
+"-------------------------------------------------------------------------------
+" View: {{{
+
+" Don't wrap long line.
+set nowrap
+
+" }}}
+
+"-------------------------------------------------------------------------------
+" Edit: {{{
+"
+
+" Movement {{{
+
+set nostartofline
+
+" }}}
+
+" Search {{{
+
+" Ignore the case of normal letters.
+set ignorecase
+set smartcase
+
+" Enable incremental search.
+set incsearch
+" Disable highlight search.
+set nohlsearch
+
+" Searches wrap around the end of the file.
+set wrapscan
+
+" }}}
+
+" Indent {{{
+
+" Exchange tab to spaces.
+set expandtab
+
+" }}}
+
+" Clipboard {{{
+
+" Use clipboard register.
+set clipboard=unnamed
+
+" }}}
+
+" Time-out {{{
+
+" Keymapping timeout.
+set timeoutlen=3000
+
+" }}}
+
+" }}}
+
+"-------------------------------------------------------------------------------
+" Key Mappings: {{{
+"
+
+" Visual mode keymappings {{{
+
+vnoremap <TAB> >
+vnoremap <S-TAB> <
+
+vnoremap > >gv
+vnoremap < <gv
+
+vnoremap r <C-v>
+
+vnoremap ;c :xccmd commentAndUncommentCurrentLines<CR>
+
+" }}}
+
+" Insert mode keymappings {{{
+
+" <C-f>, <C-b>: page move.
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+" move to head.
+inoremap <C-a> <C-o>^
+" move to end.
+inoremap <C-e> <C-o>$
+" delete char.
+inoremap <C-d> <Del>
+
+inoremap <C-w> <C-g>u<C-w>
+
+inoremap <C-m> <CR>
+
+" Easy Escape.
+inoremap jj <ESC>
+onoremap jj <ESC>
+inoremap j<Space> j
+onoremap j<Space> j
+
+" }}}
+
+" Normal-mode {{{
+
+nnoremap Y y$
+
+nnoremap <C-j> <C-e>j
+nnoremap <C-k> <C-y>k
+
+nnoremap ;f :xccmd openQuickly<CR>
+nnoremap ;c :xccmd commentAndUncommentCurrentLines<CR>
+
+" }}}
+
+" }}}
