@@ -1581,6 +1581,13 @@ endif " }}}
 " }}}
 
 " Auxiliary {{{
+if neobundle#tap('vim-commentary') " {{{
+
+  nnoremap ;c :Commentary<CR>
+  vnoremap ;c :Commentary<CR>
+
+  call neobundle#untap()
+endif " }}}
 
 if neobundle#tap('switch.vim') " {{{
 
