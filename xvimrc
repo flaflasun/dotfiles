@@ -106,6 +106,10 @@ nnoremap Y y$
 nnoremap <C-j> <C-e>j
 nnoremap <C-k> <C-y>k
 
+nnoremap ;r :run<CR>
+nnoremap ;b :make<CR>
+nnoremap ;n :nissue<CR>
+nnoremap ;p :pissue<CR>
 nnoremap ;f :xccmd openQuickly<CR>
 nnoremap ;c :xccmd commentAndUncommentCurrentLines<CR>
 
