@@ -1256,9 +1256,14 @@ if neobundle#tap('unite.vim') " {{{
   if neobundle#tap('memolist.vim') " {{{
 
     let g:memolist_path = '~/Dropbox/Memo'
-    let g:memolist_memo_suffix = "md"
+    let g:memolist_memo_suffix = 'md'
+    let g:memolist_template_dir_path = $DOTVIM . '/template/memolist'
     let g:memolist_unite = 1
-    let g:memolist_unite_source = "file_rec"
+    let g:memolist_unite_source = 'file_rec'
+    let g:memolist_unite_option = '-start-insert'
+    let g:memolist_filename_prefix_none = 1
+    let g:memolist_prompt_tags = 1
+    let g:memolist_memo_date = "%Y-%m-%d"
 
     nnoremap [memo] <NOP>
     nmap ;m [memo]
@@ -1763,7 +1768,8 @@ endif  " }}}
 
 if neobundle#tap('open-browser.vim') " {{{
 
-  nmap gs <Plug>(open-browser-wwwsearch)
+  nmap gs <Plug>(openbrowser-smart-search)
+  vmap gs <Plug>(openbrowser-smart-search)
 
   call neobundle#untap()
 endif " }}}
