@@ -757,6 +757,7 @@ if neobundle#load_cache() " {{{
   NeoBundle 'thinca/vim-ref', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'glidenote/memolist.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'kmnk/vim-unite-giti', { 'depends' : [ 'Shougo/unite.vim' ] }
+  NeoBundle 'sorah/unite-ghq', { 'depends' : [ 'Shougo/unite.vim' ] }
 
   " }}}
 
@@ -1187,7 +1188,7 @@ if neobundle#tap('unite.vim') " {{{
   nnoremap <silent> [unite]h :<C-u>Unite -buffer-name=help help -start-insert<CR>
   nnoremap <silent> [unite]j :<C-u>Unite -buffer-name=jump jump<CR>
   nnoremap <silent> [unite]k :<C-u>Unite -buffer-name=change change jump<CR>
-  nnoremap <silent> [unite]l
+  nnoremap <silent> [unite]/
         \ :<C-u>Unite -buffer-name=search -start-insert line<CR>
   nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=mapping mapping<CR>
   nnoremap <silent> [unite]o
@@ -1271,6 +1272,12 @@ if neobundle#tap('unite.vim') " {{{
     nnoremap [memo]l :<C-u>MemoList<CR>
     nnoremap [memo]g :<C-u>MemoGrep<CR>
 
+    call neobundle#untap()
+  endif " }}}
+
+  if neobundle#tap('unite-ghq') " {{{
+
+    nnoremap <silent> ;g :<C-u>Unite ghq<cr>
     call neobundle#untap()
   endif " }}}
 
