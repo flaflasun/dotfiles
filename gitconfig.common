@@ -25,3 +25,6 @@
     --pretty=format:'%C(red)%h %C(green)%ad %C(cyan)%an %C(reset)%s'
 [push]
   default = simple
+[ghq]
+  root = ~/.ghq
+  root = ~/go/src
