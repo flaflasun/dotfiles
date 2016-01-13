@@ -325,7 +325,7 @@ function peco-select-history() {
   BUFFER=$(\history -n 1 | \
     eval $tac | \
     awk '!a[$0]++' | \
-    peco --query "$LBUFFER")
+    peco --query $LBUFFER)
   CURSOR=$#BUFFER
   zle clear-screen
 }
@@ -333,29 +333,39 @@ zle -N peco-select-history
 bindkey '^r' peco-select-history
 
 function peco-ls-cd() {
-  local dir="$( find . -maxdepth 1 -type d | sed -e 's;\./;;' | peco )"
-  if [ ! -z "$dir" ] ; then
-    cd "$dir"
+  local dir="$( find . -maxdepth 1 -type d | sed -e 's;\./;;' | peco)"
+  if [ ! -z $dir ] ; then
+    cd $dir
   fi
 }
 
 function peco-wordc-mstrans() {
   if [ -p /dev/stdin ]; then
     text=`cat -`
-    local word="$(wordc $text | peco | awk '{ print $1 }' )"
-    mstrans "$word"
+    local word="$(wordc $text | peco | awk '{ print $1 }')"
+    mstrans $word
   fi
 }
 
 function peco-search-file() {
   ${1:=$(pwd)}
-  local selected=$(find $1 -maxdepth 2 | _peco_single)
+  local selected=$(find $1 -maxdepth 2 | peco)
   if [[ -d $selected ]]; then
     peco-search-file $selected
   elif [[ -f $selected ]]; then
     cat $selected
   fi
 }
+
+function peco-select-ghq() {
+  local selected_dir=$(ghq list --full-path | peco)
+  if [[ -d $selected_dir ]]; then
+    cd $selected_dir
+  fi
+  zle clear-screen
+}
+zle -N peco-select-ghq
+bindkey '^g' peco-select-ghq
 
 # }}}
 
