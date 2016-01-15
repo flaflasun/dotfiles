@@ -1059,7 +1059,6 @@ if neobundle#load_cache() " {{{
   " Colorscheme
   NeoBundle 'tomasr/molokai'
   NeoBundle 'altercation/vim-colors-solarized'
-  NeoBundle 'flaflasun/vim-nightowl'
 
   " }}}
 
@@ -1094,6 +1093,13 @@ if neobundle#load_cache() " {{{
 
   NeoBundleSaveCache
 endif "}}}
+
+  " My Plugin {{{
+
+  call neobundle#local('~/Dropbox/work/dev/vim',
+        \ {}, ['vim-nightowl'])
+
+ "}}}
 
 call neobundle#end()
 
@@ -1755,13 +1761,6 @@ if neobundle#tap('foldCC') " {{{
   call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('vim-nightowl') " {{{
-
-  colorscheme nightowl
-
-  call neobundle#untap()
-endif " }}}
-
 " }}}
 
 " Other {{{
@@ -1795,6 +1794,17 @@ if neobundle#tap('vim-rooter') " {{{
   let g:rooter_change_directory_for_non_project_files = 1
   let g:rooter_silent_chdir = 1
 
+endif " }}}
+
+" }}}
+
+" My Plugin {{{
+
+if neobundle#tap('vim-nightowl') " {{{
+
+  colorscheme nightowl
+
+  call neobundle#untap()
 endif " }}}
 
 " }}}
