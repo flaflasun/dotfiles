@@ -734,13 +734,6 @@ if neobundle#load_cache() " {{{
         \   }
         \ })
 
-  NeoBundleLazy 'sjl/gundo.vim'
-  call neobundle#config('gundo.vim', {
-        \   'autoload' : {
-        \     'commands' : [ 'GundoToggle' ]
-        \   }
-        \ })
-
   " Unite
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'Shougo/unite-help', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -1163,13 +1156,6 @@ endif " }}}
 if neobundle#tap('tagbar') " {{{
 
   nnoremap ;t :<C-u>TagbarToggle<CR>
-
-  call neobundle#untap()
-endif " }}}
-
-if neobundle#tap('gundo.vim') " {{{
-
-  nnoremap ;gu :<C-u>GundoToggle<CR>
 
   call neobundle#untap()
 endif " }}}
