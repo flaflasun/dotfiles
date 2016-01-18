@@ -1052,6 +1052,7 @@ if neobundle#load_cache() " {{{
   " Colorscheme
   NeoBundle 'tomasr/molokai'
   NeoBundle 'altercation/vim-colors-solarized'
+  NeoBundle 'w0ng/vim-hybrid'
 
   " }}}
 
