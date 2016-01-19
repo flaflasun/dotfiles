@@ -623,8 +623,6 @@ nnoremap [s]h <C-w>h
 nnoremap [s]j <C-w>j
 nnoremap [s]k <C-w>k
 nnoremap [s]l <C-w>l
-nnoremap [s]w <C-w>w
-nnoremap [s]W <C-w>W
 
 nnoremap [s]H <C-w>H
 nnoremap [s]J <C-w>J
@@ -1716,7 +1714,15 @@ endif " }}}
 
 if neobundle#tap('vim-easymotion') " {{{
 
-  nmap [s]/ <Plug>(easymotion-s2)
+  vnoremap [s] <NOP>
+  vmap s [s]
+
+  nmap [s]/ <Plug>(easymotion-bd-f2)
+  vmap [s]/ <Plug>(easymotion-bd-f2)
+  map ;l <Plug>(easymotion-bd-jk)
+  map ;w <Plug>(easymotion-bd-w)
+
+  let g:EasyMotion_do_mapping = 0
   let g:EasyMotion_use_migemo = 1
   let g:EasyMotion_use_upper = 1
   let g:EasyMotion_smartcase = 1
