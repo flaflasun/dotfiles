@@ -363,8 +363,8 @@ set wrapscan
 
 " Complete {{{
 
-set nowildmenu
-set wildmode=list:longest,full
+set wildmenu
+set wildmode=longest:full,full
 set showfulltag
 
 set wildoptions=tagfile
@@ -1514,6 +1514,11 @@ if neobundle#tap('vim-go') " {{{
   let g:go_highlight_structs = 1
   let g:go_highlight_operators = 1
   let g:go_highlight_build_constraints = 1
+
+  augroup MyAutoCmd
+    autocmd FileType Godoc
+          \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
+  augroup END
 
   call neobundle#untap()
 endif " }}}
