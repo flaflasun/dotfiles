@@ -1515,6 +1515,8 @@ if neobundle#tap('vim-go') " {{{
   let g:go_highlight_operators = 1
   let g:go_highlight_build_constraints = 1
 
+  let g:gocomplete#system_function = 'vimproc#system'
+
   augroup MyAutoCmd
     autocmd FileType Godoc
           \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
