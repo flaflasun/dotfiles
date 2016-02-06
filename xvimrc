@@ -112,6 +112,7 @@ nnoremap ;n :nissue<CR>
 nnoremap ;p :pissue<CR>
 nnoremap ;f :xccmd openQuickly<CR>
 nnoremap ;c :xccmd commentAndUncommentCurrentLines<CR>
+nnoremap ;j :xccmd jumpToDefinition<CR>
 
 " }}}
 
