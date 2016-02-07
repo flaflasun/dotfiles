@@ -1168,26 +1168,25 @@ if neobundle#tap('unite.vim') " {{{
   xmap ;u [unite]
 
   nnoremap [unite]u :Unite<Space>
-  nnoremap <silent> ;b :<C-u>Unite -buffer-name=bookmark bookmark<CR>
+  nnoremap <silent> ;b :<C-u>Unite -start-insert -buffer-name=bookmark bookmark<CR>
   nnoremap <silent> ;d :<C-u>Unite -start-insert directory_rec/async:<cr>
   nnoremap <silent> ;f :<C-u>Unite -start-insert file_rec/async:<cr>
 
-  nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
+  nnoremap <silent> [unite]b :<C-u>Unite -start-insert -buffer-name=buffer buffer<CR>
   nnoremap <silent> [unite]c
-        \:<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+        \ :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-  nnoremap <silent> [unite]h :<C-u>Unite -buffer-name=help help -start-insert<CR>
-  nnoremap <silent> [unite]j :<C-u>Unite -buffer-name=jump jump<CR>
-  nnoremap <silent> [unite]k :<C-u>Unite -buffer-name=change change jump<CR>
+  nnoremap <silent> [unite]h :<C-u>Unite -start-insert -buffer-name=help help<CR>
+  nnoremap <silent> [unite]j :<C-u>Unite -start-insert -buffer-name=jump jump<CR>
+  nnoremap <silent> [unite]k :<C-u>Unite -start-insert -buffer-name=change change jump<CR>
   nnoremap <silent> [unite]/
         \ :<C-u>Unite -buffer-name=search -start-insert line<CR>
-  nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=mapping mapping<CR>
+  nnoremap <silent> [unite]m :<C-u>Unite -start-insert -buffer-name=mapping mapping<CR>
   nnoremap <silent> [unite]o
-        \ :<C-u>Unite -buffer-name=outline outline -start-insert<CR>
+        \ :<C-u>Unite -start-insert -buffer-name=outline outline<CR>
   nnoremap <silent> [unite]r
-        \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-  nnoremap <silent> [unite]s :<C-u>Unite session<CR>
-  nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=tag tag<CR>
+        \ :<C-u>Unite -start-insert -buffer-name=register register history/yank<CR>
+  nnoremap <silent> [unite]t :<C-u>Unite -start-insert -buffer-name=tag tag<CR>
 
   call unite#custom#source('file_rec/async', 'ignore_pattern',
         \ '\(png\|gif\|jpeg\|jpg\|mp3\|mov\|wav\|avi\|mpg\)$')
@@ -1203,14 +1202,15 @@ if neobundle#tap('unite.vim') " {{{
     let g:unite_source_grep_recursive_opt = ''
   endif
 
-  if neobundle#tap('unite-session.vim') " {{{
+  if neobundle#tap('unite-session') " {{{
 
+    nnoremap <silent> [unite]s :<C-u>Unite -start-insert -buffer-name=session session<CR>
     let g:unite_source_session_enable_auto_save = 1
 
     call neobundle#untap()
   endif " }}}
 
-  if neobundle#tap('unite-rails.vim') " {{{
+  if neobundle#tap('unite-rails') " {{{
 
     nnoremap <silent> [unite]rv :<C-U>Unite rails/view<CR>
     nnoremap <silent> [unite]rm :<C-U>Unite rails/model<CR>
@@ -1225,8 +1225,8 @@ if neobundle#tap('unite.vim') " {{{
     let g:neomru#file_mru_limit = 500
     let g:neomru#directory_mru_limit = 100
 
-    nnoremap [unite]f :<C-u>Unite file_mru<CR>
-    nnoremap [unite]d :<C-u>Unite directory_mru<CR>
+    nnoremap <silent> [unite]f :<C-u>Unite -start-insert -buffer-name=file_mru file_mru<CR>
+    nnoremap <silent> [unite]d :<C-u>Unite -start-insert -buffer-name=dir_mru directory_mru<CR>
 
     call neobundle#untap()
   endif " }}}
@@ -1259,16 +1259,16 @@ if neobundle#tap('unite.vim') " {{{
 
     nnoremap [memo] <NOP>
     nmap ;m [memo]
-    nnoremap [memo]n :<C-u>MemoNew<CR>
-    nnoremap [memo]l :<C-u>MemoList<CR>
-    nnoremap [memo]g :<C-u>MemoGrep<CR>
+    nnoremap <silent> [memo]n :<C-u>MemoNew<CR>
+    nnoremap <silent> [memo]l :<C-u>MemoList<CR>
+    nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
 
     call neobundle#untap()
   endif " }}}
 
   if neobundle#tap('unite-ghq') " {{{
 
-    nnoremap <silent> ;g :<C-u>Unite ghq<cr>
+    nnoremap <silent> ;g :<C-u>Unite -start-insert -buffer-name=ghq ghq<cr>
     call neobundle#untap()
   endif " }}}
 
@@ -1279,6 +1279,7 @@ if neobundle#tap('unite.vim') " {{{
         \ session file_mru
         \ -no-split
         \ -start-insert
+        \ -buffer-name=Startup
 
   if has('vim_starting')
     if @% ==# '' && s:get_buffer_byte() == 0
