@@ -12,6 +12,9 @@ fi
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 
+### Add ~/bin to PATH
+export PATH="~/bin:$PATH"
+
 ### Added by the JAVA
 JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
