@@ -209,8 +209,8 @@ set showtabline=2
 " Editor {{{
 
 " Disable bell.
-set novisualbell
-set visualbell t_vb=
+set visualbell
+set t_vb=
 
 " Enable syntax color.
 syntax enable
@@ -1516,7 +1516,10 @@ if neobundle#tap('vim-go') " {{{
   let g:go_highlight_operators = 1
   let g:go_highlight_build_constraints = 1
 
-  let g:gocomplete#system_function = 'vimproc#system'
+  if neobundle#tap('vimproc.vim')
+    let g:gocomplete#system_function = 'vimproc#system2'
+    call neobundle#untap()
+  endif
 
   augroup MyAutoCmd
     autocmd FileType Godoc
