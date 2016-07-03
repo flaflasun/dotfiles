@@ -499,6 +499,9 @@ set formatexpr=autofmt#japanese#formatexpr()
 
 " Visual mode keymappings {{{
 
+xnoremap <C-j> "zx"zp`[V`]
+xnoremap <C-k> "zx<Up>"zP`[V`]
+
 xnoremap <TAB> >
 xnoremap <S-TAB> <
 
@@ -512,9 +515,6 @@ xmap ;; <SID>(command-line-enter)
 
 xnoremap r <C-v>
 xnoremap v $h
-
-xnoremap [Space] <NOP>
-xmap <Space> [Space]
 
 " }}}
 
@@ -579,10 +579,8 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
-nnoremap Y y$
-
-nnoremap <C-j> <C-e>gj
-nnoremap <C-k> <C-y>gk
+nnoremap <C-j> "zdd"zp
+nnoremap <C-k> "zdd<Up>"zP
 
 nnoremap > >>
 nnoremap < <<
@@ -591,6 +589,11 @@ nnoremap <C-]> g<C-]>
 
 nnoremap [Space] <NOP>
 nmap <Space> [Space]
+
+nnoremap Y y$
+nnoremap <silent> [Space]y "zyiw
+nnoremap [Space]s <Space>y:%s/<C-r>z//g<Left><Left>
+nnoremap x "_x
 
 nnoremap <silent> [Space]ev :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> [Space]eg :<C-u>edit $MYGVIMRC<CR>
@@ -1371,7 +1374,6 @@ if neobundle#tap('neosnippet.vim') " {{{
   " Plugin key-mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
 
   " SuperTab like snippets behavior.
   imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
