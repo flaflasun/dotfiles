@@ -777,7 +777,7 @@ if neobundle#load_cache() " {{{
   call neobundle#config('neosnippet.vim', {
         \   'autoload' : {
         \     'insert' : 1,
-        \     'filetype' : 'snippet',
+        \     'filetype' : [ 'snippet' ],
         \     'commands' : [ 'NeoSnippetEdit', 'NeoSnippetSource' ],
         \     'filetypes' : [ 'nsnippet' ],
         \     'unite_sources' :
@@ -785,26 +785,26 @@ if neobundle#load_cache() " {{{
         \   }
         \ })
 
-  NeoBundle 'Shougo/neosnippet-snippets', { 'depends' : 'Shougo/neosnippet.vim' }
-  NeoBundle 'honza/vim-snippets', { 'depends' : 'Shougo/neosnippet.vim' }
+  NeoBundle 'Shougo/neosnippet-snippets', { 'depends' : [ 'Shougo/neosnippet.vim' ] }
+  NeoBundle 'honza/vim-snippets', { 'depends' : [ 'Shougo/neosnippet.vim' ] }
 
   " }}}
 
   " Text object {{{
 
   NeoBundle 'kana/vim-textobj-user'
-  NeoBundle 'kana/vim-textobj-entire', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-line', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-lastpat', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-fold', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-function', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-indent', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'mattn/vim-textobj-url', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'rhysd/vim-textobj-ruby', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'osyo-manga/vim-textobj-multiblock', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'osyo-manga/vim-textobj-multitextobj', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'osyo-manga/vim-textobj-blockwise', { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'thinca/vim-textobj-between', { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-entire', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'kana/vim-textobj-line', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'kana/vim-textobj-lastpat', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'kana/vim-textobj-fold', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'kana/vim-textobj-function', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'kana/vim-textobj-indent', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'mattn/vim-textobj-url', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'rhysd/vim-textobj-ruby', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'osyo-manga/vim-textobj-multiblock', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'osyo-manga/vim-textobj-multitextobj', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'osyo-manga/vim-textobj-blockwise', { 'depends' : [ 'kana/vim-textobj-user' ] }
+  NeoBundle 'thinca/vim-textobj-between', { 'depends' : [ 'kana/vim-textobj-user' ] }
 
   " }}}
 
@@ -835,38 +835,30 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'vim-ruby/vim-ruby'
   call neobundle#config('vim-ruby', {
         \   'autoload' : {
-        \     'filetypes' : 'ruby'
+        \     'filetypes' : [ 'ruby' ]
         \   }
         \ })
 
   NeoBundleLazy 'yuku-t/vim-ref-ri', { 'depends' : [ 'Shougo/unite.vim', 'thinca/vim-ref' ] }
   call neobundle#config('vim-ref-ri', {
         \   'autoload' : {
-        \     'filetypes' : 'ruby'
+        \     'filetypes' : [ 'ruby' ]
         \   }
         \ })
 
   NeoBundleLazy 't9md/vim-ruby-xmpfilter'
   call neobundle#config('vim-ruby-xmpfilter', {
         \   'autoload' : {
-        \     'filetypes' : 'ruby'
+        \     'filetypes' : [ 'ruby' ]
         \   }
         \ })
 
   NeoBundleLazy 'tpope/vim-endwise'
   call neobundle#config('vim-endwise', {
         \   'autoload' : {
-        \     'filetypes' : 'ruby'
+        \     'filetypes' : [ 'ruby' ]
         \   }
         \ })
-
-  NeoBundleLazy 'scrooloose/syntastic'
-  call neobundle#config('syntastic', {
-        \ 'autoload' : {
-        \     'filetypes' : 'ruby'
-        \   }
-        \ })
-
 
   " Ruby on Rails
   NeoBundleLazy 'tpope/vim-rails'
@@ -890,14 +882,14 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'fatih/vim-go'
   call neobundle#config('vim-go', {
         \   'autoload' : {
-        \     'filetypes' : 'go'
+        \     'filetypes' : [ 'go' ]
         \   }
         \ })
 
   NeoBundleLazy 't9md/vim-transform'
   call neobundle#config('vim-transform', {
         \   'autoload' : {
-        \     'filetypes' : 'go'
+        \     'filetypes' : [ 'go' ]
         \   }
         \ })
 
@@ -908,7 +900,7 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'toyamarinyon/vim-swift'
   call neobundle#config('vim-swift', {
         \   'autoload' : {
-        \     'filetypes' : [ 'swift']
+        \     'filetypes' : [ 'swift' ]
         \   }
         \ })
 
@@ -920,7 +912,7 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'mattn/emmet-vim'
   call neobundle#config('emmet-vim', {
         \   'autoload' : {
-        \     'filetypes' : [ 'html', 'css']
+        \     'filetypes' : [ 'html', 'css' ]
         \   }
         \ })
 
@@ -929,14 +921,14 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'plasticboy/vim-markdown'
   call neobundle#config('vim-markdown', {
         \   'autoload' : {
-        \     'filetypes' : [ 'markdown']
+        \     'filetypes' : [ 'markdown' ]
         \   }
         \ })
 
   NeoBundleLazy 'mattn/vim-maketable'
   call neobundle#config('vim-maketable', {
         \   'autoload' : {
-        \     'filetypes' : [ 'markdown']
+        \     'filetypes' : [ 'markdown' ]
         \   }
         \ })
 
@@ -944,7 +936,7 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'jelera/vim-javascript-syntax'
   call neobundle#config('vim-javascript-syntax', {
         \   'autoload' : {
-        \     'filetypes' : 'javascript'
+        \     'filetypes' : [ 'javascript' ]
         \   }
         \ })
 
@@ -952,7 +944,7 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'kchmck/vim-coffee-script'
   call neobundle#config('vim-coffee-script', {
         \   'autoload' : {
-        \     'filetypes' : 'coffee'
+        \     'filetypes' : [ 'coffee' ]
         \   }
         \ })
 
@@ -960,14 +952,14 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'AtsushiM/search-parent.vim'
   call neobundle#config('search-parent.vim', {
           \   'autoload' : {
-          \     'filetypes' : [ 'sass', 'scss']
+          \     'filetypes' : [ 'sass', 'scss' ]
           \   }
           \ })
 
   NeoBundleLazy 'AtsushiM/sass-compile.vim', { 'depends': 'AtsushiM/search-parent.vim' }
   call neobundle#config('sass-compile.vim', {
           \   'autoload' : {
-          \     'filetypes' : [ 'sass', 'scss']
+          \     'filetypes' : [ 'sass', 'scss' ]
           \   }
           \ })
 
@@ -977,7 +969,7 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'chase/vim-ansible-yaml'
   call neobundle#config('vim-ansible-yaml', {
         \   'autoload' : {
-        \     'filetypes' : 'yml'
+        \     'filetypes' : [ 'yml' ]
         \   }
         \ })
 
@@ -985,13 +977,20 @@ if neobundle#load_cache() " {{{
   NeoBundleLazy 'elzr/vim-json'
   call neobundle#config('vim-json', {
         \   'autoload' : {
-        \     'filetypes' : 'json'
+        \     'filetypes' : [ 'json' ]
         \   }
         \ })
 
   " }}}
 
   " Auxiliary {{{
+
+  NeoBundleLazy 'scrooloose/syntastic'
+  call neobundle#config('syntastic', {
+        \ 'autoload' : {
+        \     'filetypes' : [ 'markdown', 'ruby', 'text' ]
+        \   }
+        \ })
 
   NeoBundleLazy 'tpope/vim-commentary'
   call neobundle#config('vim-commentary', {
@@ -1034,8 +1033,8 @@ if neobundle#load_cache() " {{{
   " Search {{{
 
   NeoBundle 'haya14busa/incsearch.vim'
-  NeoBundle 'haya14busa/incsearch-fuzzy.vim', { 'depends' : [ 'incsearch.vim' ] }
-  NeoBundle 'haya14busa/incsearch-migemo.vim', { 'depends' : [ 'incsearch.vim' ] }
+  NeoBundle 'haya14busa/incsearch-fuzzy.vim', { 'depends' : [ 'haya14busa/incsearch.vim' ] }
+  NeoBundle 'haya14busa/incsearch-migemo.vim', { 'depends' : [ 'haya14busa/incsearch.vim' ] }
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'haya14busa/vim-migemo'
   NeoBundle 'rhysd/clever-f.vim'
@@ -1493,15 +1492,6 @@ if neobundle#tap('vim-ruby-xmpfilter') " {{{
   call neobundle#untap()
 endif " }}}
 
-if neobundle#tap('syntastic') " {{{
-
-  let g:syntastic_mode_map = { 'mode': 'passive',
-        \ 'active_filetypes': ['ruby'] }
-  let g:syntastic_ruby_checkers = ['rubocop']
-
-  call neobundle#untap()
-endif " }}}
-
 " }}}
 
 " Golang {{{
@@ -1597,6 +1587,23 @@ endif " }}}
 " }}}
 
 " Auxiliary {{{
+
+if neobundle#tap('syntastic') " {{{
+
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+
+  let g:syntastic_mode_map = { 'mode': 'passive',
+        \ 'active_filetypes': [ 'markdown', 'ruby', 'text' ] }
+  let g:syntastic_markdown_checkers = [ 'textlint' ]
+  let g:syntastic_ruby_checkers = [ 'rubocop' ]
+  let g:syntastic_text_checkers = [ 'textlint' ]
+
+  call neobundle#untap()
+endif " }}}
+
 if neobundle#tap('vim-commentary') " {{{
 
   nnoremap ;c :Commentary<CR>
