@@ -30,10 +30,10 @@ fi
 source ~/.tmuxinator/tmuxinator.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
-source ~/google-cloud-sdk/path.zsh.inc
+source '/Users/KH/google-cloud-sdk/path.zsh.inc'
 
-# The next line enables bash completion for gcloud.
-source ~/google-cloud-sdk/completion.zsh.inc
+# The next line enables shell command completion for gcloud.
+source '/Users/KH/google-cloud-sdk/completion.zsh.inc'
 
 autoload -Uz compinit
 compinit
@@ -381,6 +381,11 @@ alias j='z'
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
    zcompile ~/.zshrc
 fi
+
+# edit-command-line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd '^v' edit-command-line
 
 # Command history setting.
 HISTFILE=~/.zsh_history

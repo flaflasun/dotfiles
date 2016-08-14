@@ -8,13 +8,25 @@ if 0 | endif
 
 " Valiable {{{
 
-let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_windows = has('win32') || has('win64')
 
-if !exists($MYGVIMRC)
-  let $MYGVIMRC = expand('~/.gvimrc')
+function! IsWindows() abort
+  return s:is_windows
+endfunction
+
+if IsWindows()
+  if !exists($MYGVIMRC)
+    let $MYGVIMRC = expand('~/_gvimrc')
+  endif
+
+  let $DOTVIM = expand('~/_vim')
+else
+  if !exists($MYGVIMRC)
+    let $MYGVIMRC = expand('~/.gvimrc')
+  endif
+
+  let $DOTVIM = expand('~/.vim')
 endif
-
-let $DOTVIM = expand('~/.vim')
 
 let $VIM_BUNDLE = $DOTVIM . '/bundle'
 let $NEOBUNDLE_PATH = $VIM_BUNDLE . '/neobundle.vim'
@@ -30,7 +42,7 @@ let $UNDO_DIR = $DOTVIM . '/tmp/undo'
 " Disable Vi compatible.
 if has('vim_starting')
   "set nocompatible
-  if has(s:is_windows)
+  if IsWindows()
     set runtimepath^=$DOTVIM
   endif
 endif
@@ -472,6 +484,12 @@ augroup MyAutoCmd
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufWritePre *.go call s:remove_line_in_last_line()
 augroup END
+
+" }}}
+
+" Command {{{
+
+command! -nargs=1 -complete=file Rename f <args> | call delete(expand)
 
 " }}}
 
@@ -1170,25 +1188,35 @@ if neobundle#tap('unite.vim') " {{{
   xmap ;u [unite]
 
   nnoremap [unite]u :Unite<Space>
-  nnoremap <silent> ;b :<C-u>Unite -start-insert -buffer-name=bookmark bookmark<CR>
-  nnoremap <silent> ;d :<C-u>Unite -start-insert directory_rec/async:<cr>
-  nnoremap <silent> ;f :<C-u>Unite -start-insert file_rec/async:<cr>
+  nnoremap <silent> ;b :<C-u>Unite -start-insert
+        \ -buffer-name=bookmark bookmark<CR>
+  nnoremap <silent> ;d :<C-u>Unite -start-insert
+        \ -buffer-name=directory_rec directory_rec/async:<CR>
+  nnoremap <silent> ;f :<C-u>Unite -start-insert
+        \ -buffer-name=file_rec file_rec/async:<CR>
 
-  nnoremap <silent> [unite]b :<C-u>Unite -start-insert -buffer-name=buffer buffer<CR>
-  nnoremap <silent> [unite]c
-        \ :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-  nnoremap <silent> [unite]g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-  nnoremap <silent> [unite]h :<C-u>Unite -start-insert -buffer-name=help help<CR>
-  nnoremap <silent> [unite]j :<C-u>Unite -start-insert -buffer-name=jump jump<CR>
-  nnoremap <silent> [unite]k :<C-u>Unite -start-insert -buffer-name=change change jump<CR>
-  nnoremap <silent> [unite]/
-        \ :<C-u>Unite -buffer-name=search -start-insert line<CR>
-  nnoremap <silent> [unite]m :<C-u>Unite -start-insert -buffer-name=mapping mapping<CR>
-  nnoremap <silent> [unite]o
-        \ :<C-u>Unite -start-insert -buffer-name=outline outline<CR>
-  nnoremap <silent> [unite]r
-        \ :<C-u>Unite -start-insert -buffer-name=register register history/yank<CR>
-  nnoremap <silent> [unite]t :<C-u>Unite -start-insert -buffer-name=tag tag<CR>
+  nnoremap <silent> [unite]b :<C-u>Unite
+        \ -start-insert -buffer-name=buffer buffer<CR>
+  nnoremap [unite]c :<C-u>Unite grep:.
+        \ -buffer-name=search-buffer<CR><C-R><C-W>
+  nnoremap [unite]g :<C-u>Unite grep:.
+        \ -buffer-name=search-buffer<CR>
+  nnoremap <silent> [unite]h :<C-u>Unite
+        \ -start-insert -buffer-name=help help<CR>
+  nnoremap <silent> [unite]j :<C-u>Unite
+        \ -start-insert -buffer-name=jump jump<CR>
+  nnoremap <silent> [unite]k :<C-u>Unite
+        \ -start-insert -buffer-name=change change jump<CR>
+  nnoremap <silent> [unite]/ :<C-u>Unite
+        \ -buffer-name=search -start-insert line<CR>
+  nnoremap <silent> [unite]m :<C-u>Unite
+        \ -start-insert -buffer-name=mapping mapping<CR>
+  nnoremap <silent> [unite]o :<C-u>Unite
+        \ -start-insert -buffer-name=outline outline<CR>
+  nnoremap <silent> [unite]r :<C-u>Unite
+        \ -start-insert -buffer-name=register register history/yank<CR>
+  nnoremap <silent> [unite]t :<C-u>Unite
+        \ -start-insert -buffer-name=tag tag<CR>
 
   call unite#custom#source('file_rec/async', 'ignore_pattern',
         \ '\(png\|gif\|jpeg\|jpg\|mp3\|mov\|wav\|avi\|mpg\)$')
@@ -1199,6 +1227,8 @@ if neobundle#tap('unite.vim') " {{{
 
   " replace grep with ag.
   if executable('ag')
+    let g:unite_source_rec_async_command =
+          \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
     let g:unite_source_grep_recursive_opt = ''
@@ -1456,7 +1486,7 @@ endif " }}}
 
 if neobundle#tap('gist-vim') " {{{
 
-  if has(s:is_windows)
+  if IsWindows()
   elseif has('mac')
     let g:gist_clip_command = 'pbcopy'
   else

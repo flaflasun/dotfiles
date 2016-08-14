@@ -35,3 +35,6 @@ case ${OSTYPE} in
         ;;
 esac
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+### Added by the Ruby
+export PATH=$HOME/.rbenv/bin/:$PATH
