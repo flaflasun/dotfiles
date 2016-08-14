@@ -30,10 +30,10 @@ fi
 source ~/.tmuxinator/tmuxinator.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
-source '/Users/KH/google-cloud-sdk/path.zsh.inc'
+source ~/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
-source '/Users/KH/google-cloud-sdk/completion.zsh.inc'
+source ~/google-cloud-sdk/completion.zsh.inc
 
 autoload -Uz compinit
 compinit
