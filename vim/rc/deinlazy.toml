@@ -1,0 +1,381 @@
+# UI {{{
+
+[[plugins]]
+repo    = 'Shougo/vimshell.vim'
+on_source = 'Shougo/vimproc.vim'
+on_cmd  = ['VimShell', 'VimShellPop', 'VimShellTab']
+hook_source = '''
+  let g:vimshell_max_command_history = 0
+  let g:vimshell_prompt = 'vimshell % '
+  let g:vimshell_secondary_prompt = '> '
+  let g:vimshell_user_prompt = '$USER ."@" .hostname() ." [" .getcwd() ."]"'
+  let g:vimshell_popup_height = 20
+'''
+hook_add = '''
+  nnoremap ;vp  :<C-u>VimShellPop -toggle<CR>
+  nnoremap ;vb  :<C-u>VimShellBufferDir<CR>
+  nnoremap ;vd  :<C-u>VimShellCurrentDir<CR>
+  nnoremap ;vv  :<C-u>VimShell<CR>
+'''
+
+[[plugins]]
+repo   = 'majutsushi/tagbar'
+on_cmd = 'TagbarToggle'
+hook_add = '''
+  nnoremap ;t :<C-u>TagbarToggle<CR>
+'''
+
+# }}}
+
+# Complement {{{
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+on_event = 'InsertCharPre'
+hook_source = 'source ~/.vim/rc/plugins/neocomplete.vim'
+
+# Snippet
+[[plugins]]
+repo     = 'Shougo/neosnippet.vim'
+on_event = 'InsertCharPre'
+on_ft    = 'snippet'
+hook_source = 'source ~/.vim/rc/plugins/neosnippet.vim'
+
+# }}}
+
+# FileType {{{
+
+# Ruby {{{
+
+[[plugins]]
+repo  = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
+repo    = 'yuku-t/vim-ref-ri'
+depends = ['Shougo/unite.vim', 'thinca/vim-ref']
+on_ft   = 'ruby'
+
+[[plugins]]
+repo  = 't9md/vim-ruby-xmpfilter'
+on_ft = 'ruby'
+hook_source = '''
+  let g:xmpfilter_cmd = 'seeing_is_believing'
+  augroup VimRubyXmpfilter
+    autocmd!
+    autocmd FileType ruby nmap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
+    autocmd FileType ruby xmap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
+    autocmd FileType ruby imap <buffer> <C-s>m <Plug>(seeing_is_believing-mark)
+    autocmd FileType ruby nmap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
+    autocmd FileType ruby xmap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
+    autocmd FileType ruby imap <buffer> <C-s>c <Plug>(seeing_is_believing-clean)
+    autocmd FileType ruby nmap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
+    autocmd FileType ruby xmap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
+    autocmd FileType ruby imap <buffer> <C-s>r <Plug>(seeing_is_believing-run_-x)
+  augroup END
+'''
+
+[[plugins]]
+repo  = 'tpope/vim-endwise'
+on_ft = 'ruby'
+
+# Ruby on Rails
+[[plugins]]
+repo  = 'tpope/vim-rails'
+on_ft = ['haml', 'ruby', 'eruby']
+
+[[plugins]]
+repo    = 'basyura/unite-rails'
+depends = 'Shougo/unite.vim'
+on_ft   = ['haml', 'ruby', 'eruby']
+
+#}}}
+
+# Golang {{{
+
+[[plugins]]
+repo  = 'fatih/vim-go'
+on_ft = 'go'
+on_source = '''
+  let g:go_fmt_command = "goimports"
+  let g:go_fmt_fail_silently = 1
+  let g:go_fmt_autosave = 1
+  let g:go_snippet_engine = ""
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+
+  augroup VimGo
+    autocmd!
+    autocmd FileType Godoc
+          \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
+  augroup END
+'''
+
+[[plugins]]
+repo  = 't9md/vim-transform'
+on_ft = 'go'
+hook_source = '''
+  nmap <C-e> <Plug>(transform)
+  xmap <C-e> <Plug>(transform)
+'''
+
+# }}}
+
+# Swift {{{
+
+[[plugins]]
+repo  = 'toyamarinyon/vim-swift'
+on_ft = 'swift'
+
+# }}}
+
+# Web {{{
+
+# HTML
+[[plugins]]
+repo  = 'mattn/emmet-vim'
+on_ft = ['html', 'css']
+hook_source = '''
+  let g:user_emmet_leader_key='<C-y>'
+'''
+
+# Markdown
+[[plugins]]
+repo  = 'plasticboy/vim-markdown'
+on_ft = 'markdown'
+hook_source = '''
+  xmap ;t :Maketable!<CR>
+  xmap ;T :Maketable<CR>
+'''
+
+[[plugins]]
+repo  = 'mattn/vim-maketable'
+on_ft = 'markdown'
+
+# Javascript
+[[plugins]]
+repo  = 'jelera/vim-javascript-syntax'
+on_ft = 'javascript'
+
+# CoffeeScript
+[[plugins]]
+repo  = 'kchmck/vim-coffee-script'
+on_ft = 'coffee'
+hook_source = '''
+  nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
+  augroup VimCoffeeScript
+    autocmd!
+    autocmd BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+    autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
+    autocmd QuickFixCmdPost * nested cwindow | redraw! 
+  augroup END
+'''
+
+# SASS
+[[plugins]]
+repo  = 'AtsushiM/search-parent.vim'
+on_ft = ['sass', 'scss']
+
+[[plugins]]
+repo    = 'AtsushiM/sass-compile.vim'
+on_source = 'AtsushiM/search-parent.vim'
+on_ft   = ['sass', 'scss']
+hook_source = '''
+  let g:sass_compile_cdloop = 5
+  let g:sass_compile_auto = 0
+  let g:sass_compile_file = ['scss', 'sass']
+  let g:sass_compile_cssdir = ['css', 'stylesheet']
+'''
+
+# }}}
+
+# Ansible
+[[plugins]]
+repo  = 'chase/vim-ansible-yaml'
+on_ft = 'yml'
+
+# json
+[[plugins]]
+repo  = 'elzr/vim-json'
+on_ft = 'json'
+hook_source = '''
+  let g:vim_json_syntax_conceal = 0
+'''
+
+# }}}
+
+# Auxiliary {{{
+
+# Git
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_event = 'VimEnter'
+hook_add = '''
+  nnoremap <silent> ;gb :Gblame<CR>
+  nnoremap <silent> ;gd :Gdiff<CR>
+  nnoremap <silent> ;gs :Gstatus<CR>
+'''
+hook_post_source = '''
+  let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+        \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+        \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
+        \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
+        \ . "%{fugitive#statusline()}"
+        \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
+'''
+
+[[plugins]]
+repo   = 'cohama/agit.vim'
+depends = 'Shougo/unite.vim'
+on_cmd = ['Agit', 'AgitFile']
+hook_source = '''
+  let agit_action = {}
+  function! agit_action.func(dir)
+    if isdirectory(a:dir.word)
+      let dir = fnamemodify(a:dir.word, ':p')
+    else
+      let dir = fnamemodify(a:dir.word, ':p:h')
+    endif
+    execute 'Agit --dir=' . dir
+  endfunction
+  call unite#custom#action('file,cdable', 'agit', agit_action)
+
+  let agit_file = { 'description' : 'open the file''s history in agit.vim' }
+  function! agit_file.func(candidate)
+      execute 'AgitFile' '--file='.a:candidate.action__path
+  endfunction
+  call unite#custom#action('file', 'agit-file', agit_file)
+'''
+hook_add = '''
+  nnoremap <silent> ;ag :Agit<CR>
+'''
+
+# Gist
+[[plugins]]
+repo    = 'mattn/gist-vim'
+on_source = 'mattn/webapi-vim'
+on_cmd  = 'Gist'
+hook_source = '''
+  if IsWindows()
+  elseif has('mac')
+    let g:gist_clip_command = 'pbcopy'
+  else
+    let g:gist_clip_command = 'xclip -selection clipboard'
+  endif
+
+  let g:gist_detect_filetype = 1
+'''
+
+[[plugins]]
+repo  = 'scrooloose/syntastic'
+on_ft = ['markdown', 'ruby', 'text']
+hook_source = '''
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+
+  let g:syntastic_mode_map = { 'mode': 'passive',
+        \ 'active_filetypes': [ 'markdown', 'ruby', 'text' ] }
+  let g:syntastic_markdown_checkers = [ 'textlint' ]
+  let g:syntastic_ruby_checkers = [ 'rubocop' ]
+  let g:syntastic_text_checkers = [ 'textlint' ]
+'''
+
+[[plugins]]
+repo   = 'tpope/vim-commentary'
+on_cmd = 'Commentary'
+hook_add = '''
+  nnoremap ;c :Commentary<CR>
+  vnoremap ;c :Commentary<CR>
+'''
+
+[[plugins]]
+repo   = 'AndrewRadev/switch.vim'
+on_cmd = 'Switch'
+hook_add = '''
+  nnoremap ;s :Switch<CR>
+'''
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_event = 'InsertCharPre'
+
+[[plugins]]
+repo   = 'junegunn/vim-easy-align'
+on_cmd = 'EasyAlign'
+hook_add = '''
+  vmap <Enter> <Plug>(EasyAlign)
+'''
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+on_cmd = 'quickrun'
+hook_source = '''
+  let g:quickrun_config = {}
+  let g:quickrun_config._ = {
+        \ 'runner':'vimproc',
+        \ 'outputter/buffer/split' : ':botright 5sp',
+        \ 'runner/vimproc/updatetime' : 60,
+        \ 'outputter/buffer/close_on_empty' : 1,
+        \ }
+'''
+hook_add = '''
+  nmap ;r <Plug>(quickrun)
+'''
+
+[[plugins]]
+repo = 'kana/vim-submode'
+on_event = 'VimEnter'
+hook_add = '''
+  let g:submode_keep_leaving_key = 1
+'''
+hook_post_source = '''
+  " tab moving
+  call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
+  call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
+  call submode#map('changetab', 'n', '', 't', 'gt')
+  call submode#map('changetab', 'n', '', 'T', 'gT')
+
+  " resize window
+  call submode#enter_with('winsize', 'n', '', '[s]>', '<C-w>>')
+  call submode#enter_with('winsize', 'n', '', '[s]<', '<C-w><')
+  call submode#enter_with('winsize', 'n', '', '[s]+', '<C-w>+')
+  call submode#enter_with('winsize', 'n', '', '[s]-', '<C-w>-')
+  call submode#map('winsize', 'n', '', '>', '<C-w>>')
+  call submode#map('winsize', 'n', '', '<', '<C-w><')
+  call submode#map('winsize', 'n', '', '+', '<C-w>+')
+  call submode#map('winsize', 'n', '', '-', '<C-w>-')
+'''
+
+# }}}
+
+# Others {{{
+
+[[plugins]]
+repo    = 'mattn/excitetranslate-vim'
+on_source = 'mattn/webapi-vim'
+on_cmd  = 'ExciteTranslate'
+hook_add = '''
+  xnoremap ;e :ExciteTranslate<CR>
+'''
+
+[[plugins]]
+repo   = 'kannokanno/previm'
+on_cmd = 'PrevimOpen'
+
+# }}}
+
+# My Plugin {{{
+
+[[plugins]]
+repo = 'flaflasun/vim-nightowl'
+on_event = 'VimEnter'
+hook_post_source = '''
+  colorscheme nightowl
+'''
+
+# }}}

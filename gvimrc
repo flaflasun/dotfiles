@@ -46,8 +46,6 @@ if has('win32') || has('win64')
   " Height of window.
   set lines=55
 
-  au GUIEnter * simalt ~x
-
   " Set transparency.
   "autocmd GuiEnter * set transparency=221
   " Toggle font setting.
