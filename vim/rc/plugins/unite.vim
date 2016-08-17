@@ -7,7 +7,7 @@ xmap ;u [unite]
 
 nnoremap [unite]u :Unite<Space>
 nnoremap <silent> ;e :<C-u>Unite
-      \ -buffer-name=Filer file file/new directory<CR>
+      \ -buffer-name=Filer file file/new<CR>
 nnoremap <silent> ;b :<C-u>Unite -start-insert
       \ -buffer-name=bookmark bookmark<CR>
 nnoremap <silent> ;d :<C-u>Unite -start-insert
@@ -141,8 +141,8 @@ command! UniteStartup
 
 if has('vim_starting')
   if @% ==# '' && s:get_buffer_byte() == 0
-      autocmd VimEnter * UniteStartup
     augroup MyAutoCmd
+      autocmd VimEnter * UniteStartup
     augroup END
   endif
 endif

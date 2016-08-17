@@ -52,7 +52,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
-#on_source = ['Shougo/unite-session', 'Shougo/neomru.vim']
 hook_add = 'source ~/.vim/rc/plugins/unite.vim'
 
 [[plugins]]
