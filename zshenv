@@ -9,9 +9,6 @@ if [ -e /usr/local/share/zsh-completions ]; then
   fpath=(/usr/local/share/zsh-completions $fpath)
 fi
 
-eval "$(rbenv init -)"
-eval "$(pyenv init -)"
-
 ### Add ~/bin to PATH
 export PATH="~/bin:$PATH"
 
@@ -37,4 +34,12 @@ esac
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ### Added by the Ruby
-export PATH=$HOME/.rbenv/bin/:$PATH
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
+
+### Added by the Python
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+export PATH="$PYENV_ROOT/versions/anaconda3-4.3.1/bin/:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
