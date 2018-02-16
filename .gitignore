@@ -2,3 +2,4 @@ vim/bundle/
 vim/tmp/
 vim/autoload/
 vim/.netrwhist
+vim/plugged

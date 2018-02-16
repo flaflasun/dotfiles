@@ -12,6 +12,8 @@ if &compatible
   set nocompatible
 endif
 
+filetype off
+
 let s:is_windows = has('win32') || has('win64')
 
 function! IsWindows() abort
@@ -236,6 +238,7 @@ set t_vb=
 
 " Enable syntax color.
 syntax enable
+set synmaxcol=200
 
 set scrolloff=3
 
@@ -254,7 +257,7 @@ set showbreak=>
 set nocursorline
 set colorcolumn=81
 
-set conceallevel=2 concealcursor=iv
+set conceallevel=2 concealcursor=cinv
 
 set display=lastline
 
@@ -428,10 +431,11 @@ set nospell
 " Clipboard {{{
 
 " Use clipboard register.
+set clipboard&
 if has('unnamedplus')
-  set clipboard& clipboard+=unnamedplus
+  set clipboard^=unnamedplus
 else
-  set clipboard& clipboard+=unnamed
+  set clipboard^=unnamed
 endif
 
 " }}}
@@ -681,47 +685,397 @@ nnoremap Q <NOP>
 " }}}
 
 "-------------------------------------------------------------------------------
+" Terminal: {{{
+"
+
+if has('terminal')
+  set termsize=10x0
+
+  tnoremap <ESC> <C-w><S-n>
+endif
+
+" }}}
+
+"-------------------------------------------------------------------------------
 " Plugins: {{{
 
-" Disable plugins {{{
+" Disable {{{
 
 " Disable GetLatestVimPlugin.vim
 let g:loaded_getscriptPlugin = 1
 
 " }}}
 
-" Setup {{{
+" Install {{{
 
-let $DEIN_DIR = $CACHE_DIR . '/dein'
-let $DEIN_REPO_DIR = $DEIN_DIR . '/repos/github.com/Shougo/dein.vim'
-let $VIMRC_DIR = $DOTVIM . '/rc'
-let $DEINTOML = $VIMRC_DIR . '/dein.toml'
-let $DEINLAZYTOML = $VIMRC_DIR . '/deinlazy.toml'
+let $VIM_PLUG = $DOTVIM . '/plugged'
+call plug#begin($VIM_PLUG)
 
-if &runtimepath !~# '/dein.vim'
-  if !isdirectory($DEIN_REPO_DIR)
-    execute '!git clone https://github.com/Shougo/dein.vim' $DEIN_REPO_DIR
+
+" UI
+Plug 'kien/ctrlp.vim' | Plug 'glidenote/memolist.vim'
+Plug 'justinmk/vim-dirvish', { 'on': 'Dirvish' }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+
+" Complement
+Plug 'thinca/vim-ambicmd'
+
+" Auxiliary
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'AndrewRadev/switch.vim', { 'on': 'Switch' }
+Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
+Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'cohama/lexima.vim'
+
+" Search
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/vim-asterisk'
+Plug 'rhysd/clever-f.vim'
+Plug 'osyo-manga/vim-anzu'
+Plug 'easymotion/vim-easymotion'
+
+" View
+Plug 'lilydjwg/colorizer'
+Plug 'Yggdroot/indentLine'
+Plug 'LeafCage/foldCC'
+
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+
+" HTML
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'vue'] }
+Plug 'alvan/vim-closetag', { 'for': ['html', 'xhtml','erb', 'jsx', 'vue'] }
+
+" Typescript
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+
+" Vue
+Plug 'posva/vim-vue', { 'for': 'vue' }
+
+" Markdown
+Plug 'kannokanno/previm', { 'on': 'PrevimOpen' }
+
+" Lint
+Plug 'w0rp/ale',
+      \ { 'for': ['markdown', 'ruby', 'text', 'go', 'python', 'javascript', 'typescript', 'css', 'vue'] }
+
+" Others
+Plug 'mattn/webapi-vim'
+Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser-github.vim'
+Plug 'mattn/benchvimrc-vim'
+Plug 'kana/vim-niceblock'
+Plug 'airblade/vim-rooter'
+Plug 'simeji/winresizer'
+Plug 'vim-jp/vimdoc-ja'
+
+" My Plugin
+Plug '~/Dropbox/work/dev/vim/vim-exterm'
+"Plug 'flaflasun/vim-exterm'
+Plug '~/Dropbox/work/dev/vim/vim-nightowl'
+"Plug 'flaflasun/vim-nightowl'
+
+call plug#end()
+
+" }}}
+
+" Settings {{{
+
+" UI
+if exists("g:plugs['ctrlp.vim']") " {{{
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_max_files = 10000
+  let g:ctrlp_mruf_max = 500
+  let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](\.(git|hg|svn)|(img|images|tags|tags.*|fonts|tmp|undo|backup|swap))$',
+    \ 'file': '\v\.(exe|so|pyc|class|dll|bak|sw[po]|DS_Store)$',
+    \ }
+
+  let g:ctrlp_user_command =
+    \ ['.git', 'cd %s && git ls-files . -co --exclude-standard']
+
+  if executable('rg')
+    let g:ctrlp_user_command = 'rg %s --files --glob ""'
   endif
-  execute 'set runtimepath^=' . fnamemodify($DEIN_REPO_DIR, ':p')
-endif
 
-if dein#load_state($DEIN_DIR)
-  call dein#begin($DEIN_DIR, [$DEINTOML, $DEINLAZYTOML])
-  let $VIMRC_DIR = $DOTVIM . '/rc'
+  " mapping
+  let g:ctrlp_map = '<NOP>'
+  nnoremap [ctrlp] <NOP>
+  nmap <C-p> [ctrlp]
 
-  call dein#load_toml($DEINTOML, {'lazy': 0})
-  call dein#load_toml($DEINLAZYTOML, {'lazy': 1})
+  nnoremap <silent> ;a :<C-u>CtrlPMixed<CR>
+  nnoremap <silent> ;b :<C-u>CtrlPBuffer<CR>
+  nnoremap <silent> ;c :<C-u>CtrlPChange<CR>
+  nnoremap <silent> ;d :<C-u>CtrlPDir<CR>
+  nnoremap <silent> ;f :<C-u>CtrlPRoot<CR>
+  nnoremap <silent> [ctrlp]f :<C-u>CtrlPMRUFiles<CR>
+  nnoremap <silent> [ctrlp]t :<C-u>CtrlPTag<CR>
+  nnoremap <silent> ;/ :<C-u>CtrlPLine<CR>
 
-  call dein#end()
-  call dein#save_state()
-endif
+  if exists("g:plugs['memolist.vim']")
 
-" Installation check.
-if dein#check_install()
-  call dein#install()
-endif
+    let g:memolist_path = '~/Dropbox/Memo'
+    let g:memolist_memo_suffix = 'md'
+    let g:memolist_template_dir_path = $DOTVIM . '/template/memolist'
+    let g:memolist_ex_cmd = 'CtrlP'
+    let g:memolist_filename_prefix_none = 1
+    let g:memolist_prompt_tags = 1
+    let g:memolist_memo_date = "%Y-%m-%d"
 
-filetype plugin indent on
+    nnoremap [memo] <NOP>
+    nmap ;m [memo]
+    nnoremap <silent> [memo]n :<C-u>MemoNew<CR>
+    nnoremap <silent> [memo]l :<C-u>MemoList<CR>
+    nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
+  endif
+endif " }}}
+
+if exists("g:plugs['tagbar']") " {{{
+  nnoremap ;T :<C-u>TagbarToggle<CR>
+endif " }}}
+
+if exists("g:plugs['vim-dirvish']") " {{{
+  map <silent> ;e :<C-u>Dirvish<CR>
+
+  augroup VimDirvish
+    autocmd!
+    " Map t to "open in new tab".
+    autocmd FileType dirvish nnoremap <buffer> t
+        \ :tabnew <C-R>=fnameescape(getline('.'))<CR><CR>
+
+    " Map CTRL-R to reload the Dirvish buffer.
+    autocmd FileType dirvish nnoremap <buffer> <C-R> :<C-U>Dirvish %<CR>
+
+    " Map gh to hide "hidden" files.
+    autocmd FileType dirvish nnoremap <buffer> gh
+        \ :set ma<bar>g@\v/\.[^\/]+/?$@d<cr>:set noma<cr>
+
+    " Map h to Open the parent directory.
+    autocmd FileType dirvish nnoremap <buffer><silent> h :Dirvish %:h:h<CR>
+
+    " Map ~ to Open the home directory.
+    autocmd FileType dirvish nnoremap <buffer><silent> ~ :Dirvish ~<CR>
+  augroup END
+endif " }}}
+
+" Complement
+if exists("g:plugs['vim-ambicmd']") " {{{
+  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+endif " }}}
+
+" Auxiliary
+if exists("g:plugs['vimproc.vim']") " {{{
+endif " }}}
+
+if exists("g:plugs['switch.vim']") " {{{
+  nnoremap ;s :Switch<CR>
+endif " }}}
+
+if exists("g:plugs['vim-easy-align']") " {{{
+  vmap <Enter> <Plug>(EasyAlign)
+endif " }}}
+
+if exists("g:plugs['vim-commentary']") " {{{
+  nnoremap ;c :Commentary<CR>
+  vnoremap ;c :Commentary<CR>
+endif " }}}
+
+if exists("g:plugs['vim-fugitive']") " {{{
+  nnoremap <silent> ;gb :Gblame<CR>
+  nnoremap <silent> ;gd :Gdiff<CR>
+  nnoremap <silent> ;gs :Gstatus<CR>
+
+  let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+        \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+        \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
+        \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
+        \ . "%{fugitive#statusline()}"
+        \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
+endif " }}}
+
+if exists("g:plugs['vim-surround']") " {{{
+endif " }}}
+
+if exists("g:plugs['vim-repeat']") " {{{
+endif " }}}
+
+if exists("g:plugs['lixima.vim']") " {{{
+endif " }}}
+
+" Search
+if exists("g:plugs['incsearch.vim']") " {{{
+  set hlsearch
+  let g:incsearch#auto_nohlsearch = 1
+
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+  map n  <Plug>(incsearch-nohl-n)
+  map N  <Plug>(incsearch-nohl-N)
+endif " }}}
+
+if exists("g:plugs['vim-asterisk']") " {{{
+  map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)
+  map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
+  map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)
+  map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+
+  map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
+  map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
+  map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
+  map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
+endif " }}}
+
+if exists("g:plugs['clever-f.vim']") " {{{
+  let g:clever_f_smart_case = 1
+  let g:clever_f_across_no_line = 1
+  let g:clever_f_use_migemo = 1
+endif " }}}
+
+if exists("g:plugs['vim-anzu']") " {{{
+  map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+  map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+endif " }}}
+
+if exists("g:plugs['vim-easymotion']") " {{{
+  vnoremap [s] <NOP>
+  vmap s [s]
+
+  nmap [s]/ <Plug>(easymotion-bd-f2)
+  vmap [s]/ <Plug>(easymotion-bd-f2)
+  map ;l <Plug>(easymotion-bd-jk)
+  map ;w <Plug>(easymotion-bd-w)
+
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_use_migemo = 1
+  let g:EasyMotion_use_upper = 1
+  let g:EasyMotion_smartcase = 1
+endif " }}}
+
+" View
+if exists("g:plugs['colorizer']") " {{{
+endif " }}}
+
+if exists("g:plugs['indentLine']") " {{{
+  let g:indentLine_color_term = 239
+  let g:indentLine_fileTypeExclude = ['json']
+  augroup IndentLine
+    autocmd!
+    autocmd InsertEnter * IndentLinesDisable
+    autocmd InsertLeave * IndentLinesEnable
+  augroup END
+endif " }}}
+
+if exists("g:plugs['foldCC']") " {{{
+  set foldtext=FoldCCtext()
+  let g:foldCCtext_tail = 'printf(" %s[%4d lines Lv%-2d]%s", v:folddashes, v:foldend-v:foldstart+1, v:foldlevel, v:folddashes)'
+endif " }}}
+
+" Go
+if exists("g:plugs['vim-go']") " {{{
+  let g:go_fmt_command = "goimports"
+  let g:go_fmt_fail_silently = 1
+  let g:go_fmt_autosave = 1
+  let g:go_snippet_engine = ""
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+
+  augroup VimGo
+    autocmd!
+    autocmd FileType Godoc
+          \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
+  augroup END
+endif " }}}
+
+" HTML
+if exists("g:plugs['emmet-vim']") " {{{
+  let g:user_emmet_leader_key='<C-y>'
+endif " }}}
+
+if exists("g:plugs['vim-closetag']") " {{{
+  let g:closetag_filenames = '*.html,*.xhtml,*.erb,*.jsx,*.vue'
+  let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue"'
+  let g:closetag_emptyTags_caseSensitive = 1
+  let g:closetag_shortcut = '>'
+endif " }}}
+
+" Vue
+if exists("g:plugs['vim-vue']") " {{{
+endif " }}}
+
+" Markdown
+if exists("g:plugs['previm']") " {{{
+  nnoremap ;op :<C-u>PrevimOpen<CR>
+endif " }}}
+
+" Lint
+if exists("g:plugs['ale']") " {{{
+  let g:ale_lint_on_save = 1
+  let g:ale_lint_on_text_changed = 0
+  let g:ale_lint_on_enter = 0
+  let g:ale_linters = {
+    \ 'javascript': ['eslint'],
+    \ 'typescript': ['tslint'],
+    \ 'css': ['stylelint'],
+    \ 'vue': ['eslint']
+    \ }
+  let g:ale_linter_aliases = { 'vue': 'css' }
+
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+endif " }}}
+
+" Other
+if exists("g:plugs['webapi-vim']") " {{{
+endif " }}}
+
+if exists("g:plugs['open-browser.vim']") " {{{
+  nnoremap ;os <Plug>(openbrowser-smart-search)
+  nnoremap ;ob :<C-u>execute "OpenBrowser" expand("%:p")<CR>
+endif " }}}
+
+if exists("g:plugs['open-browser-github.vim']") " {{{
+  nnoremap ;og :<C-u>OpenGithubFile<CR>
+endif " }}}
+
+if exists("g:plugs['benchvimrc-vim']") " {{{
+endif " }}}
+
+if exists("g:plugs['vim-niceblock']") " {{{
+endif " }}}
+
+if exists("g:plugs['vim-rooter']") " {{{
+  let g:rooter_disable_map = 1
+  let g:rooter_autocmd_patterns = '*.go,*.rb,*.html,*.css,*.js,*.vue,*.py,*.md,*.vim'
+  let g:rooter_change_directory_for_non_project_files = 1
+  let g:rooter_silent_chdir = 1
+endif " }}}
+
+if exists("g:plugs['winresizer']") " {{{
+endif " }}}
+
+if exists("g:plugs['vimdoc-ja']") " {{{
+endif " }}}
+
+" My Plugin
+if exists("g:plugs['vim-exterm']") " {{{
+  nnoremap ;t :<C-u>Ttoggle<CR>
+
+  augroup MyAutoCmd
+    autocmd FileType terminal
+          \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
+  augroup END
+endif " }}}
+
+if exists("g:plugs['vim-nightowl']") " {{{
+  colorscheme nightowl
+endif " }}}
 
 " }}}
 
