@@ -35,11 +35,17 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ### Added by the Ruby
 export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
 
 ### Added by the Python
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
-export PATH="$PYENV_ROOT/versions/anaconda3-4.3.1/bin/:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+
+### Added by the Node.js
+export PATH=$HOME/.ndenv/bin:$PATH
+
+### Added by the nvim
+export XDG_CONFIG_HOME=$HOME/.config
+
+### Added by the pdcopy
+__CF_USER_TEXT_ENCODING=0x1F5:0x8000100:0x8000100
+export __CF_USER_TEXT_ENCODING

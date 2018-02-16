@@ -157,7 +157,6 @@ case ${OSTYPE} in
     alias ls='ls -G -w'
     alias gls='gls --color --show-control-chars'
     alias chrome='open -a Google\ Chrome'
-    alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias ggdb='/usr/local/Cellar/gdb/7.9.1/bin/gdb'
     alias ql='qlmanage -p "$@" >& /dev/null'
   ;;
@@ -325,9 +324,8 @@ function peco-select-history() {
   BUFFER=$(\history -n 1 | \
     eval $tac | \
     awk '!a[$0]++' | \
-    peco --query $LBUFFER)
+    peco --query "$LBUFFER")
   CURSOR=$#BUFFER
-  zle clear-screen
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
@@ -362,7 +360,6 @@ function peco-select-ghq() {
   if [[ -d $selected_dir ]]; then
     cd $selected_dir
   fi
-  zle clear-screen
 }
 zle -N peco-select-ghq
 bindkey '^g' peco-select-ghq
@@ -391,5 +388,15 @@ bindkey -M vicmd '^v' edit-command-line
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
+
+# rvenv
+eval "$(rbenv init -)"
+
+# pyenv + pyenv virtualenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# ndenv
+eval "$(ndenv init -)"
 
 # }}}
