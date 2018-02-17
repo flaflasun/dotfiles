@@ -1067,6 +1067,9 @@ endif " }}}
 if exists("g:plugs['vim-exterm']") " {{{
   nnoremap ;t :<C-u>Ttoggle<CR>
   let g:exterm_close = 1
+  if IsWindows()
+    let g:exterm_shell = "ubuntu"
+  endif
 
   augroup MyAutoCmd
     autocmd FileType terminal
