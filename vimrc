@@ -1066,6 +1066,7 @@ endif " }}}
 " My Plugin
 if exists("g:plugs['vim-exterm']") " {{{
   nnoremap ;t :<C-u>Ttoggle<CR>
+  let g:exterm_close = 1
 
   augroup MyAutoCmd
     autocmd FileType terminal
