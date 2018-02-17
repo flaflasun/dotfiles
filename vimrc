@@ -22,7 +22,7 @@ endfunction
 
 if IsWindows()
   if !exists($MYGVIMRC)
-    let set shellslash
+    set shellslash
     let $MYGVIMRC = expand('~/_gvimrc')
   endif
 
