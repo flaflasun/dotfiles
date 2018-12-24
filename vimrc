@@ -689,7 +689,7 @@ nnoremap Q <NOP>
 "
 
 if has('terminal')
-  set termsize=10x0
+  set termwinsize=10x0
 
   tnoremap <ESC> <C-w><S-n>
 endif
@@ -773,10 +773,10 @@ Plug 'simeji/winresizer'
 Plug 'vim-jp/vimdoc-ja'
 
 " My Plugin
-Plug '~/Dropbox/work/dev/vim/vim-exterm'
-"Plug 'flaflasun/vim-exterm'
-Plug '~/Dropbox/work/dev/vim/vim-nightowl'
-"Plug 'flaflasun/vim-nightowl'
+Plug 'flaflasun/vim-exterm'
+Plug 'flaflasun/vim-nightowl'
+" Plug '~/Dropbox/work/dev/vim/vim-exterm'
+" Plug '~/Dropbox/work/dev/vim/vim-nightowl'
 
 call plug#end()
 
@@ -1068,7 +1068,7 @@ if exists("g:plugs['vim-exterm']") " {{{
   nnoremap ;t :<C-u>Ttoggle<CR>
   let g:exterm_close = 1
   if IsWindows()
-    let g:exterm_shell = "ubuntu"
+    let g:exterm_shell = "powershell"
   endif
 
   augroup MyAutoCmd
