@@ -39,6 +39,7 @@ export PATH=$HOME/.rbenv/bin:$PATH
 ### Added by the Python
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 ### Added by the Node.js
 export PATH=$HOME/.ndenv/bin:$PATH
